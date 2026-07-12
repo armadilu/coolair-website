@@ -347,3 +347,109 @@ footer a:hover { color: var(--accent-soft); }
 /* fix: nav-links > a rule strips .btn-primary background from the navbar CTA */
 .nav-links > a.nav-cta { background: var(--accent); color: #fff; }
 .nav-links > a.nav-cta:hover { background: var(--accent-hover); color: #fff; }
+
+/* ── Logo mark (copper C square) ── */
+.logo-mark {
+  width: 30px; height: 30px; border-radius: 10px; background: var(--accent);
+  display: inline-grid; place-items: center; color: #FAF7F1;
+  font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 14px;
+  flex: none;
+}
+.logo-word { font-family: "Space Grotesk", sans-serif; font-weight: 600; color: var(--ink); }
+
+/* ── Landing splash (design 1b) ── */
+@keyframes caFloat2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(10px,-20px); } }
+@keyframes caDrift { 0% { transform: translateX(-30px); opacity: 0; } 12% { opacity: .7; } 88% { opacity: .7; } 100% { transform: translateX(60px); opacity: 0; } }
+@keyframes caPulse { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+
+.landing {
+  min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow: hidden;
+  background: radial-gradient(1200px 600px at 78% -10%, #F6EFE3 0%, var(--bg) 55%);
+}
+.landing-orb { position: absolute; border-radius: 50%; pointer-events: none; }
+.landing-orb1 {
+  top: 60px; right: 120px; width: 280px; height: 280px;
+  background: radial-gradient(circle at 35% 30%, var(--accent-tint), rgba(243,226,212,0));
+  animation: caFloat 9s ease-in-out infinite;
+}
+.landing-orb2 {
+  bottom: -60px; right: 340px; width: 180px; height: 180px;
+  background: radial-gradient(circle at 40% 35%, rgba(192,106,61,.18), rgba(192,106,61,0));
+  animation: caFloat2 12s ease-in-out infinite;
+}
+.landing-line {
+  position: absolute; height: 1.5px; display: block;
+  background: linear-gradient(90deg, transparent, #C9A98A, transparent);
+  animation: caDrift 8s linear infinite;
+}
+.landing-inner { flex: 1; position: relative; padding-top: 60px; padding-bottom: 80px; width: 100%; }
+.landing-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 64px; }
+.landing-logo .logo-mark { width: 34px; height: 34px; border-radius: 12px; font-size: 15px; }
+.landing-logo .logo-word { font-size: 18px; }
+.landing-copy { max-width: 640px; }
+.landing-kicker {
+  font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 20px;
+}
+.landing-h1 {
+  font-family: "Space Grotesk", sans-serif; font-weight: 600;
+  font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1.04; letter-spacing: -0.03em; color: var(--ink);
+}
+.landing-lead { font-size: 17px; line-height: 1.65; color: var(--muted); max-width: 440px; margin: 24px 0 36px; }
+.landing-ctas { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.landing-glassbtn { background: rgba(255,253,249,.5); backdrop-filter: blur(6px); }
+.landing-thermo {
+  position: absolute; right: 20px; bottom: 40px; width: 270px; padding: 22px 24px;
+  border-radius: 24px; background: var(--glass-bg); border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px); box-shadow: var(--shadow-lg);
+  animation: caFloat 7s ease-in-out infinite;
+}
+.landing-thermo-top { display: flex; justify-content: space-between; align-items: baseline; }
+.landing-thermo-label { font-weight: 600; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #8A7B68; }
+.landing-pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: caPulse 2.4s ease-in-out infinite; }
+.landing-thermo-temp { font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: 44px; color: var(--ink); margin-top: 6px; }
+.landing-thermo-temp span { font-size: 20px; color: #8A7B68; }
+.landing-thermo-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.landing-strip { border-top: 1px solid var(--line); background: #F6F1E8; }
+.landing-strip-inner { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; padding-bottom: 20px; }
+.landing-strip-badges { display: flex; gap: 26px; flex-wrap: wrap; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.landing-strip-enter { font-weight: 700; font-size: 13px; color: var(--accent); }
+@media (max-width: 760px) {
+  .landing-thermo { position: static; margin-top: 44px; }
+  .landing-logo { margin-bottom: 44px; }
+}
+
+/* ── Thermostat dial in quote widget (design 1c) ── */
+.quote-flex { display: flex; gap: 34px; align-items: flex-start; }
+.dial-col { flex: none; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.dial {
+  position: relative; width: 158px; height: 158px; border-radius: 50%;
+  display: grid; place-items: center; box-shadow: inset 0 2px 10px rgba(74,52,30,.10);
+}
+.dial-core {
+  width: 120px; height: 120px; border-radius: 50%; background: var(--surface-hi);
+  box-shadow: 0 8px 24px rgba(74,52,30,.14); display: grid; place-items: center; text-align: center;
+}
+.dial-temp { font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: 36px; color: var(--ink); line-height: 1; }
+.dial-label { font-weight: 600; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #8A7B68; margin-top: 3px; }
+.dial-btns { display: flex; gap: 10px; }
+.dial-btns button {
+  width: 38px; height: 38px; border-radius: 13px; border: 1.5px solid #D8CDBB;
+  background: var(--surface-hi); color: var(--ink); font-weight: 600; font-size: 17px;
+  cursor: pointer; font-family: inherit; transition: all .14s;
+}
+.dial-btns button:hover { border-color: var(--accent); color: var(--accent); }
+.dial-btns button:active { transform: scale(.93); }
+.quote-main { flex: 1; min-width: 0; }
+.coolness-row { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+.coolness-track { flex: 1; height: 8px; border-radius: 999px; background: #EDE4D6; overflow: hidden; }
+.coolness-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent-soft), var(--accent)); transition: width .5s cubic-bezier(.22,1,.36,1); }
+.coolness-label { font-weight: 600; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8A7B68; white-space: nowrap; }
+@media (max-width: 640px) { .quote-flex { flex-direction: column; align-items: center; } }
+
+/* ── Page headers with per-page photo (drop image in public/img, set --ph-img) ── */
+.page-head {
+  background-color: var(--espresso);
+  background-image: linear-gradient(rgba(36,28,20,.82), rgba(36,28,20,.82)), var(--ph-img, linear-gradient(var(--espresso), var(--espresso)));
+  background-size: cover; background-position: center;
+}

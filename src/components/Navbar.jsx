@@ -12,10 +12,12 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="container navbar-inner">
-        <Link to="/" className="logo" onClick={close}>❄️ CoolAir <span>Co.</span></Link>
+        <Link to="/home" className="logo" onClick={close}>
+          <span className="logo-mark">C</span> CoolAir <span>Co.</span>
+        </Link>
         <button className="hamburger" onClick={() => setOpen(!open)} aria-label="Menu">☰</button>
         <nav className={`nav-links ${open ? "open" : ""}`}>
-          <NavLink to="/" end onClick={close}>Home</NavLink>
+          <NavLink to="/home" end onClick={close}>Home</NavLink>
           <div className="dropdown">
             <button>Services ▾</button>
             <div className="dropdown-menu">

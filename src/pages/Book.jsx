@@ -51,7 +51,7 @@ export default function Book() {
             </p>
             <div style={{ marginTop: 22, display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
               <Link to="/login" className="btn btn-primary">Create account to track it</Link>
-              <Link to="/" className="btn btn-outline">Back home</Link>
+              <Link to="/home" className="btn btn-outline">Back home</Link>
             </div>
           </div>
         </div>
@@ -61,9 +61,9 @@ export default function Book() {
 
   return (
     <>
-      <div className="page-head">
+      <div className="page-head" style={{ "--ph-img": "url('/img/page-book.jpg')" }}>
         <div className="container">
-          <div className="breadcrumb"><Link to="/">Home</Link> / Book</div>
+          <div className="breadcrumb"><Link to="/home">Home</Link> / Book</div>
           <h1>📅 Book your service</h1>
           <p>Pick a real time slot — no callbacks, no waiting by the phone.</p>
         </div>

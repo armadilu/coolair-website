@@ -6,9 +6,9 @@ import { PRODUCTS } from "../data";
 export default function Shop() {
   return (
     <>
-      <div className="page-head">
+      <div className="page-head" style={{ "--ph-img": "url('/img/page-shop.jpg')" }}>
         <div className="container">
-          <div className="breadcrumb"><Link to="/">Home</Link> / Shop</div>
+          <div className="breadcrumb"><Link to="/home">Home</Link> / Shop</div>
           <h1>🛒 Shop AC Units</h1>
           <p>
             Every unit bundles professional installation, haul-away of your old system,

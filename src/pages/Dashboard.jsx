@@ -142,7 +142,7 @@ export default function Dashboard() {
           <Link to="/dashboard">Overview</Link>
           {user.role === "customer" && <Link to="/book">Book a service</Link>}
           {user.role === "customer" && <Link to="/shop">Shop units</Link>}
-          <Link to="/">Back to site</Link>
+          <Link to="/home">Back to site</Link>
           <button onClick={() => { logout(); navigate("/"); }}>Log out</button>
         </nav>
       </aside>

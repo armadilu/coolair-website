@@ -4,15 +4,15 @@ import { SERVICES } from "../data";
 export default function ServicePage() {
   const { slug } = useParams();
   const service = SERVICES.find((s) => s.slug === slug);
-  if (!service) return <Navigate to="/" replace />;
+  if (!service) return <Navigate to="/home" replace />;
 
   const others = SERVICES.filter((s) => s.slug !== slug);
 
   return (
     <>
-      <div className="page-head">
+      <div className="page-head" style={{ "--ph-img": `url('/img/page-service-${service.slug}.jpg')` }}>
         <div className="container">
-          <div className="breadcrumb"><Link to="/">Home</Link> / Services / {service.name}</div>
+          <div className="breadcrumb"><Link to="/home">Home</Link> / Services / {service.name}</div>
           <h1>{service.icon} {service.name}</h1>
           <p>{service.short}</p>
         </div>

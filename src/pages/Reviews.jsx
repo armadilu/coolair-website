@@ -4,9 +4,9 @@ import { REVIEWS } from "../data";
 export default function Reviews() {
   return (
     <>
-      <div className="page-head">
+      <div className="page-head" style={{ "--ph-img": "url('/img/page-reviews.jpg')" }}>
         <div className="container">
-          <div className="breadcrumb"><Link to="/">Home</Link> / Reviews</div>
+          <div className="breadcrumb"><Link to="/home">Home</Link> / Reviews</div>
           <h1>★ 4.9 on Google — 1,200+ reviews</h1>
           <p>
             Every review below was requested automatically after a completed job —
@@ -25,12 +25,6 @@ export default function Reviews() {
                 <p className="review-meta" style={{ marginTop: 12 }}>{r.name} · Google · {r.date}</p>
               </div>
             ))}
-            <div className="card center" style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 12 }}>
-              <span style={{ fontSize: "2.4rem" }}>🎥</span>
-              <h3>Video testimonials</h3>
-              <p>Hear from homeowners about their install day, start to finish.</p>
-              <small style={{ color: "var(--muted)" }}>(Video embeds go here)</small>
-            </div>
           </div>
           <div className="banner-cta" style={{ marginTop: 44 }}>
             <h2>Join them</h2>

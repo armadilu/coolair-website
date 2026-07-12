@@ -13,9 +13,9 @@ export default function ServiceAreas() {
 
   return (
     <>
-      <div className="page-head">
+      <div className="page-head" style={{ "--ph-img": "url('/img/page-areas.jpg')" }}>
         <div className="container">
-          <div className="breadcrumb"><Link to="/">Home</Link> / Service Areas</div>
+          <div className="breadcrumb"><Link to="/home">Home</Link> / Service Areas</div>
           <h1>📍 Where we work</h1>
           <p>Four zones across the metro — same-day service in most of them.</p>
         </div>

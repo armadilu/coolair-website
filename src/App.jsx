@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ChatConcierge from "./components/ChatConcierge";
+import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import ServicePage from "./pages/ServicePage";
 import Shop from "./pages/Shop";
@@ -21,12 +22,15 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+  const isLanding = pathname === "/";
   return (
     <>
       <ScrollToTop />
-      <Navbar />
+      {!isLanding && <Navbar />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/services/:slug" element={<ServicePage />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/financing" element={<Financing />} />
@@ -38,7 +42,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Home />} />
       </Routes>
-      <Footer />
+      {!isLanding && <Footer />}
       <ChatConcierge />
     </>
   );

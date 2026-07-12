@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 export default function About() {
   return (
     <>
-      <div className="page-head">
+      <div className="page-head" style={{ "--ph-img": "url('/img/page-about.jpg')" }}>
         <div className="container">
-          <div className="breadcrumb"><Link to="/">Home</Link> / About</div>
+          <div className="breadcrumb"><Link to="/home">Home</Link> / About</div>
           <h1>About CoolAir Co.</h1>
           <p>A local company running on modern rails — certified people, transparent prices, real technology.</p>
         </div>

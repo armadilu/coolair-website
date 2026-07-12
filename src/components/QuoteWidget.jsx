@@ -41,8 +41,14 @@ const QUESTIONS = [
 
 export default function QuoteWidget() {
   const [answers, setAnswers] = useState({});
+  const [temp, setTemp] = useState(72);
   const step = QUESTIONS.findIndex((q) => !answers[q.key]);
   const done = step === -1;
+
+  // Thermostat dial arc: 60–84°F mapped over a 240° sweep starting at -120°
+  const sweep = Math.round(Math.max(0, Math.min(1, (temp - 60) / 24)) * 240);
+  const arcBg = `conic-gradient(from -120deg, var(--accent-soft) 0deg ${sweep}deg, #EDE4D6 ${sweep}deg 240deg, transparent 240deg 360deg)`;
+  const coolPct = 10 + Object.keys(answers).length * 30;
 
   let result = null;
   if (done) {
@@ -58,16 +64,33 @@ export default function QuoteWidget() {
   }
 
   return (
-    <div className="quote-widget">
-      <h3>⚡ Instant AI Quote</h3>
-      <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>
-        Answer 3 quick questions — get a real price range, not a callback.
-      </p>
-      <div className="progress-dots">
-        {QUESTIONS.map((q, i) => (
-          <i key={q.key} className={answers[q.key] || done ? "on" : i === step ? "on" : ""} />
-        ))}
-      </div>
+    <div className="quote-widget" style={{ maxWidth: 760 }}>
+      <div className="quote-flex">
+        <div className="dial-col">
+          <div className="dial" style={{ background: arcBg }}>
+            <div className="dial-core">
+              <div>
+                <div className="dial-temp">{temp}°</div>
+                <div className="dial-label">target</div>
+              </div>
+            </div>
+          </div>
+          <div className="dial-btns">
+            <button onClick={() => setTemp((t) => Math.max(60, t - 1))} aria-label="Cooler">−</button>
+            <button onClick={() => setTemp((t) => Math.min(84, t + 1))} aria-label="Warmer">+</button>
+          </div>
+        </div>
+
+        <div className="quote-main">
+          <h3>⚡ Instant AI Quote</h3>
+          <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>
+            Answer 3 quick questions — get a real price range, not a callback.
+          </p>
+          <div className="progress-dots">
+            {QUESTIONS.map((q, i) => (
+              <i key={q.key} className={answers[q.key] || done ? "on" : i === step ? "on" : ""} />
+            ))}
+          </div>
 
       {!done ? (
         <div className="quote-step">
@@ -101,6 +124,14 @@ export default function QuoteWidget() {
           </div>
         </div>
       )}
+          <div className="coolness-row">
+            <div className="coolness-track">
+              <div className="coolness-fill" style={{ width: `${coolPct}%` }} />
+            </div>
+            <span className="coolness-label">coolness {coolPct}%</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
