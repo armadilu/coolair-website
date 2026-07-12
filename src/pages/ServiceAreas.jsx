@@ -12,7 +12,7 @@ export default function ServiceAreas() {
   };
 
   return (
-    <>
+    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-areas.jpg')" }}>
       <div className="page-head" style={{ "--ph-img": "url('/img/page-areas.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Service Areas</div>
@@ -78,6 +78,6 @@ export default function ServiceAreas() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

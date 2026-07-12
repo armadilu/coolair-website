@@ -9,7 +9,7 @@ const PLANS = [
 
 export default function Financing() {
   return (
-    <>
+    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-financing.jpg')" }}>
       <div className="page-head" style={{ "--ph-img": "url('/img/page-financing.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Financing</div>
@@ -44,6 +44,6 @@ export default function Financing() {
           </p>
         </div>
       </section>
-    </>
+    </div>
   );
 }

@@ -30,7 +30,7 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-wrap">
+    <div className="auth-wrap page-bg" style={{ "--bg-img": "url('/img/bg/bg-login.jpg')" }}>
       <div className="auth-card">
         <h2 style={{ color: "var(--blue-900)", marginBottom: 4 }}>
           {staff ? "Staff access" : "Welcome to CoolAir"}

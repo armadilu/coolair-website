@@ -5,7 +5,7 @@ import { PRODUCTS } from "../data";
 
 export default function Shop() {
   return (
-    <>
+    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-shop.jpg')" }}>
       <div className="page-head" style={{ "--ph-img": "url('/img/page-shop.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Shop</div>
@@ -60,6 +60,6 @@ export default function Shop() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

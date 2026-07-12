@@ -9,7 +9,7 @@ export default function ServicePage() {
   const others = SERVICES.filter((s) => s.slug !== slug);
 
   return (
-    <>
+    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-services.jpg')" }}>
       <div className="page-head" style={{ "--ph-img": `url('/img/page-service-${service.slug}.jpg')` }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Services / {service.name}</div>
@@ -43,7 +43,7 @@ export default function ServicePage() {
         </div>
       </section>
 
-      <section style={{ background: "#fff" }}>
+      <section style={{ background: "rgba(250,247,241,0.88)", backdropFilter: "blur(3px)" }}>
         <div className="container">
           <h2 className="section-title" style={{ fontSize: "1.4rem" }}>Other services</h2>
           <div className="grid grid-3" style={{ marginTop: 20 }}>
@@ -57,6 +57,6 @@ export default function ServicePage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

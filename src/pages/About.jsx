@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function About() {
   return (
-    <>
+    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-about.jpg')" }}>
       <div className="page-head" style={{ "--ph-img": "url('/img/page-about.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / About</div>
@@ -47,7 +47,7 @@ export default function About() {
         </div>
       </section>
 
-      <section style={{ background: "#fff", paddingBottom: 70 }}>
+      <section style={{ background: "rgba(250,247,241,0.88)", backdropFilter: "blur(3px)", paddingBottom: 70 }}>
         <div className="container center">
           <h2 className="section-title">Certifications</h2>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginTop: 18 }}>
@@ -57,6 +57,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

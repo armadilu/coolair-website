@@ -453,3 +453,27 @@ footer a:hover { color: var(--accent-soft); }
   background-image: linear-gradient(rgba(36,28,20,.82), rgba(36,28,20,.82)), var(--ph-img, linear-gradient(var(--espresso), var(--espresso)));
   background-size: cover; background-position: center;
 }
+
+/* ── Full-page photo backgrounds (.page-bg + --bg-img per page) ── */
+.page-bg { position: relative; min-height: 100vh; }
+.page-bg::before {
+  content: ""; position: fixed; inset: 0; z-index: -1;
+  background-image:
+    linear-gradient(rgba(239,233,224,0.72), rgba(239,233,224,0.82)),
+    var(--bg-img, none);
+  background-size: cover; background-position: center;
+}
+/* cards & panels get a touch more opacity so text stays crisp on photos */
+.page-bg .card { background: rgba(250,247,241,0.94); backdrop-filter: blur(4px); }
+.page-bg table.styled { background: rgba(250,247,241,0.96); }
+.page-bg .stat { background: rgba(250,247,241,0.94); }
+/* login gets a lighter veil so the room photo reads through */
+.auth-wrap.page-bg { background: none; }
+.auth-wrap.page-bg::before {
+  background-image:
+    linear-gradient(rgba(239,233,224,0.55), rgba(239,233,224,0.68)),
+    var(--bg-img, none);
+}
+.auth-wrap.page-bg .auth-card { background: rgba(255,253,249,0.94); backdrop-filter: blur(8px); }
+/* fix: .logo span rule was recoloring the C mark copper-on-copper */
+.logo span.logo-mark, span.logo-mark { color: #FAF7F1; }

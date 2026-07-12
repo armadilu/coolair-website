@@ -3,7 +3,7 @@ import { REVIEWS } from "../data";
 
 export default function Reviews() {
   return (
-    <>
+    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-reviews.jpg')" }}>
       <div className="page-head" style={{ "--ph-img": "url('/img/page-reviews.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Reviews</div>
@@ -35,6 +35,6 @@ export default function Reviews() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

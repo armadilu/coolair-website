@@ -60,7 +60,7 @@ export default function Book() {
   }
 
   return (
-    <>
+    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-book.jpg')" }}>
       <div className="page-head" style={{ "--ph-img": "url('/img/page-book.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Book</div>
@@ -136,6 +136,6 @@ export default function Book() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

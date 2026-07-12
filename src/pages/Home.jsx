@@ -6,7 +6,7 @@ import { SERVICES, COMPARISON, SERVICE_AREAS } from "../data";
 
 export default function Home() {
   return (
-    <>
+    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-home.jpg')" }}>
       {/* Hero — same-day messaging, trust badges above the fold, dual CTAs */}
       <div className="hero">
         <div className="container hero-grid">
@@ -65,7 +65,7 @@ export default function Home() {
       </section>
 
       {/* Why us / comparison table */}
-      <section style={{ background: "#fff" }}>
+      <section style={{ background: "rgba(250,247,241,0.88)", backdropFilter: "blur(3px)" }}>
         <div className="container">
           <h2 className="section-title">Why homeowners switch to CoolAir</h2>
           <p className="section-sub">A straight comparison with the typical local HVAC outfit.</p>
@@ -98,7 +98,7 @@ export default function Home() {
       </section>
 
       {/* Service area map */}
-      <section style={{ background: "#fff" }}>
+      <section style={{ background: "rgba(250,247,241,0.88)", backdropFilter: "blur(3px)" }}>
         <div className="container grid grid-2" style={{ alignItems: "center" }}>
           <div>
             <h2 className="section-title">Serving the whole metro</h2>
@@ -148,6 +148,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
