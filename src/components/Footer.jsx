@@ -7,10 +7,10 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <h4>❄️ CoolAir Co.</h4>
+            <h4><span className="logo-mark" style={{ width: 24, height: 24, borderRadius: 8, fontSize: 11, marginRight: 8 }}>C</span>CoolAir Co.</h4>
             <p>Modern HVAC service — same-day repair, transparent pricing, and AI-assisted diagnostics.</p>
             <p style={{ marginTop: 12 }}>24/7 Emergency line:</p>
-            <p className="emergency">📞 (555) 010-COOL</p>
+            <p className="emergency">(555) 010-COOL</p>
             <div className="cert-row">
               <span className="cert">NATE Certified</span>
               <span className="cert">BBB A+</span>

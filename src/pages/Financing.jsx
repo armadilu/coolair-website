@@ -13,7 +13,7 @@ export default function Financing() {
       <div className="page-head" style={{ "--ph-img": "url('/img/page-financing.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Financing</div>
-          <h1>💳 Financing & Pricing</h1>
+          <h1>Financing & Pricing</h1>
           <p>A new AC is a big purchase — we make the cost predictable and the payments manageable.</p>
         </div>
       </div>

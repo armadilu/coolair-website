@@ -9,7 +9,7 @@ export default function Shop() {
       <div className="page-head" style={{ "--ph-img": "url('/img/page-shop.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Shop</div>
-          <h1>🛒 Shop AC Units</h1>
+          <h1>Shop AC Units</h1>
           <p>
             Every unit bundles professional installation, haul-away of your old system,
             and 0% APR financing for 12 months.
@@ -27,7 +27,7 @@ export default function Shop() {
                   <img
                     src={p.image}
                     alt={`${p.brand} ${p.model} outdoor unit`}
-                    onError={(e) => { e.target.style.display = "none"; e.target.parentNode.textContent = "❄️"; }}
+                    onError={(e) => { e.target.style.display = "none"; e.target.parentNode.textContent = "—"; }}
                   />
                 </div>
                 <h3>{p.brand} {p.model}</h3>

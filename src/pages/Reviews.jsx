@@ -7,7 +7,7 @@ export default function Reviews() {
       <div className="page-head" style={{ "--ph-img": "url('/img/page-reviews.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Reviews</div>
-          <h1>★ 4.9 on Google — 1,200+ reviews</h1>
+          <h1>4.9 on Google — 1,200+ reviews</h1>
           <p>
             Every review below was requested automatically after a completed job —
             nothing cherry-picked, nothing stale.
@@ -30,7 +30,7 @@ export default function Reviews() {
             <h2>Join them</h2>
             <p>Same-day slots are open — see for yourself why the rating holds.</p>
             <Link to="/book" className="btn btn-lg" style={{ background: "#fff", color: "var(--blue-700)" }}>
-              Book a service
+              Book now
             </Link>
           </div>
         </div>

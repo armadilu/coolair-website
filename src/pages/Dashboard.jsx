@@ -55,7 +55,7 @@ function CustomerDash({ user }) {
     : MOCK_BOOKINGS.filter((b) => b.customer === user.name || b.customer === "Casey Customer");
   return (
     <>
-      <h2 className="section-title" style={{ fontSize: "1.5rem" }}>Hi {user.name.split(" ")[0]} 👋</h2>
+      <h2 className="section-title" style={{ fontSize: "1.5rem" }}>Hi {user.name.split(" ")[0]}</h2>
       <div className="stat-row">
         <div className="stat"><div className="num">{mine.filter((b) => b.status !== "Completed").length}</div><div className="lbl">Upcoming appointments</div></div>
         <div className="stat"><div className="num">CoolCare</div><div className="lbl">Plan · renews Mar 2027</div></div>
@@ -77,7 +77,7 @@ function CustomerDash({ user }) {
           </tbody>
         </table>
       </div>
-      <p style={{ marginTop: 22 }}><Link to="/book" className="btn btn-primary">Book another service</Link></p>
+      <p style={{ marginTop: 22 }}><Link to="/book" className="btn btn-primary">Book now</Link></p>
     </>
   );
 }
@@ -109,7 +109,7 @@ function TechDash({ user }) {
       <div className="stat-row">
         <div className="stat"><div className="num">{jobs.length}</div><div className="lbl">Assigned jobs</div></div>
         <div className="stat"><div className="num">{jobs.filter((j) => j.status === "In progress").length}</div><div className="lbl">In progress</div></div>
-        <div className="stat"><div className="num">📷</div><div className="lbl">Upload completion photos</div></div>
+        <div className="stat"><div className="num">—</div><div className="lbl">Upload completion photos</div></div>
       </div>
       {jobs.map((j) => (
         <div key={j.id} className="card" style={{ marginBottom: 14 }}>
@@ -117,7 +117,7 @@ function TechDash({ user }) {
             <h3>{j.service} — {j.customer}</h3>
             <span className={`status-chip ${chipClass(j.status)}`}>{j.status}</span>
           </div>
-          <p style={{ color: "var(--muted)", margin: "6px 0" }}>📍 {j.address} · 🕑 {j.date} · {j.id}</p>
+          <p style={{ color: "var(--muted)", margin: "6px 0" }}>{j.address} · {j.date} · {j.id}</p>
           <div style={{ display: "flex", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
             <button className="btn btn-primary btn-sm">Update status</button>
             <button className="btn btn-outline btn-sm">Upload photos</button>
@@ -140,7 +140,7 @@ export default function Dashboard() {
         <span className="role-chip">{user.role}</span>
         <nav>
           <Link to="/dashboard">Overview</Link>
-          {user.role === "customer" && <Link to="/book">Book a service</Link>}
+          {user.role === "customer" && <Link to="/book">Book now</Link>}
           {user.role === "customer" && <Link to="/shop">Shop units</Link>}
           <Link to="/home">Back to site</Link>
           <button onClick={() => { logout(); navigate("/"); }}>Log out</button>

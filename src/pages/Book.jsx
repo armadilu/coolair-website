@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { SERVICES } from "../data";
 import { supabase } from "../supabaseClient";
 import { useAuth } from "../auth";
+import Icon from "../components/Icon";
 
 // Booking / contact page (blueprint §3 "Contact / Book now") — smart-scheduling mock
 // with real time slots instead of "we'll call you back".
@@ -42,7 +43,9 @@ export default function Book() {
       <section>
         <div className="container" style={{ maxWidth: 560 }}>
           <div className="card center" style={{ padding: 44 }}>
-            <span style={{ fontSize: "3rem" }}>✅</span>
+            <span style={{ display: "inline-grid", placeItems: "center", width: 64, height: 64, borderRadius: "50%", background: "var(--green-tint)", color: "var(--green)" }}>
+              <Icon name="check" size={34} />
+            </span>
             <h2 style={{ color: "var(--blue-900)", margin: "12px 0" }}>You're booked, {form.name.split(" ")[0]}!</h2>
             <p style={{ color: "var(--muted)" }}>
               <strong>{SERVICES.find((s) => s.slug === form.service)?.name}</strong> · {form.slot}.
@@ -64,7 +67,7 @@ export default function Book() {
       <div className="page-head" style={{ "--ph-img": "url('/img/page-book.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Book</div>
-          <h1>📅 Book your service</h1>
+          <h1>Book your service</h1>
           <p>Pick a real time slot — no callbacks, no waiting by the phone.</p>
         </div>
       </div>
@@ -119,7 +122,7 @@ export default function Book() {
             <div className="card" style={{ marginBottom: 18 }}>
               <h3>Prefer to talk?</h3>
               <p style={{ margin: "8px 0" }}>Our dispatch line is open 7am–7pm, emergencies 24/7.</p>
-              <p className="emergency" style={{ color: "var(--blue-700)" }}>📞 (555) 010-COOL</p>
+              <p className="emergency" style={{ color: "var(--blue-700)" }}>(555) 010-COOL</p>
             </div>
             <div className="card">
               <h3>What happens next</h3>

@@ -16,7 +16,7 @@ export default function SavingsCalculator() {
 
   return (
     <div className="card" style={{ maxWidth: 560, margin: "0 auto" }}>
-      <h3>💡 Energy Savings Calculator</h3>
+      <h3>Energy Savings Calculator</h3>
       <p style={{ marginBottom: 18 }}>See what a higher-SEER unit could save you every year.</p>
       <div className="form-field">
         <label>Age of your current AC: <strong>{age} years</strong></label>

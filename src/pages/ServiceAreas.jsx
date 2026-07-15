@@ -16,7 +16,7 @@ export default function ServiceAreas() {
       <div className="page-head" style={{ "--ph-img": "url('/img/page-areas.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Service Areas</div>
-          <h1>📍 Where we work</h1>
+          <h1>Where we work</h1>
           <p>Four zones across the metro — same-day service in most of them.</p>
         </div>
       </div>
@@ -71,10 +71,9 @@ export default function ServiceAreas() {
               </div>
             ))}
           </div>
-          <div className="map-mock" style={{ minHeight: 460, position: "sticky", top: 90 }}>
-            <span style={{ fontSize: "3.6rem" }}>🗺️</span>
-            <span>Interactive coverage map</span>
-            <small style={{ fontWeight: 400 }}>(Google Maps embed with zone overlays goes here)</small>
+          <div className="map-frame" style={{ position: "sticky", top: 90 }}>
+            <img src="/img/map-metro.jpg" alt="CoolAir coverage map — 4 zones across the metro" />
+            <span className="map-caption">Coverage: 4 zones · 16 zip codes</span>
           </div>
         </div>
       </section>

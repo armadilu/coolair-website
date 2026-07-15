@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth";
 import { SERVICES } from "../data";
+import Icon, { SERVICE_ICONS } from "./Icon";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,8 @@ export default function Navbar() {
             <div className="dropdown-menu">
               {SERVICES.map((s) => (
                 <Link key={s.slug} to={`/services/${s.slug}`} onClick={close}>
-                  {s.icon} {s.name}
+                  <Icon name={SERVICE_ICONS[s.slug]} size={16} style={{ marginRight: 8, color: "var(--accent)" }} />
+                  {s.name}
                 </Link>
               ))}
             </div>
@@ -42,7 +44,7 @@ export default function Navbar() {
             <button onClick={() => { logout(); close(); navigate("/"); }}>Log out</button>
           )}
           <Link to="/book" className="btn btn-primary btn-sm nav-cta" onClick={close}>
-            Book Now
+            Book now
           </Link>
         </nav>
       </div>

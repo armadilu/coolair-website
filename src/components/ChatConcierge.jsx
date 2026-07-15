@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Icon from "./Icon";
 
 // AI chat concierge (blueprint §4) — keyword-triage stand-in for the real AI API.
 // Triages common issues and hands off to booking.
@@ -18,7 +19,7 @@ const replies = [
 export default function ChatConcierge() {
   const [open, setOpen] = useState(false);
   const [msgs, setMsgs] = useState([
-    { from: "bot", text: "Hi! I'm the CoolAir assistant ❄️ Tell me what your AC is doing — e.g. “not cooling” or “making a noise” — and I'll triage it." },
+    { from: "bot", text: "Hi! I'm the CoolAir assistant. Tell me what your AC is doing — e.g. “not cooling” or “making a noise” — and I'll triage it." },
   ]);
   const [input, setInput] = useState("");
   const bodyRef = useRef(null);
@@ -51,7 +52,7 @@ export default function ChatConcierge() {
               <div key={i} className={`msg ${m.from}`}>{m.text}</div>
             ))}
             <Link to="/book" className="btn btn-primary btn-sm" style={{ alignSelf: "flex-start" }}>
-              Book a service →
+              Book now
             </Link>
           </div>
           <div className="chat-input">
@@ -61,12 +62,12 @@ export default function ChatConcierge() {
               onKeyDown={(e) => e.key === "Enter" && send()}
               placeholder="Describe the issue…"
             />
-            <button onClick={send}>➤</button>
+            <button onClick={send} aria-label="Send"><Icon name="send" size={16} /></button>
           </div>
         </div>
       )}
       <button className="chat-fab" onClick={() => setOpen(!open)} aria-label="Chat">
-        {open ? "✕" : "💬"}
+        <Icon name={open ? "x" : "chat"} size={24} />
       </button>
     </>
   );

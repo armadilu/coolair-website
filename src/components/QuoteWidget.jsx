@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Icon from "./Icon";
 
 // AI diagnostic / instant quote widget (blueprint §2) — 3 questions → price range + urgency.
 // The scoring is a simple heuristic stand-in for the AI diagnostic API (blueprint §9).
@@ -82,7 +83,7 @@ export default function QuoteWidget() {
         </div>
 
         <div className="quote-main">
-          <h3>⚡ Instant AI Quote</h3>
+          <h3><Icon name="zap" size={19} style={{ color: "var(--accent)" }} /> Instant AI Quote</h3>
           <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>
             Answer 3 quick questions — get a real price range, not a callback.
           </p>
@@ -119,7 +120,7 @@ export default function QuoteWidget() {
             Estimated range for your answers. Final flat-rate price confirmed on-site before any work.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <Link to="/book" className="btn btn-primary">Book this service</Link>
+            <Link to="/book" className="btn btn-primary">Book now</Link>
             <button className="btn btn-outline" onClick={() => setAnswers({})}>Start over</button>
           </div>
         </div>

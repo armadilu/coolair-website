@@ -89,7 +89,7 @@ export default function Login() {
                 if (e) setError("Google login needs the Google provider enabled in Supabase → Authentication → Providers.");
               }}
             >
-              <span style={{ marginRight: 8 }}>🔵</span> Continue with Google
+              <span style={{ marginRight: 8, fontWeight: 800 }}>G</span> Continue with Google
             </button>
           </>
         )}

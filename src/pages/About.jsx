@@ -47,12 +47,12 @@ export default function About() {
         </div>
       </section>
 
-      <section style={{ background: "rgba(250,247,241,0.88)", backdropFilter: "blur(3px)", paddingBottom: 70 }}>
+      <section style={{ background: "rgba(250,251,249,0.9)", backdropFilter: "blur(3px)", paddingBottom: 70 }}>
         <div className="container center">
           <h2 className="section-title">Certifications</h2>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginTop: 18 }}>
             {["NATE Certified", "BBB A+", "EPA 608", "Licensed #TACLA-042077C", "Insured & Bonded"].map((c) => (
-              <span key={c} className="zone-pill" style={{ fontWeight: 700, padding: "10px 20px" }}>🏅 {c}</span>
+              <span key={c} className="zone-pill" style={{ fontWeight: 700, padding: "10px 20px" }}>{c}</span>
             ))}
           </div>
         </div>
