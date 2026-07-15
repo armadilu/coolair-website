@@ -10,7 +10,7 @@ export default function ServicePage() {
   const others = SERVICES.filter((s) => s.slug !== slug);
 
   return (
-    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-services.jpg')" }}>
+    <div className="page-bg" style={{ "--bg-img": `url('/img/bg/bg-service-${service.slug}.jpg')` }}>
       <div className="page-head" style={{ "--ph-img": `url('/img/page-service-${service.slug}.jpg')` }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Services / {service.name}</div>

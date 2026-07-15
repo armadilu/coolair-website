@@ -37,12 +37,14 @@ export default function About() {
             <img
               src="/img/about.jpg"
               alt="Technician setting a smart thermostat"
-              style={{ borderRadius: "var(--radius)", boxShadow: "var(--shadow-lg)", width: "100%", objectFit: "cover", maxHeight: 320 }}
+              style={{ borderRadius: "var(--radius)", boxShadow: "var(--shadow-lg)", width: "100%", objectFit: "cover", maxHeight: 280 }}
             />
-            <div className="stat"><div className="num">1,200+</div><div className="lbl">5-star reviews</div></div>
-            <div className="stat"><div className="num">4 zones</div><div className="lbl">Metro coverage</div></div>
-            <div className="stat"><div className="num">Same-day</div><div className="lbl">Typical response</div></div>
-            <div className="stat"><div className="num">0% APR</div><div className="lbl">12-month financing</div></div>
+            <div className="grid grid-2" style={{ gap: 16 }}>
+              <div className="stat"><div className="num">1,200+</div><div className="lbl">5-star reviews</div></div>
+              <div className="stat"><div className="num">4 zones</div><div className="lbl">Metro coverage</div></div>
+              <div className="stat"><div className="num">Same-day</div><div className="lbl">Typical response</div></div>
+              <div className="stat"><div className="num">0% APR</div><div className="lbl">12-month financing</div></div>
+            </div>
           </div>
         </div>
       </section>

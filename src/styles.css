@@ -529,3 +529,9 @@ table.styled, .banner-cta, .auth-card, .map-frame {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* fix: global a:hover color was turning primary/ghost button text accent-on-accent (invisible) */
+a.btn-primary, a.btn-primary:hover, .btn-primary:hover { color: #fff; }
+a.btn-ghost, a.btn-ghost:hover, .btn-ghost:hover { color: #fff; }
+a.btn-outline:hover, .btn-outline:hover { color: var(--accent); }
+.banner-cta a.btn:hover { color: var(--accent); }
