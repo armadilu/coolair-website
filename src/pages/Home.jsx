@@ -3,7 +3,7 @@ import QuoteWidget from "../components/QuoteWidget";
 import ReviewsCarousel from "../components/ReviewsCarousel";
 import SavingsCalculator from "../components/SavingsCalculator";
 import Icon, { SERVICE_ICONS } from "../components/Icon";
-import { SERVICES, COMPARISON, SERVICE_AREAS } from "../data";
+import { SERVICES, SERVICE_AREAS } from "../data";
 
 export default function Home() {
   return (
@@ -29,13 +29,21 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Trust strip — its own slim section below the hero */}
-      <div className="trust-strip">
-        <div className="container trust-strip-inner">
-          <span><Icon name="check" size={15} /> Licensed &amp; insured</span>
-          <span><Icon name="star" size={15} /> 4.9 · 1,200+ Google reviews</span>
-          <span><Icon name="clock" size={15} /> Same-day in most zips</span>
-          <span><Icon name="shield" size={15} /> 1-yr repair warranty</span>
+      {/* Kinetic trust marquee — one per page, pauses on hover */}
+      <div className="marquee" aria-label="Certifications and reviews">
+        <div className="marquee-track">
+          {[0, 1].map((dup) => (
+            <span key={`set-${dup}`} aria-hidden={dup === 1} style={{ display: "contents" }}>
+              <span><Icon name="check" size={15} /> Licensed &amp; insured</span>
+              <span><Icon name="star" size={15} /> 4.9 on Google</span>
+              <span><Icon name="clock" size={15} /> Same-day in most zips</span>
+              <span><Icon name="shield" size={15} /> 1-yr repair warranty</span>
+              <span><Icon name="award" size={15} /> NATE-certified technicians</span>
+              <span><Icon name="check" size={15} /> EPA 608 certified</span>
+              <span><Icon name="star" size={15} /> "Booked at 9am, cool house by 2pm"</span>
+              <span><Icon name="card" size={15} /> 0% APR for 12 months</span>
+            </span>
+          ))}
         </div>
       </div>
 
@@ -46,50 +54,71 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services grid */}
-      <section className="center">
+      {/* Services — sticky-stack: panels pin and stack as you scroll */}
+      <section className="center" style={{ paddingBottom: 30 }}>
         <div className="container">
           <h2 className="section-title">What do you need done?</h2>
-          <p className="section-sub">Five specialties, one team — every job priced upfront.</p>
-          <div className="grid grid-3" style={{ textAlign: "left" }}>
-            {SERVICES.map((s) => (
-              <Link key={s.slug} to={`/services/${s.slug}`} className="card hoverable">
-                <span className="icon"><Icon name={SERVICE_ICONS[s.slug]} size={22} /></span>
-                <h3>{s.name}</h3>
-                <p>{s.short}</p>
-                <span className="card-link">Learn more →</span>
-              </Link>
+          <p className="section-sub" style={{ margin: "0 auto 36px" }}>
+            Five specialties, one team. Every job priced upfront.
+          </p>
+          <div className="stack-wrap" style={{ textAlign: "left" }}>
+            {SERVICES.map((s, i) => (
+              <div key={s.slug} className="stack-panel" style={{ "--i": i }}>
+                <div>
+                  <span className="icon"><Icon name={SERVICE_ICONS[s.slug]} size={22} /></span>
+                  <h3>{s.name}</h3>
+                  <p>{s.short}</p>
+                  <ul className="stack-bullets">
+                    {s.bullets.slice(0, 2).map((b) => (
+                      <li key={b}><Icon name="check" size={14} /> {b}</li>
+                    ))}
+                  </ul>
+                  <Link to={`/services/${s.slug}`} className="btn btn-outline">Learn more</Link>
+                </div>
+                <img src={`/img/page-service-${s.slug}.jpg`} alt={s.name} loading="lazy" />
+              </div>
             ))}
-            <Link to="/shop" className="card hoverable">
-              <span className="icon"><Icon name="cart" size={22} /></span>
-              <h3>Shop AC Units</h3>
-              <p>Browse high-SEER systems with bundled installation and financing.</p>
-              <span className="card-link">Browse units →</span>
-            </Link>
           </div>
+          <p style={{ marginTop: 34 }}>
+            <Link to="/shop" className="btn btn-primary btn-lg">
+              <Icon name="cart" size={17} /> Shop AC units
+            </Link>
+          </p>
         </div>
       </section>
 
-      {/* Why us / comparison table */}
-      <section style={{ background: "rgba(250,251,249,0.9)", backdropFilter: "blur(3px)" }}>
+      {/* Why us — asymmetric bento (one cell per advantage) */}
+      <section>
         <div className="container">
           <h2 className="section-title">Why homeowners switch to CoolAir</h2>
-          <p className="section-sub">A straight comparison with the typical local HVAC outfit.</p>
-          <div className="table-wrap">
-            <table className="styled">
-              <thead>
-                <tr><th></th><th>CoolAir Co.</th><th>Typical competitor</th></tr>
-              </thead>
-              <tbody>
-                {COMPARISON.map((row) => (
-                  <tr key={row.feature}>
-                    <td style={{ fontWeight: 600 }}>{row.feature}</td>
-                    <td className="us"><Icon name="check" size={15} /> {row.us}</td>
-                    <td className="them"><Icon name="x" size={14} /> {row.them}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <p className="section-sub">Five ways we beat the typical local HVAC outfit.</p>
+          <div className="bento">
+            <div className="bento-cell bento-big" style={{ "--bento-img": "url('/img/hero.jpg')" }}>
+              <Icon name="clock" size={26} />
+              <h3>Same-day in most zips</h3>
+              <p>Real technicians on real schedules.</p>
+              <span className="bento-vs" style={{ color: "rgba(255,255,255,0.55)" }}>vs. 2-5 business days</span>
+            </div>
+            <div className="bento-cell bento-tint">
+              <Icon name="zap" size={22} />
+              <h3>Instant quote range</h3>
+              <span className="bento-vs">vs. "we'll call you back"</span>
+            </div>
+            <div className="bento-cell">
+              <Icon name="calendar" size={22} />
+              <h3>Real-time booking</h3>
+              <span className="bento-vs">vs. phone tag</span>
+            </div>
+            <div className="bento-cell bento-green">
+              <Icon name="shield" size={22} />
+              <h3>1-yr parts &amp; labor warranty</h3>
+              <span className="bento-vs">vs. 30-90 days</span>
+            </div>
+            <div className="bento-cell">
+              <Icon name="card" size={22} />
+              <h3>0% APR for 12 months</h3>
+              <span className="bento-vs">vs. rarely offered</span>
+            </div>
           </div>
         </div>
       </section>
@@ -104,7 +133,7 @@ export default function Home() {
       </section>
 
       {/* Service area map — real map */}
-      <section style={{ background: "rgba(250,251,249,0.9)", backdropFilter: "blur(3px)" }}>
+      <section className="section-tint">
         <div className="container grid grid-2" style={{ alignItems: "center" }}>
           <div>
             <h2 className="section-title">Serving the whole metro</h2>

@@ -3,6 +3,21 @@ import { PRODUCTS } from "../data";
 
 // Browse-and-quote catalog (blueprint §5) — full Stripe checkout can bolt on later.
 
+// Spotlight + 3D tilt: writes CSS vars / transform directly on the element,
+// no React state (per taste-skill motion rules). Coarse pointers get none (CSS).
+const tilt = (e) => {
+  const el = e.currentTarget;
+  const r = el.getBoundingClientRect();
+  const x = e.clientX - r.left;
+  const y = e.clientY - r.top;
+  el.style.setProperty("--mx", `${x}px`);
+  el.style.setProperty("--my", `${y}px`);
+  const rx = (y / r.height - 0.5) * -6;
+  const ry = (x / r.width - 0.5) * 6;
+  el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+};
+const untilt = (e) => { e.currentTarget.style.transform = ""; };
+
 export default function Shop() {
   return (
     <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-shop.jpg')" }}>
@@ -21,7 +36,7 @@ export default function Shop() {
         <div className="container">
           <div className="grid grid-3">
             {PRODUCTS.map((p) => (
-              <div key={p.id} className="card hoverable product-card">
+              <div key={p.id} className="card product-card tilt-card" onMouseMove={tilt} onMouseLeave={untilt}>
                 <span className="product-tag">{p.tag}</span>
                 <div className="product-img">
                   <img

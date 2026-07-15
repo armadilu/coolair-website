@@ -44,7 +44,7 @@ export default function ServicePage() {
         </div>
       </section>
 
-      <section style={{ background: "rgba(250,251,249,0.9)", backdropFilter: "blur(3px)" }}>
+      <section className="section-tint">
         <div className="container">
           <h2 className="section-title" style={{ fontSize: "1.4rem" }}>Other services</h2>
           <div className="grid grid-3" style={{ marginTop: 20 }}>

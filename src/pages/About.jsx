@@ -49,7 +49,7 @@ export default function About() {
         </div>
       </section>
 
-      <section style={{ background: "rgba(250,251,249,0.9)", backdropFilter: "blur(3px)", paddingBottom: 70 }}>
+      <section className="section-tint" style={{ paddingBottom: 70 }}>
         <div className="container center">
           <h2 className="section-title">Certifications</h2>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginTop: 18 }}>

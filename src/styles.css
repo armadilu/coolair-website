@@ -535,3 +535,138 @@ a.btn-primary, a.btn-primary:hover, .btn-primary:hover { color: #fff; }
 a.btn-ghost, a.btn-ghost:hover, .btn-ghost:hover { color: #fff; }
 a.btn-outline:hover, .btn-outline:hover { color: var(--accent); }
 .banner-cta a.btn:hover { color: var(--accent); }
+
+/* ── Kinetic trust marquee (one per page, replaces static strip) ── */
+.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.6); backdrop-filter: blur(6px); }
+.marquee-track { display: flex; gap: 46px; width: max-content; padding: 14px 0; animation: caMarquee 38s linear infinite; }
+.marquee-track span { display: inline-flex; align-items: center; gap: 8px; font-size: 0.86rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.marquee-track svg { color: var(--accent); flex: none; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes caMarquee { to { transform: translateX(-50%); } }
+
+/* ── Sticky-stack services (cards pin and stack on scroll) ── */
+.stack-wrap { display: grid; gap: 26px; }
+.stack-panel {
+  position: sticky; top: calc(92px + var(--i, 0) * 16px);
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 34px 38px; box-shadow: var(--shadow-lg);
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: 36px; align-items: center;
+}
+.stack-panel .icon {
+  display: inline-flex; width: 46px; height: 46px; align-items: center; justify-content: center;
+  background: var(--accent-tint); color: var(--accent); border-radius: 16px; margin-bottom: 14px;
+}
+.stack-panel h3 { font-size: 1.5rem; color: var(--ink); margin-bottom: 8px; }
+.stack-panel p { color: var(--muted); margin-bottom: 14px; }
+.stack-panel img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); }
+.stack-bullets { list-style: none; margin: 0 0 18px; }
+.stack-bullets li { display: flex; gap: 9px; align-items: baseline; padding: 4px 0; color: var(--ink); font-size: 0.95rem; }
+.stack-bullets svg { color: var(--green); flex: none; transform: translateY(2px); }
+@media (max-width: 768px) {
+  .stack-panel { position: static; grid-template-columns: 1fr; padding: 24px; }
+  .stack-panel img { order: -1; }
+}
+
+/* ── Bento grid ("why switch", replaces comparison table) ── */
+.bento { display: grid; gap: 18px; grid-template-columns: 1.25fr 1fr 1fr; grid-template-areas: "big a b" "big c d"; }
+.bento-cell {
+  border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 26px;
+  background: var(--card); display: flex; flex-direction: column; justify-content: flex-end; min-height: 170px;
+}
+.bento-cell h3 { color: var(--ink); font-size: 1.15rem; margin: 10px 0 4px; }
+.bento-cell p { color: var(--muted); font-size: 0.9rem; }
+.bento-cell svg { color: var(--accent); }
+.bento-big {
+  grid-area: big; min-height: 360px; color: #fff; position: relative; overflow: hidden;
+  background:
+    linear-gradient(rgba(25,29,27,0.55), rgba(25,29,27,0.82)),
+    var(--bento-img, none) center/cover no-repeat, var(--espresso);
+  border: none;
+}
+.bento-big h3 { color: #fff; font-size: 1.7rem; }
+.bento-big p { color: rgba(255,255,255,0.75); }
+.bento-big svg { color: var(--accent-soft); }
+.bento-tint { background: var(--accent-tint); border-color: transparent; }
+.bento-green { background: var(--green-tint); border-color: transparent; }
+.bento-green svg { color: var(--green); }
+.bento-vs { font-size: 0.78rem; font-weight: 700; color: var(--muted); opacity: 0.75; margin-top: 8px; }
+@media (max-width: 860px) {
+  .bento { grid-template-columns: 1fr 1fr; grid-template-areas: "big big" "a b" "c d"; }
+}
+@media (max-width: 560px) { .bento { grid-template-columns: 1fr; grid-template-areas: "big" "a" "b" "c" "d"; } }
+
+/* ── Spotlight + 3D tilt product cards (Shop) ── */
+.tilt-card { position: relative; transition: transform 0.18s ease, box-shadow 0.2s ease; will-change: transform; }
+.tilt-card:hover { box-shadow: var(--shadow-lg); }
+.tilt-card::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(217,107,71,0.16), transparent 65%);
+  opacity: 0; transition: opacity 0.25s;
+}
+.tilt-card:hover::after { opacity: 1; }
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .tilt-card { transform: none !important; }
+  .tilt-card::after { display: none; }
+}
+
+/* ── Scroll zoom-parallax on hero photo (progressive enhancement) ── */
+@supports (animation-timeline: view()) {
+  @keyframes caHeroZoom { from { transform: scale(1); } to { transform: scale(1.09); } }
+  .hero-photo { animation: caHeroZoom linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+}
+
+/* ── Tinted translucent sections (photo bg shows through; theme-aware) ── */
+.section-tint { background: rgba(250,251,249,0.9); backdrop-filter: blur(3px); }
+
+/* ── Dark mode (auto via system preference) ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #151816;
+    --card: #1C201E;
+    --surface-hi: #232825;
+    --line: #2E3531;
+    --ink: #ECEEEA;
+    --muted: #9AA49E;
+    --espresso: #0F1211;
+    --accent: #D96B47;
+    --accent-hover: #E5815F;
+    --accent-soft: #E58A69;
+    --accent-tint: #35241D;
+    --green: #6FB388;
+    --amber: #D3A04A;
+    --red: #E0705C;
+    --green-tint: #1E2B23;
+    --amber-tint: #2F281A;
+    --red-tint: #321F1B;
+    --shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(28, 32, 30, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+  .navbar { background: rgba(21,24,22,0.82); }
+  .hero { background: radial-gradient(900px 480px at 15% -20%, #1B1F1D, var(--bg) 60%); }
+  .hero-photo { border-color: rgba(255,255,255,0.12); }
+  .badge, .trust-strip, .marquee { background: rgba(28,32,30,0.6); }
+  .page-bg::before {
+    background-image:
+      linear-gradient(rgba(15,18,17,0.82), rgba(15,18,17,0.88)),
+      var(--bg-img, none);
+  }
+  .page-bg .card, .page-bg .stat { background: rgba(28,32,30,0.94); }
+  .page-bg table.styled { background: rgba(28,32,30,0.96); }
+  .auth-wrap.page-bg::before {
+    background-image:
+      linear-gradient(rgba(15,18,17,0.6), rgba(15,18,17,0.72)),
+      var(--bg-img, none);
+  }
+  .auth-wrap.page-bg .auth-card { background: rgba(28,32,30,0.94); }
+  .map-caption { background: rgba(28,32,30,0.92); }
+  .section-tint { background: rgba(22,26,24,0.9); }
+  .landing { background: radial-gradient(1200px 600px at 78% -10%, #1B1F1D 0%, var(--bg) 55%); }
+  .landing-strip { background: #191D1B; }
+  .landing-glassbtn { background: rgba(28,32,30,0.5); }
+  .landing-line { background: linear-gradient(90deg, transparent, #4A5550, transparent); }
+  .dial-core { box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+  .tilt-card::after { background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(217,107,71,0.22), transparent 65%); }
+  .bento-tint h3, .bento-green h3 { color: var(--ink); }
+}
