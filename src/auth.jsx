@@ -28,11 +28,19 @@ export function AuthProvider({ children }) {
     const saved = localStorage.getItem("coolair_demo_user");
     return saved ? JSON.parse(saved) : null;
   });
+  // Restoring a Supabase session is async. Without this flag, guarded pages render
+  // with user === null on the first paint and bounce a signed-in user to /login.
+  const [authReady, setAuthReady] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) profileFor(session.user).then(setUser);
-    });
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        if (session?.user) return profileFor(session.user).then(setUser);
+      })
+      .catch(() => {})
+      .finally(() => setAuthReady(true));
+
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) profileFor(session.user).then(setUser);
       else if (!localStorage.getItem("coolair_demo_user")) setUser(null);
@@ -87,7 +95,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, authReady, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );

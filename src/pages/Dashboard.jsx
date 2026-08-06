@@ -251,8 +251,19 @@ function TechDash({ user }) {
 }
 
 export default function Dashboard() {
-  const { user, logout } = useAuth();
+  const { user, authReady, logout } = useAuth();
   const navigate = useNavigate();
+  // Wait for the session restore before deciding — otherwise a hard refresh of
+  // /dashboard bounces a signed-in user straight to /login.
+  if (!user && !authReady) {
+    return (
+      <div className="container" style={{ padding: "60px 20px" }}>
+        <div className="card" style={{ maxWidth: 420 }}>
+          <p style={{ color: "var(--muted)" }}>Loading your account…</p>
+        </div>
+      </div>
+    );
+  }
   if (!user) return <Navigate to="/login" replace />;
 
   return (
