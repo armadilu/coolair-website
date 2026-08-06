@@ -495,33 +495,33 @@ footer a:hover { color: var(--accent-soft); }
 
 /* ── 3D entrance animations (page load / route change) ── */
 @keyframes caRiseIn {
-  from { opacity: 0; transform: perspective(900px) translateY(26px) rotateX(7deg); }
-  to   { opacity: 1; transform: perspective(900px) translateY(0) rotateX(0); }
+  from { transform: perspective(900px) translateY(22px) rotateX(6deg); }
+  to   { transform: perspective(900px) translateY(0) rotateX(0); }
 }
 @keyframes caPhotoIn {
-  from { opacity: 0; transform: perspective(900px) scale(1.06) rotateY(-4deg); filter: blur(8px); }
-  to   { opacity: 1; transform: perspective(900px) scale(1) rotateY(0); filter: blur(0); }
+  from { transform: perspective(900px) scale(1.05) rotateY(-3deg); }
+  to   { transform: perspective(900px) scale(1) rotateY(0); }
 }
 @keyframes caPricePop {
-  0%   { opacity: 0; transform: perspective(600px) rotateX(50deg) scale(0.85); }
-  60%  { opacity: 1; transform: perspective(600px) rotateX(-8deg) scale(1.03); }
-  100% { opacity: 1; transform: perspective(600px) rotateX(0) scale(1); }
+  0%   { transform: perspective(600px) rotateX(40deg) scale(0.9); }
+  60%  { transform: perspective(600px) rotateX(-8deg) scale(1.03); }
+  100% { transform: perspective(600px) rotateX(0) scale(1); }
 }
 .hero .hero-grid > div, .page-head .container, .landing-copy,
 .section-title, .section-sub, .quote-widget, .trust-strip-inner,
 table.styled, .banner-cta, .auth-card, .map-frame {
-  animation: caRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: caRiseIn 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.hero-photo, .product-img img, .landing-thermo { animation: caPhotoIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.grid > * { animation: caRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hero-photo, .product-img img, .landing-thermo { animation: caPhotoIn 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.grid > * { animation: caRiseIn 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
 .grid > *:nth-child(1) { animation-delay: 0.05s; }
 .grid > *:nth-child(2) { animation-delay: 0.12s; }
 .grid > *:nth-child(3) { animation-delay: 0.19s; }
 .grid > *:nth-child(4) { animation-delay: 0.26s; }
 .grid > *:nth-child(5) { animation-delay: 0.33s; }
 .grid > *:nth-child(6) { animation-delay: 0.4s; }
-.price-line, .calc-result, .quote-result .price { animation: caPricePop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.15s; }
-.stat { animation: caRiseIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.price-line, .calc-result, .quote-result .price { animation: caPricePop 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s; }
+.stat { animation: caRiseIn 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
 .stat:nth-child(2) { animation-delay: 0.1s; }
 .stat:nth-child(3) { animation-delay: 0.2s; }
 
@@ -669,4 +669,15 @@ a.btn-outline:hover, .btn-outline:hover { color: var(--accent); }
   .dial-core { box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
   .tilt-card::after { background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(217,107,71,0.22), transparent 65%); }
   .bento-tint h3, .bento-green h3 { color: var(--ink); }
+}
+
+/* Safety net: an entrance animation must never be able to leave content hidden.
+   If an animation does not run (React reuses nodes across client-side routes),
+   these elements still render at full opacity. */
+.hero .hero-grid > div, .page-head .container, .landing-copy,
+.section-title, .section-sub, .quote-widget, .trust-strip-inner,
+table.styled, .banner-cta, .auth-card, .map-frame,
+.hero-photo, .product-img img, .landing-thermo,
+.grid > *, .stat, .price-line, .calc-result, .quote-result .price {
+  opacity: 1;
 }
