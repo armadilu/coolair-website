@@ -371,3 +371,59 @@ footer { background: #000; border-top: 1px solid var(--line); }
   .rolo-stage { height: 46vh; }
 }
 @media (prefers-reduced-motion: reduce) { .rolo { transition: none; } }
+
+/* ═══ FIXES ═══════════════════════════════════════════════════
+   1. mix-blend-difference on .navbar composited the whole header as one
+      blended group, so the dropdown could never paint solid — its panel and
+      the page bled through each other. Blending the header is not worth an
+      unreadable menu: solid blurred bar instead.
+   ══════════════════════════════════════════════════════════════ */
+.navbar {
+  mix-blend-mode: normal;
+  background: rgba(5, 5, 5, 0.72) !important;
+  backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+}
+.dropdown-menu {
+  mix-blend-mode: normal;
+  background: #0C0C0C;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+  min-width: 264px;
+}
+.dropdown-menu a {
+  display: flex; align-items: center; gap: 10px;
+  white-space: nowrap; padding: 11px 14px; line-height: 1.25;
+}
+@media (max-width: 900px) { .nav-links { background: #0A0A0A; } }
+
+/* 2. Rolodex controls: the chevrons were too small and sat over the wheel.
+      Move the bar clear of the stage and make the arrows unmistakable. */
+.rolo-stage { padding-bottom: 58px; }
+.rolo-hint {
+  bottom: 0; padding: 8px 14px; gap: 16px;
+  background: rgba(12, 12, 12, 0.92);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+.rolo-hint button {
+  width: 38px; height: 38px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.rolo-hint button svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2.4; }
+.rolo-hint button:hover svg { stroke: #fff; }
+.rolo-hint span { font-size: .78rem; color: #fff; }
+
+/* 3. Wider, softer spotlight — it was a tight puddle, now it washes the panel. */
+.cine-spot::after {
+  background: radial-gradient(900px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(226, 100, 58, 0.26), rgba(226, 100, 58, 0.10) 38%, transparent 68%);
+}
+.tilt-card::after {
+  background: radial-gradient(760px circle at var(--mx, 50%) var(--my, 50%),
+              rgba(240, 160, 63, 0.24), rgba(240, 160, 63, 0.08) 40%, transparent 70%);
+}
+/* Let the glow bleed past the panel edges instead of being clipped to it */
+.rolo-detail.cine-spot { overflow: visible; }
+.rolo-detail.cine-spot::after { inset: -80px -60px; border-radius: 40px; }

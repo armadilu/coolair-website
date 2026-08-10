@@ -72,6 +72,9 @@ const PATHS = {
       <circle cx="12" cy="13" r="4" />
     </>
   ),
+  chevron: <path d="m9 18 6-6-6-6" />,
+  "chevron-left": <path d="m15 18-6-6 6-6" />,
+  "chevron-right": <path d="m9 18 6-6-6-6" />,
   award: (
     <>
       <circle cx="12" cy="8" r="7" /><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12" />
