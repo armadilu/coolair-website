@@ -15,6 +15,7 @@ export default function Navbar() {
       <div className="container navbar-inner">
         <Link to="/home" className="logo" onClick={close}>
           <span className="logo-mark">C</span> CoolAir <span>Co.</span>
+          <span className="cine-live" style={{ marginLeft: 10 }}><i />Live</span>
         </Link>
         <button className="hamburger" onClick={() => setOpen(!open)} aria-label="Menu">☰</button>
         <nav className={`nav-links ${open ? "open" : ""}`}>
