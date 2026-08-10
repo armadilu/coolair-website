@@ -8,10 +8,10 @@ export const SERVICES = [
     short: "Same-day diagnosis and repair for all major brands.",
     description:
       "Our NATE-certified technicians diagnose and fix compressors, capacitors, refrigerant leaks, thermostats and more — usually the same day you call. Every repair comes with a 1-year parts & labor warranty.",
-    basePrice: 89,
-    priceNote: "Diagnostic fee, waived with repair",
+    basePrice: 335,
+    priceNote: "Callout fee, waived with repair",
     bullets: [
-      "Same-day service in most zip codes",
+      "Same-day service across most Riyadh districts",
       "Upfront flat-rate pricing before work begins",
       "1-year parts & labor warranty",
       "All major brands: Carrier, Trane, Lennox, Goodman, Rheem",
@@ -24,11 +24,11 @@ export const SERVICES = [
     short: "New high-SEER systems, installed right, with financing.",
     description:
       "From load calculation to permit to final inspection, we handle full system replacement and new installs. Bundle a unit from our Shop with installation and save.",
-    basePrice: 4900,
-    priceNote: "Typical installed system, financing from $89/mo",
+    basePrice: 18000,
+    priceNote: "Typical installed system, from SAR 375/mo",
     bullets: [
-      "Free in-home estimate with load calculation",
-      "0% APR financing available for 12 months",
+      "Free on-site estimate with load calculation",
+      "0% profit-rate instalments over 12 months",
       "10-year manufacturer warranty registration included",
       "Old unit haul-away and eco disposal",
     ],
@@ -40,7 +40,7 @@ export const SERVICES = [
     short: "Twice-yearly tune-ups that prevent breakdowns.",
     description:
       "Our CoolCare plan includes two seasonal tune-ups per year, priority scheduling, 15% off repairs, and no overtime charges — the cheapest insurance your AC can have.",
-    basePrice: 14,
+    basePrice: 55,
     priceNote: "per month, CoolCare plan",
     bullets: [
       "2 precision tune-ups per year (spring + fall)",
@@ -55,14 +55,14 @@ export const SERVICES = [
     icon: "🌀",
     short: "Remove years of dust, allergens and buildup.",
     description:
-      "Whole-home duct cleaning with before/after camera inspection. Improves airflow, cuts energy waste, and reduces allergens circulating through your home.",
-    basePrice: 349,
-    priceNote: "Whole home, up to 12 vents",
+      "Whole-villa duct cleaning with before/after camera inspection. Improves airflow, cuts energy waste, and reduces allergens circulating through your home.",
+    basePrice: 1300,
+    priceNote: "Whole villa, up to 12 outlets",
     bullets: [
       "Before/after camera inspection footage",
       "HEPA-filtered negative-pressure equipment",
       "Sanitizing fog treatment available",
-      "Improves airflow up to 30%",
+      "Clears construction and sand dust from ducts",
     ],
   },
   {
@@ -71,48 +71,50 @@ export const SERVICES = [
     icon: "🌿",
     short: "Purifiers, humidity control and filtration upgrades.",
     description:
-      "Whole-home air purifiers, UV lights, media filters and humidity control — measured and matched to your home's actual air quality readings.",
-    basePrice: 299,
+      "Whole-villa air purifiers, UV lights, media filters and humidity control — measured and matched to your home's actual air quality readings.",
+    basePrice: 1120,
     priceNote: "IAQ assessment + starter filtration",
     bullets: [
       "Free air quality reading with any service",
-      "Whole-home purifiers and UV germicidal lights",
+      "Whole-villa purifiers and UV germicidal lights",
       "Humidity balancing for comfort and health",
-      "Great for allergy and asthma households",
+      "Built for dust-season Riyadh households",
     ],
   },
 ];
 
 // Product images live in public/products/ — filename must match the `image` path.
 export const PRODUCTS = [
-  { id: 1, brand: "Carrier", model: "Comfort 15", seer: 15.2, tons: 2.5, price: 3450, stock: 6, tag: "Best value", image: "/products/carrier-comfort-15.jpg" },
-  { id: 2, brand: "Trane", model: "XR16", seer: 16.2, tons: 3, price: 4200, stock: 4, tag: "Most popular", image: "/products/trane-xr16.jpg" },
-  { id: 3, brand: "Lennox", model: "EL22XPV", seer: 22.0, tons: 3, price: 6800, stock: 2, tag: "Max efficiency", image: "/products/lennox-el22xpv.jpg" },
-  { id: 4, brand: "Goodman", model: "GSXN4", seer: 14.3, tons: 2, price: 2750, stock: 9, tag: "Budget pick", image: "/products/goodman-gsxn4.jpg" },
-  { id: 5, brand: "Rheem", model: "RA17", seer: 17.0, tons: 3.5, price: 4950, stock: 3, tag: "Quiet operation", image: "/products/rheem-ra17.jpg" },
-  { id: 6, brand: "Carrier", model: "Infinity 26", seer: 26.0, tons: 4, price: 8900, stock: 1, tag: "Flagship", image: "/products/carrier-infinity-26.jpg" },
+  { id: 1, brand: "Carrier", model: "Comfort 15", seer: 15.2, tons: 2.5, price: 12900, stock: 6, tag: "Best value", image: "/products/carrier-comfort-15.jpg" },
+  { id: 2, brand: "Trane", model: "XR16", seer: 16.2, tons: 3, price: 15750, stock: 4, tag: "Most popular", image: "/products/trane-xr16.jpg" },
+  { id: 3, brand: "Lennox", model: "EL22XPV", seer: 22.0, tons: 3, price: 25500, stock: 2, tag: "Max efficiency", image: "/products/lennox-el22xpv.jpg" },
+  { id: 4, brand: "Goodman", model: "GSXN4", seer: 14.3, tons: 2, price: 10300, stock: 9, tag: "Budget pick", image: "/products/goodman-gsxn4.jpg" },
+  { id: 5, brand: "Rheem", model: "RA17", seer: 17.0, tons: 3.5, price: 18500, stock: 3, tag: "Quiet operation", image: "/products/rheem-ra17.jpg" },
+  { id: 6, brand: "Carrier", model: "Infinity 26", seer: 26.0, tons: 4, price: 33400, stock: 1, tag: "Flagship", image: "/products/carrier-infinity-26.jpg" },
 ];
 
 export const REVIEWS = [
-  { name: "Maria G.", rating: 5, date: "3 days ago", text: "AC died at 2pm on the hottest day of July — tech was here by 5pm and had it running by 6. Price matched the quote exactly." },
-  { name: "James T.", rating: 5, date: "1 week ago", text: "Used the online quote tool, got a range instantly, booked for next morning. Whole experience felt like 2026, not 1996." },
-  { name: "Priya S.", rating: 5, date: "2 weeks ago", text: "They installed our new Trane in one day and hauled the old unit away. Financing approval took 5 minutes." },
-  { name: "Dan R.", rating: 4, date: "3 weeks ago", text: "Great maintenance plan. They text me before showing up, and the tech showed me photos of everything he checked." },
-  { name: "Aisha K.", rating: 5, date: "1 month ago", text: "The chat assistant correctly guessed it was my capacitor before anyone came out. Repair was done in 40 minutes." },
+  { name: "Nouf A.", rating: 5, date: "3 days ago", text: "Split unit died during a 46-degree afternoon in Al Olaya. Technician arrived within three hours and the price matched the quote exactly." },
+  { name: "Faisal M.", rating: 5, date: "1 week ago", text: "Got a real price range online, booked for the next morning in Al Narjis. No waiting for a callback." },
+  { name: "Reem S.", rating: 5, date: "2 weeks ago", text: "Two new units installed in one day and the old ones taken away. Financing approval took five minutes." },
+  { name: "Abdullah K.", rating: 4, date: "3 weeks ago", text: "Maintenance plan is worth it before summer. They message before arriving and show photos of everything checked." },
+  { name: "Layla H.", rating: 5, date: "1 month ago", text: "The online tool guessed the capacitor before anyone came out. Repair took forty minutes." },
 ];
 
+export const SLOTS = ["Today 4–6 PM", "Today 6–8 PM", "Tomorrow 9–11 AM", "Tomorrow 11–1 PM", "Tomorrow 4–6 PM"];
+
 export const SERVICE_AREAS = [
-  { zone: "Central Metro", zips: ["75001", "75002", "75006", "75010"], response: "Same day" },
-  { zone: "North Suburbs", zips: ["75023", "75024", "75025", "75093"], response: "Same day" },
-  { zone: "East County", zips: ["75040", "75041", "75043", "75088"], response: "Next day" },
-  { zone: "West County", zips: ["75019", "75038", "75061", "75062"], response: "Next day" },
+  { zone: "Al Olaya & Al Muruj", zips: ["12211", "12241", "12271", "12313"], response: "Same day" },
+  { zone: "Al Malaz & Al Rawdah", zips: ["11439", "12831", "13213", "13241"], response: "Same day" },
+  { zone: "Al Narjis & Al Yasmin", zips: ["13322", "13325", "13241", "13315"], response: "Same day" },
+  { zone: "Diriyah & Irqah", zips: ["13711", "13721", "12571", "12584"], response: "Next day" },
 ];
 
 export const COMPARISON = [
   { feature: "Response time", us: "Same-day in most areas", them: "2–5 business days" },
   { feature: "Pricing", us: "Instant online quote range", them: "“We'll call you back”" },
   { feature: "Warranty", us: "1 yr parts & labor on repairs", them: "30–90 days" },
-  { feature: "Financing", us: "0% APR for 12 months", them: "Rarely offered" },
+  { feature: "Financing", us: "0% instalments for 12 months", them: "Rarely offered" },
   { feature: "Booking", us: "Real-time online scheduling", them: "Phone tag" },
 ];
 

@@ -10,11 +10,11 @@ const QUESTIONS = [
     key: "issue",
     label: "What's going on with your AC?",
     options: [
-      { v: "no-cool", label: "Not cooling at all", cost: [180, 650], urgent: true },
-      { v: "weak", label: "Blowing weak / warm air", cost: [120, 480], urgent: false },
-      { v: "noise", label: "Strange noise or smell", cost: [90, 400], urgent: true },
-      { v: "replace", label: "Want a new unit / quote", cost: [2750, 8900], urgent: false },
-      { v: "tuneup", label: "Just a tune-up", cost: [89, 189], urgent: false },
+      { v: "no-cool", label: "Not cooling at all", cost: [650, 2400], urgent: true },
+      { v: "weak", label: "Blowing weak / warm air", cost: [450, 1800], urgent: false },
+      { v: "noise", label: "Strange noise or smell", cost: [340, 1500], urgent: true },
+      { v: "replace", label: "Want a new unit / quote", cost: [10300, 33400], urgent: false },
+      { v: "tuneup", label: "Just a tune-up", cost: [335, 710], urgent: false },
     ],
   },
   {
@@ -30,24 +30,24 @@ const QUESTIONS = [
   },
   {
     key: "size",
-    label: "Roughly how big is your home?",
+    label: "Roughly how big is your villa or flat?",
     options: [
-      { v: "s", label: "Under 1,500 sq ft", mult: 1 },
-      { v: "m", label: "1,500–2,500 sq ft", mult: 1.1 },
-      { v: "l", label: "2,500–4,000 sq ft", mult: 1.25 },
-      { v: "xl", label: "4,000+ sq ft", mult: 1.4 },
+      { v: "s", label: "Under 140 m²", mult: 1 },
+      { v: "m", label: "140–230 m²", mult: 1.1 },
+      { v: "l", label: "230–370 m²", mult: 1.25 },
+      { v: "xl", label: "370 m² and up", mult: 1.4 },
     ],
   },
 ];
 
 export default function QuoteWidget() {
   const [answers, setAnswers] = useState({});
-  const [temp, setTemp] = useState(72);
+  const [temp, setTemp] = useState(22);
   const step = QUESTIONS.findIndex((q) => !answers[q.key]);
   const done = step === -1;
 
-  // Thermostat dial arc: 60–84°F mapped over a 240° sweep starting at -120°
-  const sweep = Math.round(Math.max(0, Math.min(1, (temp - 60) / 24)) * 240);
+  // Thermostat dial arc: 16–30°C mapped over a 240° sweep starting at -120°
+  const sweep = Math.round(Math.max(0, Math.min(1, (temp - 16) / 14)) * 240);
   const arcBg = `conic-gradient(from -120deg, var(--accent-soft) 0deg ${sweep}deg, #EDE4D6 ${sweep}deg 240deg, transparent 240deg 360deg)`;
   const coolPct = 10 + Object.keys(answers).length * 30;
 
@@ -71,14 +71,14 @@ export default function QuoteWidget() {
           <div className="dial" style={{ background: arcBg }}>
             <div className="dial-core">
               <div>
-                <div className="dial-temp">{temp}°</div>
+                <div className="dial-temp">{temp}°C</div>
                 <div className="dial-label">target</div>
               </div>
             </div>
           </div>
           <div className="dial-btns">
-            <button onClick={() => setTemp((t) => Math.max(60, t - 1))} aria-label="Cooler">−</button>
-            <button onClick={() => setTemp((t) => Math.min(84, t + 1))} aria-label="Warmer">+</button>
+            <button onClick={() => setTemp((t) => Math.max(16, t - 1))} aria-label="Cooler">−</button>
+            <button onClick={() => setTemp((t) => Math.min(30, t + 1))} aria-label="Warmer">+</button>
           </div>
         </div>
 
@@ -114,7 +114,7 @@ export default function QuoteWidget() {
             {result.urgent ? "⚠ Priority — book today" : "✓ Routine — flexible timing"}
           </span>
           <div className="price">
-            ${result.low.toLocaleString()} – ${result.high.toLocaleString()}
+            SAR {result.low.toLocaleString()} – SAR {result.high.toLocaleString()}
           </div>
           <p style={{ color: "var(--muted)", fontSize: "0.88rem", margin: "6px 0 16px" }}>
             Estimated range for your answers. Final flat-rate price confirmed on-site before any work.

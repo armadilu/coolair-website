@@ -29,7 +29,7 @@ export default function Reviews() {
           <div className="banner-cta" style={{ marginTop: 44 }}>
             <h2>Join them</h2>
             <p>Same-day slots are open — see for yourself why the rating holds.</p>
-            <Link to="/book" className="btn btn-lg" style={{ background: "#fff", color: "var(--blue-700)" }}>
+            <Link to="/book" className="btn btn-lg" style={{ background: "#fff", color: "#111" }}>
               Book now
             </Link>
           </div>

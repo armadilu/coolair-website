@@ -31,14 +31,14 @@ export default function ServicePage() {
           <div className="card" style={{ position: "sticky", top: 90 }}>
             <h3>Pricing</h3>
             <div className="price-line">
-              ${service.basePrice.toLocaleString()}{service.slug === "maintenance" ? "/mo" : ""}
+              SAR {service.basePrice.toLocaleString()}{service.slug === "maintenance" ? "/mo" : ""}
             </div>
             <p className="finance-line">{service.priceNote}</p>
             <Link to="/book" className="btn btn-primary" style={{ width: "100%", textAlign: "center" }}>
               Book now
             </Link>
             <p style={{ fontSize: "0.82rem", color: "var(--muted)", marginTop: 12 }}>
-              Or call <a href="tel:5550102665">(555) 010-COOL</a> — same-day slots most days.
+              Or call <a href="tel:+966112002665">+966 11 200 2665</a> — same-day slots most days.
             </p>
           </div>
         </div>

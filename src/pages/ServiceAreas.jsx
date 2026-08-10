@@ -54,7 +54,7 @@ export default function ServiceAreas() {
                     <>
                       <span className="urgency high">Outside current zones</span>
                       <p style={{ marginTop: 8 }}>
-                        We're not in {zip || "that zip"} yet — but call <a href="tel:5550102665">(555) 010-COOL</a>;
+                        We're not in {zip || "that zip"} yet — but call <a href="tel:+966112002665">+966 11 200 2665</a>;
                         we take edge-of-zone jobs when the schedule allows.
                       </p>
                     </>

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function SavingsCalculator() {
   const [age, setAge] = useState(12);
-  const [bill, setBill] = useState(220);
+  const [bill, setBill] = useState(800);
   const [targetSeer, setTargetSeer] = useState(17);
 
   // Older units degrade: assume SEER 13 baseline minus efficiency loss with age.
@@ -23,8 +23,8 @@ export default function SavingsCalculator() {
         <input type="range" min="1" max="25" value={age} onChange={(e) => setAge(+e.target.value)} />
       </div>
       <div className="form-field">
-        <label>Average summer electric bill: <strong>${bill}/mo</strong></label>
-        <input type="range" min="80" max="600" step="10" value={bill} onChange={(e) => setBill(+e.target.value)} />
+        <label>Average summer electricity bill: <strong>SAR {bill}/mo</strong></label>
+        <input type="range" min="300" max="2500" step="50" value={bill} onChange={(e) => setBill(+e.target.value)} />
       </div>
       <div className="form-field">
         <label>Upgrade to</label>
@@ -37,7 +37,7 @@ export default function SavingsCalculator() {
       </div>
       <div style={{ textAlign: "center", padding: "10px 0 4px" }}>
         <div style={{ color: "var(--muted)", fontSize: "0.9rem" }}>Estimated annual savings</div>
-        <div className="calc-result">${annual.toLocaleString()}/yr</div>
+        <div className="calc-result">SAR {annual.toLocaleString()}/yr</div>
         <p style={{ color: "var(--muted)", fontSize: "0.82rem", marginTop: 6 }}>
           Estimate based on typical cooling loads — get an exact figure with a free in-home assessment.
         </p>

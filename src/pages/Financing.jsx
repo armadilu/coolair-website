@@ -34,7 +34,7 @@ export default function Financing() {
         </div>
       </section>
 
-      <section style={{ background: "#fff" }} className="center">
+      <section className="section-tint center">
         <div className="container">
           <h2 className="section-title">What would an upgrade save you?</h2>
           <p className="section-sub">Run your numbers before you spend a dollar.</p>

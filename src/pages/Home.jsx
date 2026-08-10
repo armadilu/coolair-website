@@ -49,8 +49,8 @@ export default function Home() {
             </p>
             <div className="cine-ctas">
               <Link to="/book" className="btn btn-primary btn-lg">Book now</Link>
-              <a href="tel:5550102665" className="btn btn-outline btn-lg">
-                <Icon name="phone" size={16} /> (555) 010-COOL
+              <a href="tel:+966112002665" className="btn btn-outline btn-lg">
+                <Icon name="phone" size={16} /> +966 11 200 2665
               </a>
             </div>
           </div>
@@ -102,7 +102,7 @@ export default function Home() {
               <Link key={s.slug} to={`/services/${s.slug}`} className="cine-tile cine-spot" onMouseMove={spot}>
                 <img src={`/img/page-service-${s.slug}.jpg`} alt="" />
                 <span className="cine-eyebrow">
-                  <Icon name={SERVICE_ICONS[s.slug]} size={13} /> from ${s.basePrice.toLocaleString()}
+                  <Icon name={SERVICE_ICONS[s.slug]} size={13} /> from SAR {s.basePrice.toLocaleString()}
                 </span>
                 <h3>{s.name}</h3>
                 <p>{s.short}</p>

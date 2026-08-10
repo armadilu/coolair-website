@@ -12,7 +12,7 @@ const replies = [
   { match: /price|cost|quote|how much/i, text: "Diagnostics are $89 (waived with repair). Repairs run $120–$650, new systems $2,750–$8,900 installed with 0% financing. Try the instant quote tool on the homepage for a range tailored to you!" },
   { match: /install|replace|new unit|new ac/i, text: "We install high-SEER systems from Carrier, Trane, Lennox, Goodman and Rheem — most in one day, financing from $89/mo. Browse the Shop page or book a free in-home estimate." },
   { match: /maintenance|tune|plan/i, text: "Our CoolCare plan is $14/mo: two seasonal tune-ups, priority scheduling, 15% off repairs, and no emergency fees. It pays for itself with one avoided breakdown." },
-  { match: /hour|open|when|time/i, text: "We book online 24/7, run service calls 7am–7pm daily, and keep a 24/7 emergency line: (555) 010-COOL." },
+  { match: /hour|open|when|time/i, text: "We book online 24/7, run service calls 7am–7pm daily, and keep a 24/7 emergency line: +966 11 200 2665." },
   { match: /area|zip|location|where/i, text: "We cover Central Metro, North Suburbs, and East/West County — check the Service Areas page and enter your zip to confirm coverage." },
 ];
 
@@ -34,7 +34,7 @@ export default function ChatConcierge() {
     const hit = replies.find((r) => r.match.test(text));
     const answer = hit
       ? hit.text
-      : "I can help with cooling problems, pricing, installs, maintenance plans, hours, and service areas. For anything else, our team picks up at (555) 010-COOL — or book online and add a note.";
+      : "I can help with cooling problems, pricing, installs, maintenance plans, hours, and service areas. For anything else, our team picks up at +966 11 200 2665 — or book online and add a note.";
     setMsgs((m) => [...m, { from: "user", text }, { from: "bot", text: answer }]);
     setInput("");
   };

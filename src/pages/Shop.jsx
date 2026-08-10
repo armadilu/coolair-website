@@ -1,75 +1,149 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { PRODUCTS } from "../data";
+import Icon from "../components/Icon";
 
-// Browse-and-quote catalog (blueprint §5) — full Stripe checkout can bolt on later.
-
-// Spotlight + 3D tilt: writes CSS vars / transform directly on the element,
-// no React state (per taste-skill motion rules). Coarse pointers get none (CSS).
-const tilt = (e) => {
-  const el = e.currentTarget;
-  const r = el.getBoundingClientRect();
-  const x = e.clientX - r.left;
-  const y = e.clientY - r.top;
-  el.style.setProperty("--mx", `${x}px`);
-  el.style.setProperty("--my", `${y}px`);
-  const rx = (y / r.height - 0.5) * -6;
-  const ry = (x / r.width - 0.5) * 6;
-  el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+// Cursor spotlight, written straight to CSS vars (no re-render).
+const spot = (e) => {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
 };
-const untilt = (e) => { e.currentTarget.style.transform = ""; };
+
+const N = PRODUCTS.length;
+const STEP = 360 / N; // one facet per unit
 
 export default function Shop() {
+  // `index` is allowed to run past either end — the modulo keeps the wheel
+  // looping in both directions, so a unit you scroll past is always reachable again.
+  const [index, setIndex] = useState(0);
+  const wheelLock = useRef(0);
+  const drag = useRef(null);
+
+  const move = useCallback((delta) => setIndex((i) => i + delta), []);
+  const active = ((index % N) + N) % N;
+  const product = PRODUCTS[active];
+
+  // Wheel / trackpad, throttled so one gesture advances one facet
+  const onWheel = (e) => {
+    const now = Date.now();
+    if (now - wheelLock.current < 320) return;
+    if (Math.abs(e.deltaY) < 12) return;
+    wheelLock.current = now;
+    move(e.deltaY > 0 ? 1 : -1);
+  };
+
+  // Drag / swipe
+  const onDown = (e) => { drag.current = { y: e.touches?.[0]?.clientY ?? e.clientY }; };
+  const onMove = (e) => {
+    if (!drag.current) return;
+    const y = e.touches?.[0]?.clientY ?? e.clientY;
+    const dy = y - drag.current.y;
+    if (Math.abs(dy) > 46) {
+      move(dy < 0 ? 1 : -1);
+      drag.current = { y };
+    }
+  };
+  const onUp = () => { drag.current = null; };
+
+  // Arrow keys
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "ArrowDown") { e.preventDefault(); move(1); }
+      if (e.key === "ArrowUp") { e.preventDefault(); move(-1); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [move]);
+
   return (
-    <div className="page-bg" style={{ "--bg-img": "url('/img/bg/bg-shop.jpg')" }}>
+    <div className="cine page-bg" style={{ "--bg-img": "url('/img/bg/bg-shop.jpg')" }}>
       <div className="page-head" style={{ "--ph-img": "url('/img/page-shop.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Shop</div>
-          <h1>Shop AC Units</h1>
+          <h1>Shop AC units</h1>
           <p>
-            Every unit bundles professional installation, haul-away of your old system,
-            and 0% APR financing for 12 months.
+            Every unit includes installation, removal of the old system and 0% instalments
+            over 12 months.
           </p>
         </div>
       </div>
 
       <section>
         <div className="container">
-          <div className="grid grid-3">
-            {PRODUCTS.map((p) => (
-              <div key={p.id} className="card product-card tilt-card" onMouseMove={tilt} onMouseLeave={untilt}>
-                <span className="product-tag">{p.tag}</span>
-                <div className="product-img">
-                  <img
-                    src={p.image}
-                    alt={`${p.brand} ${p.model} outdoor unit`}
-                    onError={(e) => { e.target.style.display = "none"; e.target.parentNode.textContent = "—"; }}
-                  />
-                </div>
-                <h3>{p.brand} {p.model}</h3>
-                <div>
-                  <span className="seer-chip">SEER {p.seer}</span>{" "}
-                  <span className="seer-chip" style={{ background: "var(--blue-100)", color: "var(--blue-700)" }}>
-                    {p.tons} ton
-                  </span>
-                </div>
-                <div className="price-line">${p.price.toLocaleString()}</div>
-                <p className="finance-line">
-                  or ~${Math.round(p.price / 48)}/mo with financing · {p.stock} in stock
-                </p>
-                <Link
-                  to={`/book?product=${encodeURIComponent(`${p.brand} ${p.model}`)}`}
-                  className="btn btn-primary"
-                  style={{ marginTop: "auto", textAlign: "center" }}
-                >
-                  Get installed →
-                </Link>
+          <div className="rolo-layout">
+            {/* ── The wheel ── */}
+            <div
+              className="rolo-stage"
+              onWheel={onWheel}
+              onMouseDown={onDown}
+              onMouseMove={onMove}
+              onMouseUp={onUp}
+              onMouseLeave={onUp}
+              onTouchStart={onDown}
+              onTouchMove={onMove}
+              onTouchEnd={onUp}
+              tabIndex={0}
+              aria-label="AC units carousel"
+            >
+              <div className="rolo" style={{ transform: `rotateX(${index * STEP}deg)` }}>
+                {PRODUCTS.map((p, i) => (
+                  <div
+                    key={p.id}
+                    className={`rolo-face ${i === active ? "is-active" : ""}`}
+                    style={{ transform: `rotateX(${-i * STEP}deg) translateZ(var(--rolo-z))` }}
+                  >
+                    <img src={p.image} alt={`${p.brand} ${p.model}`} />
+                    <span className="rolo-tag">{p.tag}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+
+              <div className="rolo-hint">
+                <button onClick={() => move(-1)} aria-label="Previous unit">
+                  <Icon name="chevron" size={15} style={{ transform: "rotate(-90deg)" }} />
+                </button>
+                <span>{active + 1} / {N}</span>
+                <button onClick={() => move(1)} aria-label="Next unit">
+                  <Icon name="chevron" size={15} style={{ transform: "rotate(90deg)" }} />
+                </button>
+              </div>
+            </div>
+
+            {/* ── Detail for whichever unit is facing you ── */}
+            <div className="rolo-detail cine-spot" onMouseMove={spot} key={product.id}>
+              <p className="cine-eyebrow">{product.tag}</p>
+              <h2 className="rolo-name">{product.brand}<br />{product.model}</h2>
+
+              <div className="rolo-specs">
+                <div><span>SEER</span><strong>{product.seer}</strong></div>
+                <div><span>Capacity</span><strong>{product.tons} ton</strong></div>
+                <div><span>In stock</span><strong>{product.stock}</strong></div>
+              </div>
+
+              <div className="rolo-price">SAR {product.price.toLocaleString()}</div>
+              <p className="rolo-finance">
+                or about SAR {Math.round(product.price / 48).toLocaleString()}/mo over 48 months
+              </p>
+
+              <Link
+                to={`/book?product=${encodeURIComponent(`${product.brand} ${product.model}`)}`}
+                className="btn btn-primary btn-lg"
+                style={{ marginTop: 18 }}
+              >
+                Get it installed
+              </Link>
+              <p style={{ color: "var(--muted)", fontSize: ".82rem", marginTop: 14 }}>
+                Scroll, drag or use the arrow keys. The wheel loops, so a unit you skip is
+                always one turn away.
+              </p>
+            </div>
           </div>
-          <div className="banner-cta" style={{ marginTop: 44 }}>
+
+          <div className="banner-cta" style={{ marginTop: 54 }}>
             <h2>Not sure which size you need?</h2>
-            <p>Book a free in-home estimate — we do a proper load calculation, not a guess.</p>
-            <Link to="/book" className="btn btn-lg" style={{ background: "#fff", color: "var(--blue-700)" }}>
+            <p>Book a free on-site estimate — we run a proper load calculation, not a guess.</p>
+            <Link to="/book" className="btn btn-lg" style={{ background: "#fff", color: "#111" }}>
               Book free estimate
             </Link>
           </div>

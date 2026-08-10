@@ -59,7 +59,7 @@ function CustomerDash({ user }) {
       <div className="stat-row">
         <div className="stat"><div className="num">{mine.filter((b) => b.status !== "Completed").length}</div><div className="lbl">Upcoming appointments</div></div>
         <div className="stat"><div className="num">CoolCare</div><div className="lbl">Plan · renews Mar 2027</div></div>
-        <div className="stat"><div className="num">${MOCK_INVOICES.reduce((s, i) => s + i.amount, 0)}</div><div className="lbl">Paid this year</div></div>
+        <div className="stat"><div className="num">SAR {MOCK_INVOICES.reduce((s, i) => s + i.amount, 0)}</div><div className="lbl">Paid this year</div></div>
       </div>
       <h3 style={{ margin: "10px 0 12px", color: "var(--blue-900)" }}>Your appointments</h3>
       <BookingsTable rows={mine} cols={["ID", "Service", "Date", "Status"]} />
@@ -70,7 +70,7 @@ function CustomerDash({ user }) {
           <tbody>
             {MOCK_INVOICES.map((i) => (
               <tr key={i.id}>
-                <td>{i.id}</td><td>{i.booking}</td><td>${i.amount}</td><td>{i.date}</td>
+                <td>{i.id}</td><td>{i.booking}</td><td>SAR {i.amount}</td><td>{i.date}</td>
                 <td><span className="status-chip Paid">{i.status}</span></td>
               </tr>
             ))}

@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { SERVICES } from "../data";
+import { SERVICES, SLOTS } from "../data";
 import { supabase } from "../supabaseClient";
 import { useAuth } from "../auth";
 import Icon from "../components/Icon";
 
 // Booking / contact page (blueprint §3 "Contact / Book now") — smart-scheduling mock
 // with real time slots instead of "we'll call you back".
-
-const SLOTS = ["Today 2–4 PM", "Today 4–6 PM", "Tomorrow 8–10 AM", "Tomorrow 10–12 PM", "Tomorrow 1–3 PM"];
 
 export default function Book() {
   const [params] = useSearchParams();
@@ -81,11 +79,11 @@ export default function Book() {
             </div>
             <div className="form-field">
               <label>Phone</label>
-              <input value={form.phone} onChange={set("phone")} placeholder="(555) 123-4567" />
+              <input value={form.phone} onChange={set("phone")} placeholder="05X XXX XXXX" />
             </div>
             <div className="form-field">
               <label>Zip code</label>
-              <input value={form.zip} onChange={set("zip")} maxLength={5} placeholder="75002" />
+              <input value={form.zip} onChange={set("zip")} maxLength={5} placeholder="12211" />
             </div>
             <div className="form-field">
               <label>Service needed</label>
@@ -121,8 +119,8 @@ export default function Book() {
           <div>
             <div className="card" style={{ marginBottom: 18 }}>
               <h3>Prefer to talk?</h3>
-              <p style={{ margin: "8px 0" }}>Our dispatch line is open 7am–7pm, emergencies 24/7.</p>
-              <p className="emergency" style={{ color: "var(--blue-700)" }}>(555) 010-COOL</p>
+              <p style={{ margin: "8px 0" }}>Our dispatch line is open 8am–10pm, emergencies 24/7.</p>
+              <p className="emergency" style={{ color: "var(--blue-700)" }}>+966 11 200 2665</p>
             </div>
             <div className="card">
               <h3>What happens next</h3>
