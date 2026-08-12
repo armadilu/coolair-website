@@ -17,8 +17,8 @@ export default function Reviews() {
       </div>
 
       <section>
-        {/* Rails first, then the same reviews as a grid you can hover and open. */}
-        <ReviewsMarquee heading={false} grid />
+        {/* Rails only. A grid underneath was the same ten reviews twice. */}
+        <ReviewsMarquee heading={false} />
       </section>
 
       <section>

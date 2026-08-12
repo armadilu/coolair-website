@@ -152,7 +152,7 @@ function Rail({ items, reverse, onOpen, speed }) {
   );
 }
 
-export default function ReviewsMarquee({ heading = true, grid = false }) {
+export default function ReviewsMarquee({ heading = true }) {
   const [open, setOpen] = useState(null);
   const half = Math.ceil(REVIEWS.length / 2);
   const rowA = REVIEWS.slice(0, half);
@@ -175,10 +175,9 @@ export default function ReviewsMarquee({ heading = true, grid = false }) {
       <Rail items={rowA} onOpen={setOpen} speed={52} />
       <Rail items={rowB} onOpen={setOpen} speed={64} reverse />
 
-      {/* Reduced motion gets the same reviews as a static, readable grid.
-          `grid` forces that grid on for everyone — the Reviews page keeps its
-          hoverable cards under the rails. */}
-      <div className={`rev-static container ${grid ? "is-shown" : ""}`}>
+      {/* Hidden unless the visitor asked for reduced motion, in which case it
+          replaces the rails entirely rather than sitting under them. */}
+      <div className="rev-static container">
         {REVIEWS.map((r) => (
           <Card key={`static-${r.name}-${r.date}`} review={r} onOpen={setOpen} />
         ))}
