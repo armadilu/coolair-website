@@ -94,11 +94,16 @@ export const PRODUCTS = [
 ];
 
 export const REVIEWS = [
-  { name: "Nouf A.", rating: 5, date: "3 days ago", text: "Split unit died during a 46-degree afternoon in Al Olaya. Technician arrived within three hours and the price matched the quote exactly." },
-  { name: "Faisal M.", rating: 5, date: "1 week ago", text: "Got a real price range online, booked for the next morning in Al Narjis. No waiting for a callback." },
-  { name: "Reem S.", rating: 5, date: "2 weeks ago", text: "Two new units installed in one day and the old ones taken away. Financing approval took five minutes." },
-  { name: "Abdullah K.", rating: 4, date: "3 weeks ago", text: "Maintenance plan is worth it before summer. They message before arriving and show photos of everything checked." },
-  { name: "Layla H.", rating: 5, date: "1 month ago", text: "The online tool guessed the capacitor before anyone came out. Repair took forty minutes." },
+  { name: "Nouf A.", rating: 5, date: "3 days ago", area: "Al Olaya", service: "AC Repair", text: "Split unit died during a 46-degree afternoon in Al Olaya. Technician arrived within three hours and the price matched the quote exactly." },
+  { name: "Faisal M.", rating: 5, date: "1 week ago", area: "Al Narjis", service: "AC Repair", text: "Got a real price range online, booked for the next morning in Al Narjis. No waiting for a callback." },
+  { name: "Reem S.", rating: 5, date: "2 weeks ago", area: "Al Muruj", service: "Installation", text: "Two new units installed in one day and the old ones taken away. Financing approval took five minutes." },
+  { name: "Abdullah K.", rating: 4, date: "3 weeks ago", area: "Al Malaz", service: "Maintenance", text: "Maintenance plan is worth it before summer. They message before arriving and show photos of everything checked." },
+  { name: "Layla H.", rating: 5, date: "1 month ago", area: "Al Yasmin", service: "AC Repair", text: "The online tool guessed the capacitor before anyone came out. Repair took forty minutes." },
+  { name: "Turki B.", rating: 5, date: "1 month ago", area: "Al Rawdah", service: "Duct Cleaning", text: "Ducts had years of sand in them. They filmed before and after, and the airflow in the back rooms is a different house now." },
+  { name: "Sara M.", rating: 5, date: "2 months ago", area: "Diriyah", service: "Installation", text: "Booked from the website at 11pm and had a real slot confirmed for Sunday morning. Nobody rang me to re-sell anything." },
+  { name: "Mohammed Al-R.", rating: 4, date: "2 months ago", area: "Irqah", service: "Maintenance", text: "Two tune-ups a year and the bill in July dropped noticeably. Technician explained what he changed instead of just handing me paper." },
+  { name: "Hessa T.", rating: 5, date: "3 months ago", area: "Al Muruj", service: "Indoor Air Quality", text: "They actually measured the air before recommending anything, then fitted a filter box that fits the existing unit. No upsell." },
+  { name: "Ziyad N.", rating: 5, date: "3 months ago", area: "Al Olaya", service: "AC Repair", text: "Compressor failed on a Friday. Someone was on site the same evening and the one-year warranty was in writing before he started." },
 ];
 
 export const SLOTS = ["Today 4–6 PM", "Today 6–8 PM", "Tomorrow 9–11 AM", "Tomorrow 11–1 PM", "Tomorrow 4–6 PM"];

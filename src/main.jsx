@@ -5,6 +5,7 @@ import { AuthProvider } from "./auth";
 import App from "./App.jsx";
 import "./styles.css";
 import "./cinematic.css"; // cinematic dark layer — remove this line to revert to Warm Air v2
+import "./cinematic-extras.css"; // clip-reveal, pinned gallery, review rails, plan pricing
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -1,0 +1,296 @@
+/* ═══════════════════════════════════════════════════════════════
+   CINEMATIC EXTRAS — loads after cinematic.css.
+   Four requested patterns, restaged on the CoolAir palette rather
+   than the light palettes they arrived in. Purely additive: delete
+   the import in main.jsx and the site is exactly as it was.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. Letter-by-letter vertical clip reveal ─────────────────── */
+.clip-text { display: inline-block; }
+.clip-word { display: inline-block; white-space: nowrap; }
+.clip-mask {
+  display: inline-block; overflow: hidden; line-height: inherit;
+  padding-bottom: 0.12em; margin-bottom: -0.12em; vertical-align: bottom;
+}
+/* The resting style IS the finished style — only `from` is declared. If the
+   animation never runs (reduced motion, a skipped paint, a remounted node) the
+   text is still on screen. Blank headings were a real bug once; not again. */
+.clip-ch { display: inline-block; animation: clipDrop 0.72s cubic-bezier(.16, 1, .3, 1) backwards; }
+@keyframes clipDrop { from { transform: translateY(-115%); } }
+
+/* ── 2. Scroll-pinned horizontal gallery ──────────────────────── */
+/* Padding must be zero: the element is a <section>, and the global
+   `section { padding: 64px 0 }` would be included in the border-box height the
+   pin distance is written into, throwing the sticky child out by 64px at the
+   end of the travel. The sticky child carries the spacing instead. */
+.hgal { position: relative; background: var(--bg); padding: 0; }
+.hgal-sticky {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
+  /* Top padding clears the fixed navbar — a centred block would otherwise put
+     the eyebrow and the first line of the title underneath it. */
+  padding: 96px 0 40px; box-sizing: border-box;
+  display: flex; flex-direction: column; justify-content: center; gap: 24px;
+}
+.hgal:not(.is-pinned) .hgal-sticky {
+  position: static; height: auto; overflow: visible; padding: 64px 0;
+}
+.hgal-head { position: relative; }
+/* Smaller than a standalone section title: the rail has to fit under it in
+   one viewport, and nothing here may be clipped. */
+.hgal-head .cine-section-title { font-size: clamp(2rem, 4.6vw, 3.6rem); }
+.hgal-hint {
+  color: var(--accent-soft); font-size: .72rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; margin-top: 14px;
+}
+.hgal-rail {
+  display: flex; flex-wrap: nowrap; gap: 18px; will-change: transform;
+  padding-left: max(20px, calc((100vw - 1140px) / 2));
+}
+/* A real flex item, not trailing padding — padding-right is counted in
+   scrollWidth inconsistently across browsers, and that measurement is what
+   sets the pin distance. Getting it wrong strands the last panel offscreen. */
+.hgal-rail::after { content: ""; flex: 0 0 max(20px, calc((100vw - 1140px) / 2)); }
+.hgal:not(.is-pinned) .hgal-rail {
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.hgal:not(.is-pinned) .hgal-rail::-webkit-scrollbar { display: none; }
+.hgal:not(.is-pinned) .hgal-panel { scroll-snap-align: center; }
+
+.hgal-panel {
+  position: relative; overflow: hidden; text-decoration: none;
+  flex: 0 0 clamp(268px, 28vw, 380px); height: min(54vh, 470px);
+  border: 1px solid var(--line); border-radius: var(--radius-lg); background: #0A0A0A;
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.hgal-panel img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(1) brightness(.5);
+  transition: filter .6s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.hgal-panel:hover img { filter: grayscale(0) brightness(.72); transform: scale(1.06); }
+.hgal-panel::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.94) 10%, rgba(0,0,0,.3) 58%, transparent);
+}
+.hgal-index {
+  position: absolute; top: 18px; left: 22px; z-index: 2;
+  font-family: "Space Grotesk", sans-serif; font-size: .78rem; font-weight: 700;
+  letter-spacing: .18em; color: rgba(255,255,255,.5);
+}
+.hgal-body { position: relative; z-index: 2; padding: 24px; display: block; }
+.hgal-body .cine-eyebrow { display: block; margin-bottom: 8px; }
+.hgal-title {
+  display: block; font-family: "Space Grotesk", sans-serif; text-transform: uppercase;
+  font-size: clamp(1.15rem, 2vw, 1.7rem); line-height: 1.02; letter-spacing: -.025em; color: #fff;
+}
+.hgal-desc { display: block; color: #B5B5B5; font-size: .88rem; margin-top: 8px; }
+.hgal-panel .cine-go { display: block; margin-top: 14px; }
+
+/* ── 3. Reviews: opposite-direction rails + read-in-full dialog ── */
+.rev-marquee { position: relative; }
+.rev-rail {
+  overflow: hidden; padding: 9px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+.rev-track { display: flex; width: max-content; animation: revScroll 58s linear infinite; }
+.rev-rail:hover .rev-track,
+.rev-rail:focus-within .rev-track { animation-play-state: paused; }
+@keyframes revScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.rev-set { display: flex; gap: 14px; padding-right: 14px; }
+
+.rev-card {
+  flex: 0 0 324px; text-align: left; cursor: pointer; font: inherit;
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+  padding: 20px; color: var(--ink); display: flex; flex-direction: column; gap: 12px;
+  transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .35s;
+}
+.rev-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,.22); }
+.rev-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.rev-stars { display: flex; gap: 3px; color: var(--amber); }
+.rev-text {
+  color: var(--ink); font-size: .93rem; line-height: 1.55; margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
+.rev-foot { display: flex; align-items: center; gap: 11px; margin-top: auto; }
+.rev-foot strong { display: block; font-size: .86rem; color: #fff; }
+.rev-foot em {
+  display: block; font-style: normal; font-size: .7rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); margin-top: 2px;
+}
+.rev-avatar {
+  flex: none; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 700; color: #fff; letter-spacing: .02em;
+}
+
+.rev-static { display: none; }
+.rev-static.is-shown {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 14px; margin-top: 40px;
+}
+.rev-static .rev-card { flex: initial; width: auto; }
+
+/* ── Read-in-full dialog ── */
+.rev-scrim {
+  position: fixed; inset: 0; z-index: 1000; padding: 24px;
+  display: grid; place-items: center;
+  background: rgba(4, 4, 4, 0.58);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  animation: revFade .22s ease-out;
+}
+@keyframes revFade { from { opacity: 0; } }
+.rev-modal {
+  position: relative; width: min(620px, 100%); outline: none;
+  background: rgba(18, 18, 18, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 24px;
+  box-shadow: var(--shadow-lg); padding: 30px;
+  animation: revRise .32s cubic-bezier(.16,1,.3,1);
+}
+@keyframes revRise { from { transform: translateY(16px); } }
+.rev-close {
+  position: absolute; top: 16px; right: 16px; width: 34px; height: 34px;
+  border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+  background: rgba(255,255,255,.08); border: 1px solid var(--glass-border); color: #fff;
+  transition: background .2s;
+}
+.rev-close:hover { background: var(--accent); }
+.rev-modal-head { display: flex; gap: 16px; align-items: center; margin-bottom: 20px; padding-right: 40px; }
+.rev-modal-head h3 { font-family: "Space Grotesk", sans-serif; font-size: 1.3rem; color: #fff; margin: 0; }
+.rev-modal-head p {
+  font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); margin: 4px 0 8px;
+}
+.rev-modal-body { position: relative; }
+.rev-modal-scroll { max-height: 42vh; overflow-y: auto; padding-bottom: 56px; }
+.rev-quote { color: #fff; font-size: 1.12rem; line-height: 1.6; }
+.rev-note { color: var(--muted); font-size: .85rem; margin-top: 16px; }
+.rev-modal-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  flex-wrap: wrap; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line);
+}
+.rev-modal-foot span { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+/* ── 4. Plan pricing: two ghost cards around one filled tier ───── */
+.pricing { position: relative; }
+.pricing-head { text-align: center; max-width: 720px; margin: 0 auto; }
+.pricing-pill {
+  display: inline-flex; align-items: center; gap: 7px; margin-bottom: 18px;
+  padding: 6px 14px; border-radius: 999px;
+  background: var(--accent-tint); border: 1px solid rgba(226,100,58,.32);
+  color: var(--accent-soft); font-size: .68rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+}
+.pricing-sub { color: var(--muted); margin: 18px auto 0; max-width: 52ch; line-height: 1.6; }
+
+.pricing-toggle {
+  display: inline-flex; align-items: center; gap: 12px; margin-top: 28px;
+  font-size: .88rem; font-weight: 600; color: var(--muted);
+}
+.pricing-toggle .is-on { color: #fff; }
+.pricing-switch {
+  position: relative; width: 50px; height: 28px; border-radius: 999px; cursor: pointer;
+  background: rgba(255,255,255,.14); border: 1px solid var(--glass-border);
+  transition: background .25s cubic-bezier(.16,1,.3,1);
+}
+.pricing-switch.is-on { background: var(--accent); border-color: var(--accent); }
+.pricing-switch i {
+  position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+  background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.4);
+  transition: transform .25s cubic-bezier(.16,1,.3,1);
+}
+.pricing-switch.is-on i { transform: translateX(22px); }
+.pricing-save {
+  font-style: normal; font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+  padding: 4px 9px; border-radius: 999px;
+  background: var(--accent-tint); border: 1px solid rgba(226,100,58,.32); color: var(--accent-soft);
+}
+
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: center;
+  max-width: 1000px; margin: 54px auto 0;
+}
+.pricing-card {
+  position: relative; border-radius: var(--radius-lg); padding: 32px;
+  background: var(--card); border: 1px solid var(--line);
+  display: flex; flex-direction: column;
+}
+.pricing-card h3 {
+  font-family: "Space Grotesk", sans-serif; font-size: 1.05rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 0;
+}
+.pricing-amount { display: flex; align-items: baseline; gap: 6px; margin: 16px 0 4px; }
+.pricing-cur { font-size: .8rem; font-weight: 700; letter-spacing: .12em; color: var(--muted); }
+.pricing-amount strong {
+  font-family: "Space Grotesk", sans-serif; font-size: 3.2rem; font-weight: 700;
+  letter-spacing: -.04em; color: #fff; line-height: 1;
+}
+.pricing-unit { font-size: .9rem; color: var(--muted); }
+.pricing-note { font-size: .82rem; color: var(--muted); margin: 0; }
+.pricing-features { list-style: none; padding: 0; margin: 24px 0; }
+.pricing-features li {
+  display: flex; align-items: center; gap: 10px; padding: 13px 0;
+  border-top: 1px solid var(--line); font-size: .88rem; font-weight: 500; color: #D8D8D8;
+}
+.pricing-features li:last-child { border-bottom: 1px solid var(--line); }
+.pricing-features svg { flex: none; color: var(--accent-soft); }
+
+.pricing-card .btn { width: 100%; margin-top: auto; border-radius: 14px; justify-content: center; }
+.pricing-cta-ghost {
+  background: rgba(255,255,255,.06); border: 1px solid var(--glass-border);
+  color: #fff; font-weight: 700;
+}
+.pricing-cta-ghost:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.3); }
+
+/* The one tier we actually recommend: filled, lifted, scaled. */
+.pricing-card.is-featured {
+  z-index: 2; background: var(--grad); border-color: transparent;
+  box-shadow: 0 30px 70px -18px rgba(226, 100, 58, 0.55);
+}
+.pricing-card.is-featured h3 { color: rgba(255,255,255,.82); }
+.pricing-card.is-featured .pricing-cur,
+.pricing-card.is-featured .pricing-unit,
+.pricing-card.is-featured .pricing-note { color: rgba(255,255,255,.85); }
+.pricing-card.is-featured .pricing-features li { color: #fff; border-color: rgba(255,255,255,.22); }
+.pricing-card.is-featured .pricing-features svg { color: #fff; }
+.pricing-cta-solid {
+  background: #fff; color: #111; font-weight: 700;
+  box-shadow: 0 6px 20px rgba(0,0,0,.28);
+}
+.pricing-cta-solid:hover { background: #F5F0EC; color: #111; }
+.pricing-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: #fff; color: #B4502C; border-radius: 999px; padding: 5px 13px;
+  font-size: .64rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  white-space: nowrap; box-shadow: 0 4px 16px rgba(0,0,0,.35);
+}
+.pricing-guarantee {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-top: 42px; font-size: .88rem; color: var(--muted);
+}
+.pricing-guarantee svg { color: var(--accent-soft); }
+
+@media (min-width: 1000px) {
+  .pricing-card.is-featured { margin: -14px 0; transform: scale(1.04); }
+}
+@media (max-width: 999px) {
+  .pricing-grid { grid-template-columns: 1fr; max-width: 420px; gap: 26px; }
+}
+@media (max-width: 700px) {
+  .rev-card { flex: 0 0 min(300px, 82vw); }
+  .rev-modal { padding: 24px 20px; }
+  .pricing-card { padding: 26px; }
+}
+
+/* ── Reduced motion: remove the mechanic, keep the content ─────── */
+@media (prefers-reduced-motion: reduce) {
+  .clip-ch { animation: none; }
+  .rev-rail { display: none; }
+  .rev-static {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;
+  }
+  .rev-static .rev-card { flex: initial; width: auto; }
+  .rev-scrim, .rev-modal { animation: none; }
+  .hgal-panel img, .rev-card { transition: none; }
+}

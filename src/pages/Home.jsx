@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import QuoteWidget from "../components/QuoteWidget";
 import SavingsCalculator from "../components/SavingsCalculator";
-import Icon, { SERVICE_ICONS } from "../components/Icon";
-import { SERVICES, SERVICE_AREAS, REVIEWS } from "../data";
+import HorizontalGallery from "../components/HorizontalGallery";
+import ReviewsMarquee from "../components/ReviewsMarquee";
+import ClipText from "../components/ClipText";
+import Icon from "../components/Icon";
+import { SERVICES, SERVICE_AREAS } from "../data";
 
 // Cursor spotlight — writes CSS vars straight on the node, no React state.
 const spot = (e) => {
@@ -18,9 +21,29 @@ const CUBE_FACES = [
   { cls: "cf-top", img: "/img/cube/face-4.jpg", label: "Air quality" },
 ];
 
-export default function Home() {
-  const [lead, ...rest] = SERVICES;
+// Panels for the pinned horizontal rail — the five services plus the shop.
+const PANELS = [
+  ...SERVICES.map((s, i) => ({
+    to: `/services/${s.slug}`,
+    img: `/img/page-service-${s.slug}.jpg`,
+    index: String(i + 1).padStart(2, "0"),
+    eyebrow: `from SAR ${s.basePrice.toLocaleString()}`,
+    title: s.name,
+    desc: s.short,
+    cta: "Explore",
+  })),
+  {
+    to: "/shop",
+    img: "/img/bg/bg-shop.jpg",
+    index: String(SERVICES.length + 1).padStart(2, "0"),
+    eyebrow: "Six systems · installation bundled",
+    title: "Shop AC units",
+    desc: "High-SEER systems with installation, haul-away and 0% instalments built in.",
+    cta: "Browse units",
+  },
+];
 
+export default function Home() {
   return (
     <div className="cine">
       {/* ── HERO: 3D rolodex ── */}
@@ -41,7 +64,9 @@ export default function Home() {
 
           <div className="cine-hero-copy">
             <h1 className="cine-display">
-              Cold air,<br /><span className="cine-grad-text">on demand</span>
+              <ClipText text="Cold air," />
+              <br />
+              <ClipText text="on demand" className="cine-grad-text" delay={0.22} />
             </h1>
             <p>
               Same-day AC repair, replacement and maintenance. Instant online pricing,
@@ -81,51 +106,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Services as a bento of tiles ── */}
-      <section>
-        <div className="container">
-          <h2 className="cine-section-title" style={{ marginBottom: 28 }}>
-            What we<br />handle
-          </h2>
-
-          <div className="cine-bento">
-            <Link to={`/services/${lead.slug}`} className="cine-tile wide cine-spot" onMouseMove={spot}>
-              <div className="cine-chrome"><i /><i /><i /></div>
-              <img src={`/img/page-service-${lead.slug}.jpg`} alt="" />
-              <span className="cine-eyebrow">{lead.priceNote}</span>
-              <h3>{lead.name}</h3>
-              <p>{lead.short}</p>
-              <span className="cine-go">Explore →</span>
-            </Link>
-
-            {rest.map((s) => (
-              <Link key={s.slug} to={`/services/${s.slug}`} className="cine-tile cine-spot" onMouseMove={spot}>
-                <img src={`/img/page-service-${s.slug}.jpg`} alt="" />
-                <span className="cine-eyebrow">
-                  <Icon name={SERVICE_ICONS[s.slug]} size={13} /> from SAR {s.basePrice.toLocaleString()}
-                </span>
-                <h3>{s.name}</h3>
-                <p>{s.short}</p>
-                <span className="cine-go">Explore →</span>
-              </Link>
-            ))}
-
-            <Link to="/shop" className="cine-tile wide cine-spot" onMouseMove={spot}>
-              <img src="/img/bg/bg-shop.jpg" alt="" />
-              <span className="cine-eyebrow">Six systems · installation bundled</span>
-              <h3>Shop AC units</h3>
-              <p>High-SEER systems with installation, haul-away and 0% APR financing built in.</p>
-              <span className="cine-go">Browse units →</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* ── What we handle: vertical scroll drives a horizontal rail ── */}
+      <HorizontalGallery panels={PANELS} />
 
       {/* ── Why us, on a glow stage ── */}
       <section className="cine-glow">
         <div className="container">
           <h2 className="cine-section-title" style={{ textAlign: "center", marginBottom: 12 }}>
-            Why they<br />switch
+            <ClipText text="Why they" />
+            <br />
+            <ClipText text="switch" delay={0.16} />
           </h2>
           <p style={{ textAlign: "center", color: "var(--muted)", maxWidth: 46, margin: "0 auto 40px", maxWidth: "44ch" }}>
             Five things the typical local HVAC outfit still gets wrong.
@@ -162,23 +152,7 @@ export default function Home() {
 
       {/* ── Proof ── */}
       <section>
-        <div className="container">
-          <p className="cine-eyebrow">Reviews</p>
-          <h2 className="cine-section-title" style={{ margin: "10px 0 28px" }}>4.9 average</h2>
-          <div className="grid grid-3">
-            {REVIEWS.slice(0, 3).map((r) => (
-              <div key={r.name} className="card cine-spot" onMouseMove={spot}>
-                <div style={{ display: "flex", gap: 3, marginBottom: 12 }}>
-                  {Array.from({ length: r.rating }).map((_, i) => (
-                    <Icon key={i} name="star" size={13} style={{ color: "var(--amber)" }} />
-                  ))}
-                </div>
-                <p style={{ color: "var(--ink)", fontSize: "1rem", lineHeight: 1.55 }}>“{r.text}”</p>
-                <p className="cine-eyebrow" style={{ marginTop: 14 }}>{r.name} · Google</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <ReviewsMarquee />
       </section>
 
       {/* ── Coverage ── */}
@@ -186,7 +160,9 @@ export default function Home() {
         <div className="container grid grid-2" style={{ alignItems: "center" }}>
           <div>
             <p className="cine-eyebrow">Coverage</p>
-            <h2 className="cine-section-title" style={{ margin: "10px 0 18px" }}>Four zones</h2>
+            <h2 className="cine-section-title" style={{ margin: "10px 0 18px" }}>
+              <ClipText text="Four zones" />
+            </h2>
             <div>
               {SERVICE_AREAS.map((a) => (
                 <span key={a.zone} className="zone-pill">
@@ -209,7 +185,9 @@ export default function Home() {
       <section className="cine-glow" style={{ textAlign: "center" }}>
         <div className="container">
           <h2 className="cine-section-title">
-            Ready when<br />you are
+            <ClipText text="Ready when" />
+            <br />
+            <ClipText text="you are" delay={0.18} />
           </h2>
           <p style={{ color: "var(--muted)", margin: "18px auto 30px", maxWidth: "42ch" }}>
             Pick a real time slot online in under a minute.
