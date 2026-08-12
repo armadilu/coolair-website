@@ -6,14 +6,14 @@ import Icon from "./Icon";
 // Triages common issues and hands off to booking.
 
 const replies = [
-  { match: /not cool|warm air|no cold|not cold/i, text: "That's often a refrigerant or capacitor issue. If the outdoor unit hums but the fan doesn't spin, it's very likely the capacitor — a quick same-day fix (~$180–$320). Want to book a diagnostic?" },
+  { match: /not cool|warm air|no cold|not cold/i, text: "That's often a refrigerant or capacitor issue. If the outdoor unit hums but the fan doesn't spin, it's very likely the capacitor — a quick same-day fix (~SAR 650–1,200). Want to book a diagnostic?" },
   { match: /noise|buzz|rattl|squeal|bang/i, text: "Squealing usually means a belt or motor bearing; banging can be a loose part. I'd avoid running it until it's checked. We have same-day slots — shall I point you to booking?" },
   { match: /leak|water|drip/i, text: "Water around the indoor unit is usually a clogged condensate drain — inexpensive to clear, but it can damage floors if left. A tech can sort it same-day." },
-  { match: /price|cost|quote|how much/i, text: "Diagnostics are $89 (waived with repair). Repairs run $120–$650, new systems $2,750–$8,900 installed with 0% financing. Try the instant quote tool on the homepage for a range tailored to you!" },
-  { match: /install|replace|new unit|new ac/i, text: "We install high-SEER systems from Carrier, Trane, Lennox, Goodman and Rheem — most in one day, financing from $89/mo. Browse the Shop page or book a free in-home estimate." },
-  { match: /maintenance|tune|plan/i, text: "Our CoolCare plan is $14/mo: two seasonal tune-ups, priority scheduling, 15% off repairs, and no emergency fees. It pays for itself with one avoided breakdown." },
-  { match: /hour|open|when|time/i, text: "We book online 24/7, run service calls 7am–7pm daily, and keep a 24/7 emergency line: +966 11 200 2665." },
-  { match: /area|zip|location|where/i, text: "We cover Central Metro, North Suburbs, and East/West County — check the Service Areas page and enter your zip to confirm coverage." },
+  { match: /price|cost|quote|how much/i, text: "The callout is SAR 335 (waived with repair). Repairs run SAR 450–2,400, new systems SAR 10,300–33,400 installed with 0% instalments. Try the instant quote tool on the homepage for a range tailored to you!" },
+  { match: /install|replace|new unit|new ac/i, text: "We install high-SEER systems from Carrier, Trane, Lennox, Goodman and Rheem — most in one day, instalments from SAR 375/mo. Browse the Shop page or book a free on-site estimate." },
+  { match: /maintenance|tune|plan/i, text: "Our CoolCare plan is SAR 55/mo: two seasonal tune-ups, priority scheduling, 15% off repairs, and no emergency fees. It pays for itself with one avoided breakdown." },
+  { match: /hour|open|when|time/i, text: "We book online 24/7, run service calls 8am–10pm daily, and keep a 24/7 emergency line: +966 11 200 2665." },
+  { match: /area|zip|location|where/i, text: "We cover Al Olaya & Al Muruj, Al Malaz & Al Rawdah, Al Narjis & Al Yasmin, and Diriyah & Irqah — check the Service Areas page and enter your postal code to confirm." },
 ];
 
 export default function ChatConcierge() {
