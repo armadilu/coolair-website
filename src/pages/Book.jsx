@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { SERVICES, SLOTS } from "../data";
+import { SERVICES, SERVICE_AREAS, SLOTS } from "../data";
 import { supabase } from "../supabaseClient";
 import { useAuth } from "../auth";
 import Icon from "../components/Icon";
@@ -81,9 +81,15 @@ export default function Book() {
               <label>Phone</label>
               <input value={form.phone} onChange={set("phone")} placeholder="05X XXX XXXX" />
             </div>
+            {/* Service Areas moved to districts and National Address, so the
+                booking form had to follow. The column is free text, so a
+                district name stores fine without a migration. */}
             <div className="form-field">
-              <label>Zip code</label>
-              <input value={form.zip} onChange={set("zip")} maxLength={5} placeholder="12211" />
+              <label>District or postal code</label>
+              <input value={form.zip} onChange={set("zip")} placeholder="Al Narjis, or 13322" list="coolair-districts" />
+              <datalist id="coolair-districts">
+                {SERVICE_AREAS.flatMap((a) => a.districts).map((d) => <option key={d} value={d} />)}
+              </datalist>
             </div>
             <div className="form-field">
               <label>Service needed</label>
