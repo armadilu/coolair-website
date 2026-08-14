@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-// First-visit loading screen: the hyper-speed character streaks left across a
-// black stage, then the whole thing lifts away as a circular spotlight mask
-// opening onto the homepage underneath.
+// Loading screen: the hyper-speed character streaks left across a black stage,
+// then the whole thing lifts away as a circular spotlight mask opening onto the
+// homepage underneath.
 //
-// It runs once per browser session, not once per page view — sitting through
-// the same intro on every navigation is a tax, not a brand moment. Anyone who
-// asked for reduced motion skips it entirely.
+// It plays on every full load of the site, but not on internal navigation,
+// because the app does not remount for that. Click or press a key to cut
+// straight to the reveal. Anyone who asked for reduced motion never sees it.
 
 const HOLD = 2600; // streaking
 const REVEAL = 1400; // spotlight opening
@@ -14,14 +14,26 @@ const REVEAL = 1400; // spotlight opening
 export default function Loader({ onDone }) {
   const [phase, setPhase] = useState("run");
 
+  // Hold, then reveal. Skipping shortens the hold; the reveal always runs, so
+  // the spotlight opens rather than the screen vanishing.
   useEffect(() => {
-    const a = setTimeout(() => setPhase("reveal"), HOLD);
-    const b = setTimeout(() => onDone?.(), HOLD + REVEAL);
+    if (phase !== "run") return;
+    const t = setTimeout(() => setPhase("reveal"), HOLD);
+    const skip = () => setPhase("reveal");
+    window.addEventListener("pointerdown", skip);
+    window.addEventListener("keydown", skip);
     return () => {
-      clearTimeout(a);
-      clearTimeout(b);
+      clearTimeout(t);
+      window.removeEventListener("pointerdown", skip);
+      window.removeEventListener("keydown", skip);
     };
-  }, [onDone]);
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase !== "reveal") return;
+    const t = setTimeout(() => onDone?.(), REVEAL);
+    return () => clearTimeout(t);
+  }, [phase, onDone]);
 
   return (
     <div className={`cl-screen ${phase === "reveal" ? "is-revealing" : ""}`} role="status" aria-label="Loading CoolAir">

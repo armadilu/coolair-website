@@ -33,11 +33,12 @@
 
 /* The bar runs out of room before 900px once every label is on it, so the
    drawer has to start earlier than the old breakpoint. */
-@media (max-width: 1180px) {
-  .navbar-inner .cine-live { display: none; }
+/* The Live badge stays at every width. Room is bought by tightening the link
+   padding and by handing over to the drawer earlier, not by dropping it. */
+@media (max-width: 1300px) {
   .nav-links > a, .nav-links > .dropdown > button { padding: 9px 9px; font-size: .86rem; }
 }
-@media (max-width: 1040px) {
+@media (max-width: 1200px) {
   .hamburger { display: block; }
   .nav-links {
     display: none; position: absolute; top: 100%; left: 0; right: 0;

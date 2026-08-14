@@ -41,16 +41,14 @@ export default function App() {
   const { pathname } = useLocation();
   const chrome = pathname !== "/landing";
 
-  // The intro plays once per browser session, not once per page view.
+  // The intro plays on every full load of the site. It does not replay on
+  // internal navigation, because the app never remounts for that — so this
+  // costs you the intro when you actually arrive, and nothing after.
   const [booting, setBooting] = useState(() => {
     if (typeof window === "undefined") return false;
-    if (sessionStorage.getItem("coolair_booted")) return false;
     return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   });
-  const finishBoot = useCallback(() => {
-    sessionStorage.setItem("coolair_booted", "1");
-    setBooting(false);
-  }, []);
+  const finishBoot = useCallback(() => setBooting(false), []);
 
   return (
     <>
