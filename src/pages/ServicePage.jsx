@@ -38,7 +38,7 @@ export default function ServicePage() {
               Book now
             </Link>
             <p style={{ fontSize: "0.82rem", color: "var(--muted)", marginTop: 12 }}>
-              Or call <a href="tel:+966112002665">+966 11 200 2665</a> — same-day slots most days.
+              Or call <a href="tel:+966112002665">+966 11 200 2665</a>. Same-day slots most days.
             </p>
           </div>
         </div>

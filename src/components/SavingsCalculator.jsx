@@ -29,17 +29,17 @@ export default function SavingsCalculator() {
       <div className="form-field">
         <label>Upgrade to</label>
         <select value={targetSeer} onChange={(e) => setTargetSeer(+e.target.value)}>
-          <option value={15}>SEER 15 — Best value</option>
-          <option value={17}>SEER 17 — Popular pick</option>
-          <option value={22}>SEER 22 — High efficiency</option>
-          <option value={26}>SEER 26 — Flagship</option>
+          <option value={15}>SEER 15 · Best value</option>
+          <option value={17}>SEER 17 · Popular pick</option>
+          <option value={22}>SEER 22 · High efficiency</option>
+          <option value={26}>SEER 26 · Flagship</option>
         </select>
       </div>
       <div style={{ textAlign: "center", padding: "10px 0 4px" }}>
         <div style={{ color: "var(--muted)", fontSize: "0.9rem" }}>Estimated annual savings</div>
         <div className="calc-result">SAR {annual.toLocaleString()}/yr</div>
         <p style={{ color: "var(--muted)", fontSize: "0.82rem", marginTop: 6 }}>
-          Estimate based on typical cooling loads — get an exact figure with a free in-home assessment.
+          Estimate based on typical cooling loads. Get an exact figure with a free on-site assessment.
         </p>
       </div>
     </div>

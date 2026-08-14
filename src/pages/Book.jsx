@@ -66,7 +66,7 @@ export default function Book() {
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Book</div>
           <h1>Book your service</h1>
-          <p>Pick a real time slot — no callbacks, no waiting by the phone.</p>
+          <p>Pick a real time slot. No callbacks, no waiting by the phone.</p>
         </div>
       </div>
 
@@ -128,7 +128,7 @@ export default function Book() {
                 <li>Instant text confirmation with your slot</li>
                 <li>Technician name + photo before arrival</li>
                 <li>Flat-rate price confirmed before work starts</li>
-                <li>Pay on completion — card, financing, or check</li>
+                <li>Pay on completion by card, transfer or instalments</li>
               </ul>
               <p className="staff-link" style={{ textAlign: "left" }}>
                 <Link to="/login?staff=1">Staff login</Link>

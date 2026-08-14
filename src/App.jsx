@@ -1,8 +1,10 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ChatConcierge from "./components/ChatConcierge";
+import Loader from "./components/Loader";
+import { useAuth } from "./auth";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home";
 import ServicePage from "./pages/ServicePage";
@@ -21,28 +23,56 @@ function ScrollToTop() {
   return null;
 }
 
+// Booking writes a row against a user id, so there has to be a user. Anyone
+// arriving signed out is sent to login with the destination attached, and
+// dropped back here the moment they are in.
+function RequireAuth({ children }) {
+  const { user, authReady } = useAuth();
+  const loc = useLocation();
+
+  // Restoring a Supabase session is async. Redirecting before it resolves
+  // bounces a signed-in customer to the login page for no reason.
+  if (!user && !authReady) return <div style={{ minHeight: "70vh" }} />;
+  if (!user) return <Navigate to={`/login?next=${encodeURIComponent(loc.pathname + loc.search)}`} replace />;
+  return children;
+}
+
 export default function App() {
   const { pathname } = useLocation();
-  const isLanding = pathname === "/";
+  const chrome = pathname !== "/landing";
+
+  // The intro plays once per browser session, not once per page view.
+  const [booting, setBooting] = useState(() => {
+    if (typeof window === "undefined") return false;
+    if (sessionStorage.getItem("coolair_booted")) return false;
+    return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
+  const finishBoot = useCallback(() => {
+    sessionStorage.setItem("coolair_booted", "1");
+    setBooting(false);
+  }, []);
+
   return (
     <>
+      {booting && <Loader onDone={finishBoot} />}
       <ScrollToTop />
-      {!isLanding && <Navbar />}
+      {chrome && <Navbar />}
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/landing" element={<Landing />} />
         <Route path="/services/:slug" element={<ServicePage />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/financing" element={<Financing />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/service-areas" element={<ServiceAreas />} />
         <Route path="/about" element={<About />} />
-        <Route path="/book" element={<Book />} />
+        <Route path="/book" element={<RequireAuth><Book /></RequireAuth>} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<Home />} />
       </Routes>
-      {!isLanding && <Footer />}
+      {chrome && <Footer />}
       <ChatConcierge />
     </>
   );

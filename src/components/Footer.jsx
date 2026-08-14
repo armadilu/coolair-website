@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <h4><span className="logo-mark" style={{ width: 24, height: 24, borderRadius: 8, fontSize: 11, marginRight: 8 }}>C</span>CoolAir Co.</h4>
-            <p>Modern HVAC service — same-day repair, transparent pricing, and AI-assisted diagnostics.</p>
+            <p>Air conditioning across Riyadh. Same-day repair, pricing in the open, booked online.</p>
             <p style={{ marginTop: 12 }}>24/7 Emergency line:</p>
             <p className="emergency">+966 11 200 2665</p>
             <div className="cert-row">
@@ -40,7 +40,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 CoolAir Co. — License #TACLA-042077C. All rights reserved.</span>
+          <span>© 2026 CoolAir Co. Commercial Registration 1010XXXXXX, Riyadh. All rights reserved.</span>
           <span>Licensed • Insured • Background-checked technicians</span>
         </div>
       </div>

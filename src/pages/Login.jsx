@@ -9,6 +9,9 @@ import { supabase } from "../supabaseClient";
 export default function Login() {
   const [params] = useSearchParams();
   const staff = params.get("staff") === "1";
+  // Where to land after signing in. Booking sends people here with ?next=/book
+  // so they finish what they started instead of arriving on the dashboard.
+  const next = params.get("next");
   const [tab, setTab] = useState("login");
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
@@ -26,19 +29,19 @@ export default function Login() {
         : await signup(form.name, form.email, form.password);
     setBusy(false);
     if (res.error) return setError(res.error);
-    navigate("/dashboard");
+    navigate(next || "/dashboard", { replace: true });
   };
 
   return (
     <div className="auth-wrap page-bg" style={{ "--bg-img": "url('/img/bg/bg-login.jpg')" }}>
       <div className="auth-card">
-        <h2 style={{ color: "var(--blue-900)", marginBottom: 4 }}>
-          {staff ? "Staff access" : "Welcome to CoolAir"}
-        </h2>
+        <h2 style={{ marginBottom: 4 }}>{staff ? "Staff access" : "Welcome to CoolAir"}</h2>
         <p style={{ color: "var(--muted)", fontSize: "0.9rem", marginBottom: 20 }}>
           {staff
             ? "Admins and technicians sign in with their company account."
-            : "Track appointments, invoices and your maintenance plan."}
+            : next
+              ? "Sign in to book. Your appointment is saved to your account so you can track it."
+              : "Track appointments, invoices and your maintenance plan."}
         </p>
 
         {!staff && (

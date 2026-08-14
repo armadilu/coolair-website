@@ -71,7 +71,7 @@ export function AuthProvider({ children }) {
 
   const signup = async (name, email, password) => {
     if (!name || !email || password.length < 6)
-      return { error: "Fill all fields — password needs 6+ characters." };
+      return { error: "Fill all fields. Password needs at least 6 characters." };
     const { data, error } = await supabase.auth.signUp({
       email: email.trim(),
       password,
@@ -81,7 +81,7 @@ export function AuthProvider({ children }) {
     if (!data.session)
       return {
         error:
-          "Account created — check your email for a confirmation link, then log in. (Or disable 'Confirm email' in Supabase → Authentication → Providers for instant login.)",
+          "Account created. Check your email for a confirmation link, then log in. (Or disable 'Confirm email' in Supabase → Authentication → Providers for instant login.)",
       };
     const profile = await profileFor(data.user);
     setUser(profile);

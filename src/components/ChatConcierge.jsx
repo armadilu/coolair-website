@@ -6,20 +6,20 @@ import Icon from "./Icon";
 // Triages common issues and hands off to booking.
 
 const replies = [
-  { match: /not cool|warm air|no cold|not cold/i, text: "That's often a refrigerant or capacitor issue. If the outdoor unit hums but the fan doesn't spin, it's very likely the capacitor — a quick same-day fix (~SAR 650–1,200). Want to book a diagnostic?" },
-  { match: /noise|buzz|rattl|squeal|bang/i, text: "Squealing usually means a belt or motor bearing; banging can be a loose part. I'd avoid running it until it's checked. We have same-day slots — shall I point you to booking?" },
-  { match: /leak|water|drip/i, text: "Water around the indoor unit is usually a clogged condensate drain — inexpensive to clear, but it can damage floors if left. A tech can sort it same-day." },
+  { match: /not cool|warm air|no cold|not cold/i, text: "That's often a refrigerant or capacitor issue. If the outdoor unit hums but the fan doesn't spin, it's very likely the capacitor, a quick same-day fix (~SAR 650–1,200). Want to book a diagnostic?" },
+  { match: /noise|buzz|rattl|squeal|bang/i, text: "Squealing usually means a belt or motor bearing; banging can be a loose part. I'd avoid running it until it's checked. We have same-day slots. Shall I point you to booking?" },
+  { match: /leak|water|drip/i, text: "Water around the indoor unit is usually a clogged condensate drain. Inexpensive to clear, but it can damage floors if left. A tech can sort it same-day." },
   { match: /price|cost|quote|how much/i, text: "The callout is SAR 335 (waived with repair). Repairs run SAR 450–2,400, new systems SAR 10,300–33,400 installed with 0% instalments. Try the instant quote tool on the homepage for a range tailored to you!" },
-  { match: /install|replace|new unit|new ac/i, text: "We install high-SEER systems from Carrier, Trane, Lennox, Goodman and Rheem — most in one day, instalments from SAR 375/mo. Browse the Shop page or book a free on-site estimate." },
+  { match: /install|replace|new unit|new ac/i, text: "We install high-SEER systems from Carrier, Trane, Lennox, Goodman and Rheem, most in one day, instalments from SAR 375/mo. Browse the Shop page or book a free on-site estimate." },
   { match: /maintenance|tune|plan/i, text: "Our CoolCare plan is SAR 55/mo: two seasonal tune-ups, priority scheduling, 15% off repairs, and no emergency fees. It pays for itself with one avoided breakdown." },
   { match: /hour|open|when|time/i, text: "We book online 24/7, run service calls 8am–10pm daily, and keep a 24/7 emergency line: +966 11 200 2665." },
-  { match: /area|zip|location|where/i, text: "We cover Al Olaya & Al Muruj, Al Malaz & Al Rawdah, Al Narjis & Al Yasmin, and Diriyah & Irqah — check the Service Areas page and enter your postal code to confirm." },
+  { match: /area|zip|location|where/i, text: "We cover Al Olaya & Al Muruj, Al Malaz & Al Rawdah, Al Narjis & Al Yasmin, and Diriyah & Irqah. Check the Service Areas page and search your district to confirm." },
 ];
 
 export default function ChatConcierge() {
   const [open, setOpen] = useState(false);
   const [msgs, setMsgs] = useState([
-    { from: "bot", text: "Hi! I'm the CoolAir assistant. Tell me what your AC is doing — e.g. “not cooling” or “making a noise” — and I'll triage it." },
+    { from: "bot", text: "Hi! I'm the CoolAir assistant. Tell me what your AC is doing, for example “not cooling” or “making a noise”, and I'll triage it." },
   ]);
   const [input, setInput] = useState("");
   const bodyRef = useRef(null);
@@ -34,7 +34,7 @@ export default function ChatConcierge() {
     const hit = replies.find((r) => r.match.test(text));
     const answer = hit
       ? hit.text
-      : "I can help with cooling problems, pricing, installs, maintenance plans, hours, and service areas. For anything else, our team picks up at +966 11 200 2665 — or book online and add a note.";
+      : "I can help with cooling problems, pricing, installs, maintenance plans, hours, and service areas. For anything else, our team picks up at +966 11 200 2665, or book online and add a note.";
     setMsgs((m) => [...m, { from: "user", text }, { from: "bot", text: answer }]);
     setInput("");
   };

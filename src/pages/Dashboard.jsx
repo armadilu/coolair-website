@@ -130,7 +130,7 @@ function AdminDash({ user }) {
       </div>
       <h3 style={{ margin: "10px 0 12px", color: "var(--blue-900)" }}>All bookings</h3>
       {live.length === 0 ? (
-        <div className="card"><p style={{ color: "var(--muted)" }}>No bookings yet — they appear here the moment a customer books.</p></div>
+        <div className="card"><p style={{ color: "var(--muted)" }}>No bookings yet. They appear here the moment a customer books.</p></div>
       ) : (
         <div className="table-wrap">
           <table className="styled">
@@ -207,7 +207,7 @@ function TechDash({ user }) {
         {mocks.map((j) => (
           <div key={j.id} className="card" style={{ marginBottom: 14 }}>
             <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
-              <h3>{j.service} — {j.customer}</h3>
+              <h3>{j.service} · {j.customer}</h3>
               <span className={`status-chip ${chipClass(j.status)}`}>{j.status}</span>
             </div>
             <p style={{ color: "var(--muted)", margin: "6px 0" }}>{j.address} · {j.date} · {j.id}</p>
@@ -227,12 +227,12 @@ function TechDash({ user }) {
         <div className="stat"><div className="num">{live.filter((j) => j.status === "completed").length}</div><div className="lbl">Completed</div></div>
       </div>
       {live.length === 0 && (
-        <div className="card"><p style={{ color: "var(--muted)" }}>No jobs assigned yet — dispatch assigns them from the admin CRM.</p></div>
+        <div className="card"><p style={{ color: "var(--muted)" }}>No jobs assigned yet. Dispatch assigns them from the admin CRM.</p></div>
       )}
       {live.map((j) => (
         <div key={j.id} className="card" style={{ marginBottom: 14 }}>
           <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
-            <h3>{serviceName(j.service_slug)} — {j.customer_name}</h3>
+            <h3>{serviceName(j.service_slug)} · {j.customer_name}</h3>
             <span className={`status-chip ${chipClass(j.status)}`}>{j.status.replace("_", " ")}</span>
           </div>
           <p style={{ color: "var(--muted)", margin: "6px 0" }}>

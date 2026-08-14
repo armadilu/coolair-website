@@ -12,7 +12,7 @@ const OPTIONS = [
   },
   {
     name: "Fixed 7.9% over 60 months",
-    desc: "Low fixed monthly payments spread over five years — from about SAR 375/mo on a typical installed system.",
+    desc: "Low fixed monthly payments spread over five years, from about SAR 375/mo on a typical installed system.",
     best: "Full system replacements",
   },
   {
@@ -29,7 +29,7 @@ export default function Financing() {
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Financing</div>
           <h1><ClipText text="Financing & pricing" /></h1>
-          <p>A new AC is a big purchase — we make the cost predictable and the payments manageable.</p>
+          <p>A new AC is a big purchase. We make the cost predictable and the payments manageable.</p>
         </div>
       </div>
 

@@ -3,6 +3,7 @@ import QuoteWidget from "../components/QuoteWidget";
 import SavingsCalculator from "../components/SavingsCalculator";
 import HorizontalGallery from "../components/HorizontalGallery";
 import ReviewsMarquee from "../components/ReviewsMarquee";
+import RiyadhMap from "../components/RiyadhMap";
 import ClipText from "../components/ClipText";
 import Icon from "../components/Icon";
 import { SERVICES, SERVICE_AREAS } from "../data";
@@ -166,18 +167,16 @@ export default function Home() {
             <div>
               {SERVICE_AREAS.map((a) => (
                 <span key={a.zone} className="zone-pill">
-                  <Icon name="pin" size={12} /> {a.zone} — {a.response}
+                  <Icon name="pin" size={12} /> {a.zone} · {a.response}
                 </span>
               ))}
             </div>
             <p style={{ marginTop: 22 }}>
-              <Link to="/service-areas" className="btn btn-outline">Check your zip</Link>
+              <Link to="/service-areas" className="btn btn-outline">Find your district</Link>
             </p>
           </div>
-          <div className="map-frame cine-spot" onMouseMove={spot}>
-            <img src="/img/map-metro.jpg" alt="CoolAir coverage across the metro" />
-            <span className="map-caption">4 zones · 16 zip codes</span>
-          </div>
+          {/* The static image here was a map of Dallas. */}
+          <RiyadhMap />
         </div>
       </section>
 
@@ -192,7 +191,7 @@ export default function Home() {
           <p style={{ color: "var(--muted)", margin: "18px auto 30px", maxWidth: "42ch" }}>
             Pick a real time slot online in under a minute.
           </p>
-          <Link to="/book" className="btn btn-primary btn-lg">Book now</Link>
+          <Link to="/book" className="btn btn-primary btn-lg">See available slots</Link>
           <div className="cine-footer-mark" aria-hidden="true">COOLAIR</div>
         </div>
       </section>

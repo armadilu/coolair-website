@@ -85,7 +85,7 @@ export default function QuoteWidget() {
         <div className="quote-main">
           <h3><Icon name="zap" size={19} style={{ color: "var(--accent)" }} /> Instant AI Quote</h3>
           <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>
-            Answer 3 quick questions — get a real price range, not a callback.
+            Answer 3 quick questions and get a real price range, not a callback.
           </p>
           <div className="progress-dots">
             {QUESTIONS.map((q, i) => (
@@ -111,7 +111,7 @@ export default function QuoteWidget() {
       ) : (
         <div className="quote-result">
           <span className={`urgency ${result.urgent ? "high" : "normal"}`}>
-            {result.urgent ? "⚠ Priority — book today" : "✓ Routine — flexible timing"}
+            {result.urgent ? "Priority · book today" : "Routine · flexible timing"}
           </span>
           <div className="price">
             SAR {result.low.toLocaleString()} – SAR {result.high.toLocaleString()}
@@ -120,7 +120,7 @@ export default function QuoteWidget() {
             Estimated range for your answers. Final flat-rate price confirmed on-site before any work.
           </p>
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <Link to="/book" className="btn btn-primary">Book now</Link>
+            <Link to="/book" className="btn btn-primary">See available slots</Link>
             <button className="btn btn-outline" onClick={() => setAnswers({})}>Start over</button>
           </div>
         </div>

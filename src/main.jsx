@@ -3,9 +3,11 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./auth";
 import App from "./App.jsx";
+import "leaflet/dist/leaflet.css";
 import "./styles.css";
 import "./cinematic.css"; // cinematic dark layer — remove this line to revert to Warm Air v2
 import "./cinematic-extras.css"; // clip-reveal, pinned gallery, review rails, plan pricing
+import "./cinematic-fixes.css"; // loading screen, softer CTAs, translucent auth, Riyadh map
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

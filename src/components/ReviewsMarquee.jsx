@@ -119,7 +119,7 @@ function ReviewModal({ review, onClose }) {
             <p className="rev-quote">“{review.text}”</p>
             <p className="rev-note">
               Verified after a completed job. CoolAir requests a review automatically once the
-              technician closes the ticket — we don't choose who gets asked.
+              technician closes the ticket, so we don't choose who gets asked.
             </p>
           </div>
           <GradualBlur position="bottom" height="72px" strength={2} divCount={6} curve="ease-out" exponential />

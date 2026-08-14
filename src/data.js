@@ -7,7 +7,7 @@ export const SERVICES = [
     icon: "🔧",
     short: "Same-day diagnosis and repair for all major brands.",
     description:
-      "Our NATE-certified technicians diagnose and fix compressors, capacitors, refrigerant leaks, thermostats and more — usually the same day you call. Every repair comes with a 1-year parts & labor warranty.",
+      "Our technicians diagnose and fix compressors, capacitors, refrigerant leaks and thermostats, usually the same day you call. Every repair carries a one-year parts and labour warranty.",
     basePrice: 335,
     priceNote: "Callout fee, waived with repair",
     bullets: [
@@ -39,7 +39,7 @@ export const SERVICES = [
     icon: "📅",
     short: "Twice-yearly tune-ups that prevent breakdowns.",
     description:
-      "Our CoolCare plan includes two seasonal tune-ups per year, priority scheduling, 15% off repairs, and no overtime charges — the cheapest insurance your AC can have.",
+      "Our CoolCare plan includes two seasonal tune-ups per year, priority scheduling, 15% off repairs, and no overtime charges. It is the cheapest insurance your AC can have.",
     basePrice: 55,
     priceNote: "per month, CoolCare plan",
     bullets: [
@@ -71,7 +71,7 @@ export const SERVICES = [
     icon: "🌿",
     short: "Purifiers, humidity control and filtration upgrades.",
     description:
-      "Whole-villa air purifiers, UV lights, media filters and humidity control — measured and matched to your home's actual air quality readings.",
+      "Whole-villa air purifiers, UV lights, media filters and humidity control, measured and matched to your home's actual air quality readings.",
     basePrice: 1120,
     priceNote: "IAQ assessment + starter filtration",
     bullets: [
@@ -108,12 +108,57 @@ export const REVIEWS = [
 
 export const SLOTS = ["Today 4–6 PM", "Today 6–8 PM", "Tomorrow 9–11 AM", "Tomorrow 11–1 PM", "Tomorrow 4–6 PM"];
 
+// Saudi Arabia does not use "zip codes" the way the US does. An address here is
+// the Saudi National Address: a district (حي), a 5-digit postal code, a 4-digit
+// additional number, and a short address of 4 letters + 4 digits (e.g. RAOA2929)
+// that resolves to an exact building. In practice most customers give a district
+// name and drop a map pin, so the checker below accepts a district name, a
+// postal code, or a short-address prefix, and the map is there for the pin.
 export const SERVICE_AREAS = [
-  { zone: "Al Olaya & Al Muruj", zips: ["12211", "12241", "12271", "12313"], response: "Same day" },
-  { zone: "Al Malaz & Al Rawdah", zips: ["11439", "12831", "13213", "13241"], response: "Same day" },
-  { zone: "Al Narjis & Al Yasmin", zips: ["13322", "13325", "13241", "13315"], response: "Same day" },
-  { zone: "Diriyah & Irqah", zips: ["13711", "13721", "12571", "12584"], response: "Next day" },
+  {
+    zone: "Al Olaya & Al Muruj",
+    arabic: "العليا والمروج",
+    districts: ["Al Olaya", "Al Muruj", "Al Sulimaniyah", "King Fahd"],
+    postal: ["12211", "12241", "12271", "12313"],
+    shortPrefix: "RAOA",
+    lat: 24.6944,
+    lng: 46.6853,
+    response: "Same day",
+  },
+  {
+    zone: "Al Malaz & Al Rawdah",
+    arabic: "الملز والروضة",
+    districts: ["Al Malaz", "Al Rawdah", "Al Nasiriyah", "Al Wizarat"],
+    postal: ["11439", "12831", "13213", "13241"],
+    shortPrefix: "RAML",
+    lat: 24.6666,
+    lng: 46.7333,
+    response: "Same day",
+  },
+  {
+    zone: "Al Narjis & Al Yasmin",
+    arabic: "النرجس والياسمين",
+    districts: ["Al Narjis", "Al Yasmin", "Al Arid", "Al Qirawan"],
+    postal: ["13322", "13325", "13241", "13315"],
+    shortPrefix: "RANR",
+    lat: 24.8419,
+    lng: 46.6395,
+    response: "Same day",
+  },
+  {
+    zone: "Diriyah & Irqah",
+    arabic: "الدرعية وعرقة",
+    districts: ["Diriyah", "Irqah", "Al Khuzama", "Hittin"],
+    postal: ["13711", "13721", "12571", "12584"],
+    shortPrefix: "RADR",
+    lat: 24.7370,
+    lng: 46.5750,
+    response: "Next day",
+  },
 ];
+
+// Riyadh city centre, for the default map view.
+export const RIYADH = { lat: 24.7136, lng: 46.6753, zoom: 11 };
 
 export const COMPARISON = [
   { feature: "Response time", us: "Same-day in most areas", them: "2–5 business days" },

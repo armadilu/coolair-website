@@ -142,9 +142,9 @@ export default function Shop() {
 
           <div className="banner-cta" style={{ marginTop: 54 }}>
             <h2>Not sure which size you need?</h2>
-            <p>Book a free on-site estimate — we run a proper load calculation, not a guess.</p>
+            <p>Book a free on-site estimate. We run a proper load calculation, not a guess.</p>
             <Link to="/book" className="btn btn-lg" style={{ background: "#fff", color: "#111" }}>
-              Book free estimate
+              Book a free estimate
             </Link>
           </div>
         </div>
