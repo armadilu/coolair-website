@@ -36,7 +36,7 @@ const PANELS = [
   })),
   {
     to: "/shop",
-    img: "/img/bg/bg-shop.jpg",
+    img: "/img/shop-units.jpg",
     index: String(SERVICES.length + 1).padStart(2, "0"),
     eyebrow: "Six systems · installation bundled",
     title: "Shop AC units",

@@ -5,7 +5,7 @@ import ClipText from "../components/ClipText";
 export default function Reviews() {
   return (
     <div className="cine page-bg" style={{ "--bg-img": "url('/img/bg/bg-reviews.jpg')" }}>
-      <div className="page-head" style={{ "--ph-img": "url('/img/page-reviews.jpg')" }}>
+      <div className="page-head" style={{ "--ph-img": "url('/img/reviews-header.png')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Reviews</div>
           <h1><ClipText text="4.9 on Google" /></h1>

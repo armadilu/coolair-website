@@ -58,7 +58,7 @@ export default function Shop() {
 
   return (
     <div className="cine page-bg" style={{ "--bg-img": "url('/img/bg/bg-shop.jpg')" }}>
-      <div className="page-head" style={{ "--ph-img": "url('/img/page-shop.jpg')" }}>
+      <div className="page-head" style={{ "--ph-img": "url('/img/shop-units.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Shop</div>
           <h1>Shop AC units</h1>
