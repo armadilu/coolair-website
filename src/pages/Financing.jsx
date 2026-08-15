@@ -25,7 +25,7 @@ const OPTIONS = [
 export default function Financing() {
   return (
     <div className="cine page-bg" style={{ "--bg-img": "url('/img/bg/bg-financing.jpg')" }}>
-      <div className="page-head" style={{ "--ph-img": "url('/img/page-financing.jpg')" }}>
+      <div className="page-head" style={{ "--ph-img": "url('/img/financing-header.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Financing</div>
           <h1><ClipText text="Financing & pricing" /></h1>

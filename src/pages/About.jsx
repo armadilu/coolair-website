@@ -25,7 +25,7 @@ const FACTS = [
 export default function About() {
   return (
     <div className="cine page-bg" style={{ "--bg-img": "url('/img/bg/bg-about.jpg')" }}>
-      <div className="page-head" style={{ "--ph-img": "url('/img/page-about.jpg')" }}>
+      <div className="page-head" style={{ "--ph-img": "url('/img/about-header.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / About</div>
           <h1><ClipText text="About CoolAir" /></h1>

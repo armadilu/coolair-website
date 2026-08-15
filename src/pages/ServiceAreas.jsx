@@ -31,7 +31,7 @@ export default function ServiceAreas() {
 
   return (
     <div className="cine page-bg" style={{ "--bg-img": "url('/img/bg/bg-areas.jpg')" }}>
-      <div className="page-head" style={{ "--ph-img": "url('/img/page-areas.jpg')" }}>
+      <div className="page-head" style={{ "--ph-img": "url('/img/areas-header.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Service Areas</div>
           <h1><ClipText text="Where we work" /></h1>
