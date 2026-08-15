@@ -79,7 +79,9 @@
 
 .hgal-panel {
   position: relative; overflow: hidden; text-decoration: none;
-  flex: 0 0 clamp(268px, 28vw, 380px); height: min(54vh, 470px);
+  /* Close to square. The service photos are all landscape (1.3 to 1.9), and a
+     tall portrait panel cropped two thirds of the width off them. */
+  flex: 0 0 clamp(280px, 32vw, 440px); height: min(48vh, 400px);
   border: 1px solid var(--line); border-radius: var(--radius-lg); background: #0A0A0A;
   display: flex; flex-direction: column; justify-content: flex-end;
 }

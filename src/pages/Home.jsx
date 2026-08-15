@@ -6,7 +6,7 @@ import ReviewsMarquee from "../components/ReviewsMarquee";
 import RiyadhMap from "../components/RiyadhMap";
 import ClipText from "../components/ClipText";
 import Icon from "../components/Icon";
-import { SERVICES, SERVICE_AREAS } from "../data";
+import { SERVICES, SERVICE_AREAS, SERVICE_IMG } from "../data";
 
 // Cursor spotlight — writes CSS vars straight on the node, no React state.
 const spot = (e) => {
@@ -15,18 +15,19 @@ const spot = (e) => {
   e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
 };
 
+// Faces read straight from SERVICE_IMG, so a face and its caption cannot drift.
 const CUBE_FACES = [
-  { cls: "cf-front", img: "/img/cube/face-1.jpg", label: "Same-day repair" },
-  { cls: "cf-bottom", img: "/img/cube/face-2.jpg", label: "Installation" },
-  { cls: "cf-back", img: "/img/cube/face-3.jpg", label: "Maintenance" },
-  { cls: "cf-top", img: "/img/cube/face-4.jpg", label: "Air quality" },
+  { cls: "cf-front", slug: "repair", label: "Same-day repair" },
+  { cls: "cf-bottom", slug: "installation", label: "Installation" },
+  { cls: "cf-back", slug: "maintenance", label: "Maintenance" },
+  { cls: "cf-top", slug: "air-quality", label: "Air quality" },
 ];
 
 // Panels for the pinned horizontal rail — the five services plus the shop.
 const PANELS = [
   ...SERVICES.map((s, i) => ({
     to: `/services/${s.slug}`,
-    img: `/img/page-service-${s.slug}.jpg`,
+    img: SERVICE_IMG[s.slug],
     index: String(i + 1).padStart(2, "0"),
     eyebrow: `from SAR ${s.basePrice.toLocaleString()}`,
     title: s.name,
@@ -56,7 +57,7 @@ export default function Home() {
             <div className="cube">
               {CUBE_FACES.map((f) => (
                 <div key={f.cls} className={`cube-face ${f.cls}`}>
-                  <img src={f.img} alt="" />
+                  <img src={SERVICE_IMG[f.slug]} alt="" />
                   <span>{f.label}</span>
                 </div>
               ))}

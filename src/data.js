@@ -83,6 +83,18 @@ export const SERVICES = [
   },
 ];
 
+// One photo per service, used by the service page header, the homepage rail and
+// the hero cube, so the cube can never drift out of sync with its labels again.
+// Keyed rather than built from the slug because the files do not all share an
+// extension, and renaming a PNG to .jpg only works because browsers sniff.
+export const SERVICE_IMG = {
+  repair: "/img/service-repair.jpg",
+  installation: "/img/service-installation.jpg",
+  maintenance: "/img/service-maintenance.jpg",
+  "duct-cleaning": "/img/service-duct-cleaning.png",
+  "air-quality": "/img/service-air-quality.jpg",
+};
+
 // Product images live in public/products/ — filename must match the `image` path.
 export const PRODUCTS = [
   { id: 1, brand: "Carrier", model: "Comfort 15", seer: 15.2, tons: 2.5, price: 12900, stock: 6, tag: "Best value", image: "/products/carrier-comfort-15.jpg" },

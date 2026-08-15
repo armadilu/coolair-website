@@ -1,5 +1,5 @@
 import { Link, useParams, Navigate } from "react-router-dom";
-import { SERVICES } from "../data";
+import { SERVICES, SERVICE_IMG } from "../data";
 import Icon, { SERVICE_ICONS } from "../components/Icon";
 
 export default function ServicePage() {
@@ -11,7 +11,7 @@ export default function ServicePage() {
 
   return (
     <div className="page-bg" style={{ "--bg-img": `url('/img/bg/bg-service-${service.slug}.jpg')` }}>
-      <div className="page-head" style={{ "--ph-img": `url('/img/page-service-${service.slug}.jpg')` }}>
+      <div className="page-head" style={{ "--ph-img": `url('${SERVICE_IMG[service.slug]}')` }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Services / {service.name}</div>
           <h1>{service.name}</h1>
