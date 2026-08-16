@@ -224,7 +224,10 @@
   border: 1px solid var(--line); background: #0A0A0A;
 }
 .riyadh-map { height: min(66vh, 560px); width: 100%; background: #0A0A0A; }
-.riyadh-map .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.82) contrast(1.05) saturate(.55); }
+/* No invert filter any more: the Esri canvas is dark to begin with, and
+   inverting it would turn the romanised labels black on black. */
+.riyadh-map .leaflet-tile-pane { filter: brightness(.92) contrast(1.04); }
+.riyadh-map .map-labels { filter: brightness(1.5) contrast(1.1); }
 .riyadh-map .leaflet-container { background: #0A0A0A; font-family: inherit; }
 .riyadh-map .leaflet-control-zoom a {
   background: rgba(12,12,12,.92); color: #fff; border-color: rgba(255,255,255,.18);
@@ -286,4 +289,15 @@
 
 @media (prefers-reduced-motion: reduce) {
   .cl-loader, .cl-fazers span, .cl-loader > span > span, .cl-bar i { animation: none; }
+}
+
+/* ── Page header framing ──────────────────────────────────────────
+   The banner is roughly 6:1 and the photos are roughly 3:2, so cover
+   crops most of the height away. Centred, that took the top off the
+   Riyadh skyline. Biasing upward keeps skylines and faces, which is
+   where the subject sits in almost every photo. Override per page
+   with --ph-pos. */
+.page-head {
+  background-position: var(--ph-pos, center 28%);
+  background-repeat: no-repeat;
 }

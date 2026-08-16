@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { PRODUCTS } from "../data";
 import Icon from "../components/Icon";
+import ClipText from "../components/ClipText";
 
 // Cursor spotlight, written straight to CSS vars (no re-render).
 const spot = (e) => {
@@ -61,7 +62,7 @@ export default function Shop() {
       <div className="page-head" style={{ "--ph-img": "url('/img/shop-units.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Shop</div>
-          <h1>Shop AC units</h1>
+          <h1><ClipText text="Shop AC units" /></h1>
           <p>
             Every unit includes installation, removal of the old system and 0% instalments
             over 12 months.
@@ -141,7 +142,7 @@ export default function Shop() {
           </div>
 
           <div className="banner-cta" style={{ marginTop: 54 }}>
-            <h2>Not sure which size you need?</h2>
+            <h2><ClipText text="Not sure which size you need?" /></h2>
             <p>Book a free on-site estimate. We run a proper load calculation, not a guess.</p>
             <Link to="/book" className="btn btn-lg" style={{ background: "#fff", color: "#111" }}>
               Book a free estimate

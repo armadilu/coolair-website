@@ -34,10 +34,22 @@ export default function RiyadhMap({ onZone }) {
     m.on("click", () => m.scrollWheelZoom.enable());
     m.on("mouseout", () => m.scrollWheelZoom.disable());
 
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 18,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(m);
+    // Esri's Dark Gray Canvas rather than OpenStreetMap. Two reasons: OSM
+    // renders place names in the local language, so every label in Riyadh came
+    // out in Arabic, and Esri's reference layer is romanised. It is also dark
+    // natively, so the tiles no longer need a CSS invert filter to fit.
+    // Base and labels are separate layers, which keeps the labels crisp above
+    // the coverage circles instead of buried under them.
+    L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+      { maxZoom: 16, attribution: "Esri, HERE, Garmin, &copy; OpenStreetMap contributors" }
+    ).addTo(m);
+
+    const labels = L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}",
+      { maxZoom: 16, pane: "shadowPane" }
+    ).addTo(m);
+    labels.getContainer()?.classList.add("map-labels");
 
     SERVICE_AREAS.forEach((a) => {
       L.circle([a.lat, a.lng], {

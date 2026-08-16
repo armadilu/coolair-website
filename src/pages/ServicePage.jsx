@@ -1,6 +1,7 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { SERVICES, SERVICE_IMG } from "../data";
 import Icon, { SERVICE_ICONS } from "../components/Icon";
+import ClipText from "../components/ClipText";
 
 export default function ServicePage() {
   const { slug } = useParams();
@@ -14,7 +15,7 @@ export default function ServicePage() {
       <div className="page-head" style={{ "--ph-img": `url('${SERVICE_IMG[service.slug]}')` }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Services / {service.name}</div>
-          <h1>{service.name}</h1>
+          <h1><ClipText key={service.slug} text={service.name} /></h1>
           <p>{service.short}</p>
         </div>
       </div>

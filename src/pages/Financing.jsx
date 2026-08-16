@@ -63,7 +63,7 @@ export default function Financing() {
 
       <section className="section-tint center">
         <div className="container">
-          <h2 className="section-title">What would an upgrade save you?</h2>
+          <h2 className="section-title"><ClipText text="What would an upgrade save you?" /></h2>
           <p className="section-sub">Run your numbers before you spend a riyal.</p>
           <SavingsCalculator />
           <p style={{ marginTop: 24 }}>

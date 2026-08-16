@@ -4,6 +4,7 @@ import { SERVICES, SERVICE_AREAS, SLOTS } from "../data";
 import { supabase } from "../supabaseClient";
 import { useAuth } from "../auth";
 import Icon from "../components/Icon";
+import ClipText from "../components/ClipText";
 
 // Booking / contact page (blueprint §3 "Contact / Book now") — smart-scheduling mock
 // with real time slots instead of "we'll call you back".
@@ -65,7 +66,7 @@ export default function Book() {
       <div className="page-head" style={{ "--ph-img": "url('/img/page-book.jpg')" }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Book</div>
-          <h1>Book your service</h1>
+          <h1><ClipText text="Book your service" /></h1>
           <p>Pick a real time slot. No callbacks, no waiting by the phone.</p>
         </div>
       </div>

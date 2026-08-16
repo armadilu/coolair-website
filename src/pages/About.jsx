@@ -38,7 +38,7 @@ export default function About() {
           <div>
             <p className="cine-eyebrow">Who we are</p>
             <h2 className="section-title" style={{ fontSize: "1.6rem", marginTop: 10 }}>
-              A contractor, not a call centre
+              <ClipText text="A contractor, not a call centre" />
             </h2>
             <p style={{ color: "var(--muted)", marginTop: 12 }}>
               CoolAir has been servicing split and package units across Riyadh since 2019. We run
@@ -72,8 +72,8 @@ export default function About() {
 
           <div className="grid" style={{ gap: 16 }}>
             <img
-              src="/img/about.jpg"
-              alt="A CoolAir technician servicing a wall-mounted split unit"
+              src="/img/about-inline.png"
+              alt="A wall-mounted air conditioning unit running in a home"
               style={{ borderRadius: "var(--radius)", width: "100%", objectFit: "cover", maxHeight: 300, border: "1px solid var(--line)" }}
             />
             <div className="grid grid-2" style={{ gap: 16 }}>
@@ -92,7 +92,7 @@ export default function About() {
         <div className="container">
           <p className="cine-eyebrow">Registration</p>
           <h2 className="section-title" style={{ fontSize: "1.6rem", margin: "10px 0 6px" }}>
-            What we are licensed to do
+            <ClipText text="What we are licensed to do" />
           </h2>
           <p className="section-sub">
             Ask any contractor for these before you let them on the roof. Ours are on the invoice.
