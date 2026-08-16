@@ -6,6 +6,15 @@
 
 /* ── Navbar dock ──────────────────────────────────────────────── */
 .navbar-inner { display: flex; align-items: center; gap: 16px; }
+/* The bar is a .container, capped at 1140px, which is 140px narrower than the
+   window it sits in. Ten links plus the wordmark plus the CTA did not fit in
+   that cap, so the dock clipped its last item. The bar spans the window; the
+   page content it sits above keeps the cap. */
+.navbar .navbar-inner { max-width: none; padding: 0 24px; }
+/* The bar is tight, so the wordmark was breaking onto a second line and
+   doubling the header height. It never wraps; it disappears instead. */
+.logo { flex: none; white-space: nowrap; }
+.logo-word { white-space: nowrap; }
 
 .nav-dock {
   display: flex; align-items: center; gap: 2px; margin-left: auto;
@@ -13,12 +22,16 @@
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--glass-border);
 }
-.dock-item { transform-origin: center bottom; will-change: transform; }
-.dock-item.has-menu { position: relative; }
+/* will-change: transform makes an element a containing block for fixed
+   descendants, which sent the Services menu's position:fixed to the item
+   instead of the viewport. Items that own a menu are not magnified. */
+.dock-item { transform-origin: center bottom; }
+.dock-item:not(.has-menu) { will-change: transform; }
+.dock-item.has-menu { position: relative; display: inline-flex; }
 
 .dock-link {
   display: inline-flex; align-items: center; gap: 7px; white-space: nowrap;
-  padding: 8px 12px; border-radius: 999px; cursor: pointer;
+  padding: 8px 10px; border-radius: 999px; cursor: pointer;
   font: inherit; font-size: .84rem; font-weight: 600; color: #C8C8C8;
   background: none; border: none;
   transition: background .2s, color .2s;
@@ -44,24 +57,40 @@
    scale. Anchor to the bar instead and leave it unscaled. */
 .dock-item .dropdown-menu { transform: none; }
 
-/* No hamburger. Under the width where the row stops fitting, the dock scrolls
-   sideways: a rail is still navigable, a hidden panel is not. */
+/* A flex item will not shrink below its content unless min-width is cleared,
+   which is what let the dock push the whole bar wider than the screen. */
+.nav-dock { min-width: 0; flex: 0 1 auto; }
+
+/* No hamburger. Under the width where labels stop fitting the dock goes
+   icon-only, which fits on one line without scrolling. It used to scroll
+   sideways, and an absolutely positioned dropdown inside a scroll container
+   landed wherever the scroll happened to be: on a 397px screen the Services
+   menu rendered out at 512px, half of it off the edge. */
 @media (max-width: 1220px) {
-  .dock-link { padding: 8px 9px; font-size: .8rem; }
+  .dock-link { padding: 8px 7px; font-size: .8rem; }
   .navbar-inner .cine-live { display: none; }
 }
 @media (max-width: 1040px) {
-  .navbar-inner { gap: 10px; }
-  .nav-dock {
-    overflow-x: auto; scrollbar-width: none; max-width: 100%;
-    justify-content: flex-start; -webkit-overflow-scrolling: touch;
+  .navbar-inner { gap: 8px; }
+  .nav-dock { gap: 0; padding: 3px; }
+  .dock-link { padding: 8px; gap: 0; }
+  .dock-link > span:not(.nav-avatar) { display: none; }
+  .dock-link svg:last-child { display: none; }   /* the dropdown chevron */
+  .logo-word > span { display: none; }           /* "Co." */
+
+  /* Anchored to the viewport, not to the dock, so it can never be clipped by
+     an ancestor or pushed off the edge. */
+  .dock-item .dropdown-menu {
+    position: fixed; top: 74px; left: 10px; right: 10px;
+    width: auto; min-width: 0; max-height: 70vh; overflow-y: auto;
   }
-  .nav-dock::-webkit-scrollbar { display: none; }
-  .dock-item { flex: none; }
-  .logo span:not(.logo-mark):not(.cine-live) { display: none; }
 }
 @media (max-width: 760px) {
   .nav-cta.cta-glow { display: none; }
+  /* "CoolAir" is a text node inside .logo, so it could never be hidden by a
+     span selector. Wrapped now, and dropped here to give the dock its room. */
+  .logo-word { display: none; }
+  .navbar-inner { gap: 6px; }
 }
 
 /* ── Glow CTA ─────────────────────────────────────────────────── */
@@ -199,7 +228,15 @@
 .calc-card .option-row { display: flex; flex-wrap: wrap; gap: 8px; }
 
 /* ── Zone deck ────────────────────────────────────────────────── */
-.deck { position: relative; outline: none; user-select: none; }
+.deck {
+  position: relative; outline: none; user-select: none;
+  /* The cards either side are translated out past the deck's edge, which made
+     the page itself scroll sideways on a tablet. Clipped here rather than on
+     .deck-stage, because overflow on the preserve-3d element would flatten
+     the depth the deck is built from. */
+  overflow: hidden;
+  padding: 0 2px 4px;
+}
 .deck-stage {
   position: relative; height: 470px; perspective: 1400px; transform-style: preserve-3d;
   display: grid; place-items: center; cursor: grab;
@@ -335,4 +372,11 @@
   .auth-wrap.page-bg::before { animation: none; }
   .deck-card { transition: none; }
   .dock-item { transform: none !important; }
+}
+
+/* The shop rolodex glow is inset -60px horizontally so it can bleed past the
+   panel. Once the layout stacks to one column that panel already spans the
+   container, so the bleed pushed the page 60px wider than the window. */
+@media (max-width: 900px) {
+  .rolo-detail.cine-spot::after { inset: -40px 0; }
 }

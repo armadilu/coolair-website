@@ -5,8 +5,9 @@ import Icon, { SERVICE_ICONS } from "./Icon";
 import NavDock, { DockItem } from "./NavDock";
 
 // Every link on the bar, each with an icon, magnifying under the cursor.
-// Services is a dropdown again. No hamburger: below the width where the row
-// stops fitting the bar scrolls sideways instead of collapsing into a panel.
+// Services is a dropdown again. No hamburger: below the width where labels stop
+// fitting the dock goes icon-only, and the wordmark drops to just the monogram,
+// which keeps eight links on one line without scrolling.
 
 const initials = (name = "") =>
   name.split(" ").filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join("");
@@ -28,7 +29,7 @@ export default function Navbar() {
     <header className="navbar">
       <div className="container navbar-inner">
         <Link to="/home" className="logo">
-          <span className="logo-mark">C</span> CoolAir <span>Co.</span>
+          <span className="logo-mark">C</span> <span className="logo-word">CoolAir <span>Co.</span></span>
           <span className="cine-live" style={{ marginLeft: 10 }}><i />Live</span>
         </Link>
 
@@ -36,15 +37,15 @@ export default function Navbar() {
           {(mouseX) => (
             <>
               <DockItem mouseX={mouseX}>
-                <NavLink to="/home" end className="dock-link">
+                <NavLink to="/home" end className="dock-link" aria-label="Home">
                   <Icon name="wind" size={17} />
                   <span>Home</span>
                 </NavLink>
               </DockItem>
 
-              <DockItem mouseX={mouseX} className="has-menu">
+              <div className="dock-item has-menu">
                 <div className="dropdown">
-                  <button className="dock-link">
+                  <button className="dock-link" aria-label="Services">
                     <Icon name="snowflake" size={17} />
                     <span>Services</span>
                     <Icon name="chevron" size={13} style={{ transform: "rotate(90deg)", opacity: 0.6 }} />
@@ -58,21 +59,21 @@ export default function Navbar() {
                     ))}
                   </div>
                 </div>
-              </DockItem>
+              </div>
 
               {LINKS.slice(1).map((l) => (
                 <DockItem key={l.to} mouseX={mouseX}>
-                  <NavLink to={l.to} className="dock-link">
+                  <NavLink to={l.to} className="dock-link" aria-label={l.label}>
                     <Icon name={l.icon} size={17} />
                     <span>{l.label}</span>
                   </NavLink>
                 </DockItem>
               ))}
 
-              <DockItem mouseX={mouseX} className="has-menu">
+              <div className="dock-item has-menu">
                 {user ? (
                   <div className="dropdown user-menu">
-                    <button className="dock-link">
+                    <button className="dock-link" aria-label="Account">
                       <span className="nav-avatar">{initials(user.name)}</span>
                       <span>{user.name.split(" ")[0]}</span>
                     </button>
@@ -88,12 +89,12 @@ export default function Navbar() {
                     </div>
                   </div>
                 ) : (
-                  <NavLink to="/login" className="dock-link">
+                  <NavLink to="/login" className="dock-link" aria-label="Login">
                     <Icon name="shield" size={17} />
                     <span>Login</span>
                   </NavLink>
                 )}
-              </DockItem>
+              </div>
             </>
           )}
         </NavDock>
