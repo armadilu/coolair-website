@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SavingsCalculator from "../components/SavingsCalculator";
 import PricingPlans from "../components/PricingPlans";
 import ClipText from "../components/ClipText";
+import CtaButton from "../components/CtaButton";
 import Icon from "../components/Icon";
 
 const OPTIONS = [
@@ -67,7 +68,7 @@ export default function Financing() {
           <p className="section-sub">Run your numbers before you spend a riyal.</p>
           <SavingsCalculator />
           <p style={{ marginTop: 24 }}>
-            <Link to="/book" className="btn btn-primary btn-lg">Get prequalified with a free estimate</Link>
+            <CtaButton size="lg">Get prequalified with a free estimate</CtaButton>
           </p>
         </div>
       </section>

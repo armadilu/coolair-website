@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { PRODUCTS } from "../data";
 import Icon from "../components/Icon";
 import ClipText from "../components/ClipText";
+import CtaButton from "../components/CtaButton";
 
 // Cursor spotlight, written straight to CSS vars (no re-render).
 const spot = (e) => {

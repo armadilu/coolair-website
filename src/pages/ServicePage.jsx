@@ -2,6 +2,7 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { SERVICES, SERVICE_IMG } from "../data";
 import Icon, { SERVICE_ICONS } from "../components/Icon";
 import ClipText from "../components/ClipText";
+import CtaButton from "../components/CtaButton";
 
 export default function ServicePage() {
   const { slug } = useParams();
@@ -35,9 +36,7 @@ export default function ServicePage() {
               SAR {service.basePrice.toLocaleString()}{service.slug === "maintenance" ? "/mo" : ""}
             </div>
             <p className="finance-line">{service.priceNote}</p>
-            <Link to="/book" className="btn btn-primary" style={{ width: "100%", textAlign: "center" }}>
-              Book now
-            </Link>
+            <CtaButton style={{ width: "100%", justifyContent: "center" }}>Book now</CtaButton>
             <p style={{ fontSize: "0.82rem", color: "var(--muted)", marginTop: 12 }}>
               Or call <a href="tel:+966112002665">+966 11 200 2665</a>. Same-day slots most days.
             </p>

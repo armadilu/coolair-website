@@ -5,6 +5,8 @@ import { supabase } from "../supabaseClient";
 import ClipText from "../components/ClipText";
 import GradualBlur from "../components/GradualBlur";
 import Icon from "../components/Icon";
+import JobTimeline from "../components/JobTimeline";
+import CtaButton from "../components/CtaButton";
 import { MOCK_BOOKINGS, MOCK_INVOICES, SERVICES } from "../data";
 
 // Role-based dashboards behind one auth (blueprint §6-7):
@@ -96,12 +98,22 @@ function CustomerDash({ user }) {
         ]}
       />
 
+      {(() => {
+        // The one booking that is actually in flight, tracked stage by stage.
+        const live = mine.find((b) => b.status !== "Completed") || mine[0];
+        return live ? (
+          <Section title="Where your job is">
+            <JobTimeline status={live.status} reference={`${live.id} · ${live.service}`} />
+          </Section>
+        ) : null;
+      })()}
+
       <Section title="Your appointments" count={mine.length}>
         {mine.length === 0 ? (
           <div className="dash-empty">
             <Icon name="calendar" size={22} />
             <p>Nothing booked yet.</p>
-            <Link to="/book" className="btn btn-primary btn-sm">Book a visit</Link>
+            <CtaButton className="is-sm">Book a visit</CtaButton>
           </div>
         ) : (
           <Scroller>
@@ -141,7 +153,7 @@ function CustomerDash({ user }) {
         </Scroller>
       </Section>
 
-      <Link to="/book" className="btn btn-primary" style={{ marginTop: 8 }}>Book another visit</Link>
+      <CtaButton style={{ marginTop: 18 }}>Book another visit</CtaButton>
     </>
   );
 }
@@ -177,6 +189,10 @@ function AdminDash({ user }) {
           <span className="role-chip">demo data</span> Sign in with a real admin account to manage
           live bookings.
         </p>
+        <Section title="Newest job in the pipeline">
+          <JobTimeline status={MOCK_BOOKINGS[0].status} reference={`${MOCK_BOOKINGS[0].id} · ${MOCK_BOOKINGS[0].customer}`} />
+        </Section>
+
         <Section title="Sample bookings" count={MOCK_BOOKINGS.length}>
           <Scroller>
             <table className="styled">
@@ -215,6 +231,12 @@ function AdminDash({ user }) {
           { num: live.filter((b) => b.status === "completed").length, lbl: "Completed" },
         ]}
       />
+
+      {live[0] && (
+        <Section title="Newest job in the pipeline">
+          <JobTimeline status={live[0].status} reference={`BK-${live[0].id} · ${live[0].customer_name}`} />
+        </Section>
+      )}
 
       <Section title="All bookings" count={live.length}>
         {live.length === 0 ? (
@@ -284,6 +306,7 @@ function JobCard({ job, index, onAdvance }) {
         <span className={`status-chip ${chipClass(job.status)}`}>{String(job.status).replace("_", " ")}</span>
       </div>
       <p className="dash-meta">{job.meta}</p>
+      <JobTimeline status={job.status} compact />
       {job.notes && <p className="job-note">Note: {job.notes}</p>}
       {onAdvance && NEXT_STATUS[job.status] && (
         <button className="btn btn-primary btn-sm" onClick={onAdvance}>

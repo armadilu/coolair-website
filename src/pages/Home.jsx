@@ -5,6 +5,7 @@ import HorizontalGallery from "../components/HorizontalGallery";
 import ReviewsMarquee from "../components/ReviewsMarquee";
 import RiyadhMap from "../components/RiyadhMap";
 import ClipText from "../components/ClipText";
+import CtaButton from "../components/CtaButton";
 import Icon from "../components/Icon";
 import { SERVICES, SERVICE_AREAS, SERVICE_IMG } from "../data";
 
@@ -75,7 +76,7 @@ export default function Home() {
               real technicians, no phone tag.
             </p>
             <div className="cine-ctas">
-              <Link to="/book" className="btn btn-primary btn-lg">Book now</Link>
+              <CtaButton size="lg">Book now</CtaButton>
               <a href="tel:+966112002665" className="btn btn-outline btn-lg">
                 <Icon name="phone" size={16} /> +966 11 200 2665
               </a>
@@ -192,7 +193,7 @@ export default function Home() {
           <p style={{ color: "var(--muted)", margin: "18px auto 30px", maxWidth: "42ch" }}>
             Pick a real time slot online in under a minute.
           </p>
-          <Link to="/book" className="btn btn-primary btn-lg">See available slots</Link>
+          <CtaButton size="lg">See available slots</CtaButton>
           <div className="cine-footer-mark" aria-hidden="true">COOLAIR</div>
         </div>
       </section>

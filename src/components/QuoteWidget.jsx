@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
+import ElasticSlider from "./ElasticSlider";
 
 // AI diagnostic / instant quote widget (blueprint §2) — 3 questions → price range + urgency.
 // The scoring is a simple heuristic stand-in for the AI diagnostic API (blueprint §9).
@@ -76,10 +77,17 @@ export default function QuoteWidget() {
               </div>
             </div>
           </div>
-          <div className="dial-btns">
-            <button onClick={() => setTemp((t) => Math.max(16, t - 1))} aria-label="Cooler">−</button>
-            <button onClick={() => setTemp((t) => Math.min(30, t + 1))} aria-label="Warmer">+</button>
-          </div>
+          {/* The plus/minus pair meant fourteen clicks to cross the range. */}
+          <ElasticSlider
+            value={temp}
+            onChange={(v) => setTemp(Math.round(v))}
+            startingValue={16}
+            maxValue={30}
+            stepSize={1}
+            leftIcon={<Icon name="snowflake" size={16} />}
+            rightIcon={<Icon name="zap" size={16} />}
+            format={(v) => `${Math.round(v)}°C target`}
+          />
         </div>
 
         <div className="quote-main">
