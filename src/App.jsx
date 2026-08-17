@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ChatConcierge from "./components/ChatConcierge";
 import Loader from "./components/Loader";
+import CursorGlow from "./components/CursorGlow";
 import { useAuth } from "./auth";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home";
@@ -53,6 +54,7 @@ export default function App() {
   return (
     <>
       {booting && <Loader onDone={finishBoot} />}
+      <CursorGlow />
       <ScrollToTop />
       {chrome && <Navbar />}
       <Routes>

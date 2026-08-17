@@ -1,0 +1,108 @@
+/* ═══════════════════════════════════════════════════════════════
+   PAGE-WIDE CURSOR GLOW + AUTH FORM MOTION. Loads last.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Cursor glow ──────────────────────────────────────────────────
+   The card spotlights only lit the inside of a card. This one
+   follows the pointer across the whole page and, because it blends
+   with `screen`, it lights the background photography underneath
+   rather than sitting on top of it as a flat disc. */
+.cursor-glow {
+  position: fixed; left: 0; top: 0; z-index: 3; pointer-events: none;
+  width: 620px; height: 620px; margin: -310px 0 0 -310px;
+  translate: var(--cx, 50vw) var(--cy, 50vh);
+  opacity: 0; transition: opacity .5s ease;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle closest-side,
+    rgba(226, 100, 58, .20),
+    rgba(240, 160, 63, .10) 42%,
+    transparent 72%);
+}
+/* No `isolation: isolate` on the cards to hold the glow off them. It would not
+   work anyway (the blend group is the root, and the cards still contribute to
+   its backdrop) and it creates a stacking context on elements that are
+   preserve-3d, which risks flattening the coverflow and the zone deck. The
+   glow lights everything, which is the point. */
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .cursor-glow { display: none; }
+}
+
+/* ── Auth: the motion is in the form ──────────────────────────────
+   A pill slides between the two modes, and the fields scatter and
+   reassemble around it. The form is keyed on the tab, so the
+   scatter replays on every switch rather than only on first paint. */
+.auth-tabs { position: relative; overflow: hidden; }
+.auth-tabs button {
+  position: relative; z-index: 2; background: none !important;
+  box-shadow: none !important; transition: color .25s;
+}
+.auth-tabs button.active { color: #fff; }
+.auth-tab-ink {
+  position: absolute; z-index: 1; top: 4px; bottom: 4px; left: 4px;
+  width: calc(50% - 4px); border-radius: 10px; background: var(--grad);
+  box-shadow: 0 6px 18px rgba(226, 100, 58, .35);
+  transition: translate .45s cubic-bezier(.34, 1.56, .64, 1);
+}
+.auth-tabs.is-signup .auth-tab-ink { translate: 100% 0; }
+
+/* Scatter in. Each field carries its own --i, so they land in sequence.
+   Only transform and filter animate; the resting state is fully visible, so a
+   skipped animation can never leave an empty form. */
+@keyframes authPop {
+  from { transform: translateY(16px) scale(.94); filter: blur(6px); }
+}
+.auth-pop { animation: authPop .55s cubic-bezier(.16, 1, .3, 1) backwards; animation-delay: calc(var(--i, 0) * 70ms); }
+
+/* Inputs: icon inside, glow and lift on focus. */
+.auth-input {
+  position: relative; display: flex; align-items: center; gap: 10px;
+  padding: 0 14px; border-radius: 12px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid var(--glass-border);
+  transition: border-color .25s, background .25s, box-shadow .25s, transform .25s cubic-bezier(.16,1,.3,1);
+}
+.auth-input > svg { color: var(--muted); flex: none; transition: color .25s; }
+.auth-card .auth-input input {
+  flex: 1; min-width: 0; padding: 13px 0; border: none !important;
+  background: none !important; box-shadow: none !important; color: #fff;
+}
+.auth-card .auth-input input:focus { outline: none; }
+.auth-input:hover { border-color: rgba(226, 100, 58, .45); }
+.auth-input:focus-within {
+  border-color: var(--accent); background: rgba(226, 100, 58, .09);
+  box-shadow: 0 0 0 3px rgba(226, 100, 58, .18);
+  transform: translateY(-2px);
+}
+.auth-input:focus-within > svg { color: var(--accent-soft); }
+
+/* Submit: springs on press, arrow slides on hover. */
+.auth-submit {
+  position: relative; overflow: hidden; width: 100%; margin-top: 4px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 22px; border-radius: 999px; cursor: pointer;
+  border: 1px solid rgba(226, 100, 58, .5); background: var(--grad);
+  color: #fff; font: inherit; font-weight: 700; font-size: .95rem;
+  box-shadow: 0 10px 30px rgba(226, 100, 58, .32);
+  transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), box-shadow .25s, filter .25s;
+}
+.auth-submit:hover { filter: brightness(1.07); box-shadow: 0 14px 38px rgba(226, 100, 58, .45); }
+.auth-submit:hover .cta-arrow { transform: translateX(5px); }
+.auth-submit:active { transform: scale(.97); }
+.auth-submit:disabled { cursor: default; filter: saturate(.6) brightness(.9); }
+/* A stripe sweeps the button while the request is in flight. */
+.auth-submit.is-busy::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.28) 50%, transparent 80%);
+  animation: authSweep 1.1s linear infinite;
+}
+@keyframes authSweep { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+.social-btn { transition: background .2s, border-color .2s, transform .2s cubic-bezier(.34,1.56,.64,1); }
+.social-btn:active { transform: scale(.98); }
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-pop { animation: none; }
+  .auth-tab-ink, .auth-input, .auth-submit { transition: none; }
+  .auth-submit.is-busy::after { animation: none; }
+}

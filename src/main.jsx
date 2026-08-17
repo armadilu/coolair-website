@@ -10,6 +10,7 @@ import "./cinematic-extras.css"; // clip-reveal, pinned gallery, review rails, p
 import "./cinematic-fixes.css"; // loading screen, softer CTAs, translucent auth, Riyadh map
 import "./dashboard.css";
 import "./interactions.css";
+import "./glow-auth.css"; // page-wide cursor glow + auth form motion
 import "./showcase.css"; // product coverflow + exploded assembly // dock nav, glow CTA, timeline, sliders, zone deck // navbar fit + the three role dashboards
 
 createRoot(document.getElementById("root")).render(
