@@ -11,6 +11,7 @@ import "./cinematic-fixes.css"; // loading screen, softer CTAs, translucent auth
 import "./dashboard.css";
 import "./interactions.css";
 import "./bookingcards.css"; // bookings as cards, not a cramped table
+import "./deck.css"; // booking swap deck + live badge
 import "./glow-auth.css"; // page-wide cursor glow + auth form motion
 import "./showcase.css"; // product coverflow + exploded assembly // dock nav, glow CTA, timeline, sliders, zone deck // navbar fit + the three role dashboards
 

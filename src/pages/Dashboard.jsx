@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth";
 import { supabase } from "../supabaseClient";
@@ -8,6 +8,8 @@ import Icon from "../components/Icon";
 import JobTimeline from "../components/JobTimeline";
 import CtaButton from "../components/CtaButton";
 import BookingCards from "../components/BookingCards";
+import BookingDeck from "../components/BookingDeck";
+import useLiveBookings from "../useLiveBookings";
 import { MOCK_BOOKINGS, MOCK_INVOICES, SERVICES } from "../data";
 
 // Role-based dashboards behind one auth (blueprint §6-7):
@@ -117,7 +119,7 @@ function CustomerDash({ user }) {
             <CtaButton className="is-sm">Book a visit</CtaButton>
           </div>
         ) : (
-          <BookingCards rows={mine} />
+          <BookingDeck rows={mine} emptyLabel="Nothing booked yet." />
         )}
       </Section>
 
@@ -149,23 +151,21 @@ const STATUSES = ["requested", "scheduled", "in_progress", "completed", "cancell
 const serviceName = (slug) => SERVICES.find((s) => s.slug === slug)?.name || slug;
 
 function AdminDash({ user }) {
-  const [rows, setRows] = useState(null);
   const [techs, setTechs] = useState([]);
+  // Live: a technician marking a job complete lands here without a refresh.
+  const { rows, reload, live: isLive } = useLiveBookings({
+    select: "id, service_slug, customer_name, phone, zip, slot, notes, status, technician_id, created_at",
+    enabled: !!user.supabase,
+  });
 
-  const load = async () => {
-    const { data } = await supabase
-      .from("bookings")
-      .select("id, service_slug, customer_name, phone, zip, slot, notes, status, technician_id, created_at")
-      .order("created_at", { ascending: false });
-    setRows(data || []);
-    const { data: t } = await supabase.from("profiles").select("id, name").eq("role", "technician");
-    setTechs(t || []);
-  };
-  useEffect(() => { if (user.supabase) load(); }, [user]);
+  useEffect(() => {
+    if (!user.supabase) return;
+    supabase.from("profiles").select("id, name").eq("role", "technician").then(({ data }) => setTechs(data || []));
+  }, [user]);
 
   const update = async (id, patch) => {
     await supabase.from("bookings").update(patch).eq("id", id);
-    load();
+    reload();
   };
 
   if (!user.supabase) {
@@ -181,7 +181,7 @@ function AdminDash({ user }) {
         </Section>
 
         <Section title="Sample bookings" count={MOCK_BOOKINGS.length}>
-          <BookingCards rows={MOCK_BOOKINGS} />
+          <BookingDeck rows={MOCK_BOOKINGS} />
         </Section>
       </>
     );
@@ -193,7 +193,12 @@ function AdminDash({ user }) {
   return (
     <>
       <h2 className="dash-title"><ClipText text="Dispatch CRM" /></h2>
-      <p className="dash-sub">Every booking across the four Riyadh crews, live.</p>
+      <p className="dash-sub">
+        Every booking across the four Riyadh crews.
+        <span className={`live-pill ${isLive ? "is-live" : ""}`}>
+          <i />{isLive ? "Live" : "Refreshing every 15s"}
+        </span>
+      </p>
 
       <Stats
         items={[
@@ -216,7 +221,7 @@ function AdminDash({ user }) {
             <p>No bookings yet. They appear here the moment a customer books.</p>
           </div>
         ) : (
-          <BookingCards
+          <BookingDeck
             rows={live.map((b) => ({
               id: `BK-${b.id}`,
               raw: b,
@@ -288,23 +293,18 @@ function JobCard({ job, index, onAdvance }) {
 }
 
 function TechDash({ user }) {
-  const [jobs, setJobs] = useState(null);
-
-  const load = async () => {
-    const { data } = await supabase
-      .from("bookings")
-      .select("id, service_slug, customer_name, phone, zip, slot, notes, status, created_at")
-      .eq("technician_id", user.id)
-      .order("created_at", { ascending: false });
-    setJobs(data || []);
-  };
-  useEffect(() => { if (user.supabase) load(); }, [user]);
+  const filterMine = useCallback((q) => q.eq("technician_id", user.id), [user.id]);
+  const { rows: jobs, reload } = useLiveBookings({
+    select: "id, service_slug, customer_name, phone, zip, slot, notes, status, created_at",
+    filter: filterMine,
+    enabled: !!user.supabase,
+  });
 
   const advance = async (job) => {
     const next = NEXT_STATUS[job.status];
     if (!next) return;
     await supabase.from("bookings").update({ status: next }).eq("id", job.id);
-    load();
+    reload();
   };
 
   if (!user.supabase) {

@@ -1,0 +1,60 @@
+/* ── Booking deck: swap animation + list view ─────────────────────
+   The deck is the one to look at, the list is the one you can scan
+   when there are twenty jobs. Both read the same rows. */
+.bdeck { margin-top: 4px; }
+.bdeck-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
+}
+.bdeck-views, .bdeck-controls { display: flex; gap: 6px; }
+.bdeck-views button, .bdeck-controls button {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  padding: 8px 14px; border-radius: 999px; font: inherit;
+  font-size: .78rem; font-weight: 700; letter-spacing: .04em;
+  background: rgba(255,255,255,.06); border: 1px solid var(--glass-border);
+  color: var(--muted); transition: background .2s, color .2s, border-color .2s;
+}
+.bdeck-views button:hover, .bdeck-controls button:hover {
+  background: rgba(226,100,58,.18); color: #fff; border-color: rgba(226,100,58,.4);
+}
+.bdeck-views button.on { background: var(--grad); color: #fff; border-color: transparent; }
+.bdeck-views svg, .bdeck-controls svg { flex: none; }
+
+/* The deck needs headroom: cards are offset up and back from the front one. */
+.bdeck-stage-wrap {
+  display: flex; justify-content: center;
+  padding: 30px 0 40px; min-height: 430px;
+}
+.swap-stage { position: relative; perspective: 1300px; transform: translateZ(0); }
+.swap-inner { position: absolute; inset: 0; transform-style: preserve-3d; }
+.swap-card {
+  position: absolute; top: 50%; left: 50%;
+  border-radius: var(--radius-lg); cursor: pointer;
+  background: rgba(16, 16, 16, .96);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, .6);
+  transform-style: preserve-3d; will-change: transform; backface-visibility: hidden;
+  overflow: hidden;
+}
+.swap-card:first-child { border-color: rgba(226, 100, 58, .45); }
+.bdeck-card { padding: 22px 24px; height: 100%; display: flex; flex-direction: column; }
+.bdeck-card .bcard-meta { margin-top: auto; }
+.bdeck-card .bcard-controls { margin-top: 16px; }
+
+/* Live badge on the dispatch header. */
+.live-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 4px 11px; border-radius: 999px;
+  font-size: .64rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  background: rgba(255,255,255,.05); border: 1px solid var(--glass-border); color: var(--muted);
+}
+.live-pill i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); display: block; }
+.live-pill.is-live { color: var(--green); border-color: rgba(82,192,138,.35); background: var(--green-tint); }
+.live-pill.is-live i { background: var(--green); animation: cinePulse 1.8s ease-in-out infinite; }
+
+@media (max-width: 560px) {
+  .bdeck-stage-wrap { padding: 20px 0 30px; min-height: 400px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-pill.is-live i { animation: none; }
+}
