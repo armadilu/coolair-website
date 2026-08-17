@@ -358,8 +358,12 @@
     radial-gradient(32vw 32vw at 82% 16%, rgba(240, 160, 63, .32), transparent 60%),
     radial-gradient(44vw 44vw at 62% 88%, rgba(196, 80, 46, .36), transparent 64%);
   background-color: transparent;
-  filter: blur(34px);
+  /* No filter: blur() here. Blurring a layer 150% of the viewport on every
+     frame of a forever-running animation is expensive on real hardware, and
+     radial gradients with soft stops already read as blurred. A transform-only
+     animation composites on the GPU without repainting. */
   animation: authDrift 22s ease-in-out infinite alternate;
+  will-change: transform;
   pointer-events: none;
 }
 @keyframes authDrift {

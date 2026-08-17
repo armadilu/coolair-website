@@ -9,7 +9,8 @@ import "./cinematic.css"; // cinematic dark layer — remove this line to revert
 import "./cinematic-extras.css"; // clip-reveal, pinned gallery, review rails, plan pricing
 import "./cinematic-fixes.css"; // loading screen, softer CTAs, translucent auth, Riyadh map
 import "./dashboard.css";
-import "./interactions.css"; // dock nav, glow CTA, timeline, sliders, zone deck // navbar fit + the three role dashboards
+import "./interactions.css";
+import "./showcase.css"; // product coverflow + exploded assembly // dock nav, glow CTA, timeline, sliders, zone deck // navbar fit + the three role dashboards
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

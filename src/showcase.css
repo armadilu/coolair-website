@@ -1,0 +1,200 @@
+/* ═══════════════════════════════════════════════════════════════
+   SHOWCASE — product coverflow (Shop) and the exploded assembly
+   that fronts the auth page. Loads last.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Product coverflow ────────────────────────────────────────────
+   Replaces the vertical rolodex. The active unit is large and
+   square-on and its neighbours recede in Z. Photos are contained,
+   not cropped: the product shots run 0.71 to 1.63 aspect, and a
+   cover fit sliced half of some units away. */
+.pflow-layout { display: grid; grid-template-columns: 1.35fr 1fr; gap: 40px; align-items: center; }
+.pflow { position: relative; outline: none; user-select: none; overflow: hidden; padding: 0 2px; }
+.pflow-stage {
+  position: relative; height: min(56vh, 460px);
+  perspective: 1600px; transform-style: preserve-3d;
+  display: grid; place-items: center; cursor: grab;
+}
+.pflow-stage:active { cursor: grabbing; }
+
+.pcard {
+  position: absolute; width: min(320px, 74%); height: 100%;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0; border: 1px solid var(--glass-border); border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
+  backdrop-filter: blur(10px); cursor: pointer; font: inherit; text-align: left;
+  transition: transform .6s cubic-bezier(.16, 1, .3, 1), opacity .45s,
+              border-color .45s, box-shadow .45s;
+  transform-style: preserve-3d; overflow: hidden;
+}
+.pcard img {
+  position: absolute; inset: 0; margin: auto;
+  width: 82%; height: 62%; object-fit: contain;
+  filter: drop-shadow(0 24px 40px rgba(0,0,0,.6)) saturate(.9) brightness(.92);
+  transition: filter .5s;
+}
+.pcard.is-active img { filter: drop-shadow(0 26px 46px rgba(0,0,0,.7)) saturate(1) brightness(1.05); }
+.pcard.is-active {
+  border-color: rgba(226, 100, 58, .5);
+  box-shadow: 0 34px 90px rgba(0,0,0,.7), 0 0 70px rgba(226,100,58,.16);
+}
+
+/* A soft plinth, so a contained photo does not float in an empty box. */
+.pcard-plinth {
+  position: absolute; left: 12%; right: 12%; bottom: 20%; height: 34%;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(226,100,58,.30), transparent 68%);
+  filter: blur(22px); opacity: 0; transition: opacity .5s;
+}
+.pcard.is-active .pcard-plinth { opacity: 1; }
+
+.pcard-tag {
+  position: absolute; top: 14px; left: 14px; z-index: 2;
+  background: rgba(0,0,0,.7); backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-border); border-radius: 999px;
+  padding: 5px 12px; font-size: .64rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase; color: #fff;
+}
+.pcard-foot {
+  position: relative; z-index: 2; padding: 16px 18px;
+  background: linear-gradient(to top, rgba(0,0,0,.88), transparent);
+}
+.pcard-foot b { display: block; color: #fff; font-size: .92rem; font-family: "Space Grotesk", sans-serif; }
+.pcard-foot i {
+  display: block; font-style: normal; font-size: .7rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-top: 3px;
+}
+
+.pflow-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 10px; }
+.pflow-controls > button {
+  width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+  background: rgba(255,255,255,.08); border: 1px solid var(--glass-border); color: #fff;
+  transition: background .2s, transform .2s;
+}
+.pflow-controls > button:hover { background: var(--accent); transform: scale(1.08); }
+.pflow-dots { display: flex; gap: 8px; }
+.pflow-dots button {
+  width: 8px; height: 8px; border-radius: 50%; padding: 0; cursor: pointer;
+  background: rgba(255,255,255,.22); border: none; transition: all .3s;
+}
+.pflow-dots button.on { background: var(--accent); width: 26px; border-radius: 4px; }
+
+.pdetail { padding: 4px 0; }
+.pdetail-swap { animation: pSwap .5s cubic-bezier(.16, 1, .3, 1); }
+@keyframes pSwap { from { transform: translateY(12px); opacity: .35; } }
+.pdetail-name {
+  font-family: "Space Grotesk", sans-serif; text-transform: uppercase;
+  font-size: clamp(1.8rem, 4vw, 3rem); line-height: .94; letter-spacing: -.035em;
+  color: #fff; margin: 10px 0 22px;
+}
+.pdetail-specs { display: flex; gap: 26px; flex-wrap: wrap; margin-bottom: 22px; }
+.pdetail-specs span {
+  display: block; font-size: .62rem; font-weight: 700; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 4px;
+}
+.pdetail-specs strong { font-family: "Space Grotesk", sans-serif; font-size: 1.45rem; color: #fff; }
+.pdetail-price {
+  font-family: "Space Grotesk", sans-serif; font-size: clamp(2rem, 4vw, 2.7rem);
+  font-weight: 700; letter-spacing: -.03em;
+  background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.pdetail-finance { color: var(--muted); font-size: .9rem; margin-top: 4px; }
+.pdetail-hint { color: var(--muted); font-size: .8rem; margin-top: 20px; max-width: 42ch; }
+/* Vertical bleed only. The old rolodex glow bled -60px sideways and pushed the
+   page wider than the window once the layout stacked. */
+.pdetail.cine-spot { overflow: visible; }
+.pdetail.cine-spot::after { inset: -60px 0; border-radius: 40px; }
+
+@media (max-width: 900px) {
+  .pflow-layout { grid-template-columns: 1fr; gap: 26px; }
+  .pflow-stage { height: min(48vh, 380px); }
+  .pcard { width: min(280px, 80%); }
+}
+
+/* ── Exploded assembly (auth) ─────────────────────────────────────
+   The brief drives this from scroll, but the auth page is one
+   viewport with a form in it and never scrolls. Bound to time and
+   pointer instead: the parts fly in from scattered positions and
+   lock together on load, then pull apart again on hover with each
+   one labelled. Same mechanic, no scrollbar required. Every part is
+   drawn in CSS, so there is nothing to load and nothing to crop. */
+.auth-split {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 430px; gap: 48px;
+  align-items: center; width: 100%; max-width: 1040px; margin: 0 auto;
+}
+.auth-split .auth-card { max-width: none; margin: 0; }
+
+.xu { position: relative; display: grid; place-items: center; min-height: 470px; }
+.xu-stack {
+  position: relative; width: 250px; height: 290px;
+  transform-style: preserve-3d;
+  transform: perspective(1200px) rotateY(var(--tx, 0deg)) rotateX(var(--ty, 0deg));
+  transition: transform .5s cubic-bezier(.16, 1, .3, 1);
+}
+.xu-part {
+  position: absolute; inset: 0; transform-style: preserve-3d; opacity: 0;
+  transform: translate3d(var(--sx), var(--sy), var(--sz)) rotateY(var(--sr)) rotateX(calc(var(--sr) * .4));
+  transition: transform .9s cubic-bezier(.16, 1, .3, 1), opacity .6s;
+}
+.xu.is-locked .xu-part { transform: translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg); opacity: 1; }
+.xu.is-locked.is-apart .xu-part {
+  transform: translate3d(var(--ox), var(--oy), var(--oz)) rotateX(58deg);
+}
+
+.xu-face {
+  position: absolute; inset: 0; border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  background: linear-gradient(150deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .45);
+}
+.xu-grille .xu-face {
+  background:
+    repeating-linear-gradient(180deg, rgba(255,255,255,.16) 0 2px, transparent 2px 11px),
+    linear-gradient(150deg, rgba(240,160,63,.20), rgba(255,255,255,.02));
+  border-color: rgba(240, 160, 63, .40);
+}
+.xu-filter .xu-face {
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.12) 0 3px, transparent 3px 9px),
+    linear-gradient(150deg, rgba(82,192,138,.14), rgba(255,255,255,.02));
+}
+.xu-fan .xu-face {
+  background:
+    conic-gradient(from 0deg, rgba(226,100,58,.42), transparent 25%, rgba(226,100,58,.42) 50%, transparent 75%, rgba(226,100,58,.42)),
+    rgba(255,255,255,.03);
+  border-color: rgba(226, 100, 58, .5);
+  animation: xuSpin 14s linear infinite;
+  will-change: transform;
+}
+@keyframes xuSpin { to { transform: rotate(360deg); } }
+.xu-coil .xu-face {
+  background:
+    repeating-linear-gradient(90deg, rgba(226,100,58,.30) 0 2px, transparent 2px 14px),
+    linear-gradient(150deg, rgba(196,80,46,.18), rgba(255,255,255,.02));
+}
+.xu-chassis .xu-face { background: linear-gradient(150deg, rgba(255,255,255,.07), rgba(0,0,0,.38)); }
+
+.xu-label {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  white-space: nowrap; padding: 5px 12px; border-radius: 999px;
+  background: rgba(6, 6, 6, .9); border: 1px solid rgba(255,255,255,.2);
+  font-size: .62rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: #fff;
+  opacity: 0; transition: opacity .35s; pointer-events: none;
+}
+.xu.is-apart .xu-label { opacity: 1; transition-delay: .25s; }
+
+.xu-caption { position: absolute; bottom: 4px; text-align: center; }
+.xu-caption p { color: var(--muted); font-size: .84rem; margin-top: 8px; max-width: 32ch; }
+
+@media (max-width: 980px) {
+  .auth-split { grid-template-columns: 1fr; max-width: 460px; gap: 0; }
+  .xu { display: none; }   /* a decorative 3D stack is not worth a phone's height */
+}
+@media (prefers-reduced-motion: reduce) {
+  .xu-part, .xu-stack { transition: none; }
+  .xu-fan .xu-face { animation: none; }
+  .pcard { transition: none; }
+  .pdetail-swap { animation: none; }
+}

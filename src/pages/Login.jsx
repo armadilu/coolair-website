@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../auth";
 import { supabase } from "../supabaseClient";
+import ExplodedUnit from "../components/ExplodedUnit";
 
 // Single login card, tabbed Login/Sign up, one auth for three roles (blueprint §7).
 // Staff arrive via the low-visibility "Staff login" link (?staff=1) — same form, same auth.
@@ -33,7 +34,9 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-wrap page-bg" style={{ "--bg-img": "url('/img/bg/bg-login.jpg')" }}>
+    <div className="auth-wrap page-bg">
+      <div className="auth-split">
+        <ExplodedUnit />
       <div className="auth-card">
         <h2 style={{ marginBottom: 4 }}>{staff ? "Staff access" : "Welcome to CoolAir"}</h2>
         <p style={{ color: "var(--muted)", fontSize: "0.9rem", marginBottom: 20 }}>
@@ -107,6 +110,7 @@ export default function Login() {
             <a href="/login?staff=1">Staff login</a>
           </p>
         )}
+        </div>
       </div>
     </div>
   );
