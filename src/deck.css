@@ -20,10 +20,13 @@
 .bdeck-views button.on { background: var(--grad); color: #fff; border-color: transparent; }
 .bdeck-views svg, .bdeck-controls svg { flex: none; }
 
-/* The deck needs headroom: cards are offset up and back from the front one. */
+/* The deck needs headroom: cards are offset up and back from the front one.
+   Clipped horizontally as well, because an absolutely positioned card counts
+   toward scrollWidth from its untransformed box and pushed the page sideways. */
 .bdeck-stage-wrap {
   display: flex; justify-content: center;
-  padding: 30px 0 40px; min-height: 430px;
+  padding: 46px 0 40px; min-height: 440px;
+  overflow: hidden;
 }
 .swap-stage { position: relative; perspective: 1300px; transform: translateZ(0); }
 .swap-inner { position: absolute; inset: 0; transform-style: preserve-3d; }

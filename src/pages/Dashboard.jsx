@@ -393,29 +393,33 @@ export default function Dashboard() {
 
   return (
     <div className="dash-shell">
-      <div className="container dash-layout">
-        <aside className="dash-side">
-          <div className="dash-id">
-            <span className="dash-avatar">
-              {user.name.split(" ").filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join("")}
-            </span>
-            <div>
-              <div className="who">{user.name}</div>
-              <span className="role-chip">{user.role}</span>
-            </div>
+      {/* Identity and nav ran down a 244px column holding three links, which
+          cost the tables a quarter of the width to say very little. It is a
+          bar across the top now, and the content gets the whole page. */}
+      <div className="container dash-bar">
+        <div className="dash-id">
+          <span className="dash-avatar">
+            {user.name.split(" ").filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join("")}
+          </span>
+          <div>
+            <div className="who">{user.name}</div>
+            <span className="role-chip">{user.role}</span>
           </div>
-          <nav>
-            {links.map((l) => (
-              <Link key={l.to + l.label} to={l.to}>
-                <Icon name={NAV_ICON[l.label]} size={15} /> {l.label}
-              </Link>
-            ))}
-            <button onClick={() => { logout(); navigate("/"); }}>
-              <Icon name="x" size={15} /> Log out
-            </button>
-          </nav>
-        </aside>
+        </div>
 
+        <nav className="dash-nav">
+          {links.map((l) => (
+            <Link key={l.to + l.label} to={l.to}>
+              <Icon name={NAV_ICON[l.label]} size={15} /> {l.label}
+            </Link>
+          ))}
+          <button onClick={() => { logout(); navigate("/"); }}>
+            <Icon name="x" size={15} /> Log out
+          </button>
+        </nav>
+      </div>
+
+      <div className="container dash-layout">
         <main className="dash-main">
           {user.role === "admin" && <AdminDash user={user} />}
           {user.role === "technician" && <TechDash user={user} />}

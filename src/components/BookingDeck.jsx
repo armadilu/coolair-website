@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardSwap, { Card } from "./CardSwap";
 import BookingCards from "./BookingCards";
 import Icon from "./Icon";
@@ -19,6 +19,18 @@ export default function BookingDeck({ rows, renderControls, emptyLabel = "Nothin
   const [paused, setPaused] = useState(false);
   const [tick, setTick] = useState(0);
   const step = () => setTick((t) => t + 1);
+
+  // The stacked cards are offset right and up from the front one, so on a
+  // narrow screen the offsets have to shrink or the back card lands past the
+  // edge and the page scrolls sideways.
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 700px)");
+    const sync = () => setNarrow(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   if (!rows.length) {
     return (
@@ -73,8 +85,8 @@ export default function BookingDeck({ rows, renderControls, emptyLabel = "Nothin
             paused={paused}
             width="min(420px, 100%)"
             height={renderControls ? 330 : 270}
-            cardDistance={40}
-            verticalDistance={38}
+            cardDistance={narrow ? 20 : 40}
+            verticalDistance={narrow ? 20 : 38}
             skewAmount={4}
             delay={5200}
             onCardClick={step}
