@@ -7,6 +7,7 @@ import GradualBlur from "../components/GradualBlur";
 import Icon from "../components/Icon";
 import JobTimeline from "../components/JobTimeline";
 import CtaButton from "../components/CtaButton";
+import BookingCards from "../components/BookingCards";
 import { MOCK_BOOKINGS, MOCK_INVOICES, SERVICES } from "../data";
 
 // Role-based dashboards behind one auth (blueprint §6-7):
@@ -116,21 +117,7 @@ function CustomerDash({ user }) {
             <CtaButton className="is-sm">Book a visit</CtaButton>
           </div>
         ) : (
-          <Scroller>
-            <table className="styled">
-              <thead><tr><th>ID</th><th>Service</th><th>Date</th><th>Status</th></tr></thead>
-              <tbody>
-                {mine.map((b, i) => (
-                  <tr key={b.id} className="dash-rise" style={{ animationDelay: `${i * 55}ms` }}>
-                    <td className="mono">{b.id}</td>
-                    <td>{b.service}</td>
-                    <td>{b.date}</td>
-                    <td><span className={`status-chip ${chipClass(b.status)}`}>{b.status}</span></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Scroller>
+          <BookingCards rows={mine} />
         )}
       </Section>
 
@@ -194,23 +181,7 @@ function AdminDash({ user }) {
         </Section>
 
         <Section title="Sample bookings" count={MOCK_BOOKINGS.length}>
-          <Scroller>
-            <table className="styled">
-              <thead><tr><th>ID</th><th>Customer</th><th>Service</th><th>Technician</th><th>Date</th><th>Status</th></tr></thead>
-              <tbody>
-                {MOCK_BOOKINGS.map((b, i) => (
-                  <tr key={b.id} className="dash-rise" style={{ animationDelay: `${i * 55}ms` }}>
-                    <td className="mono">{b.id}</td>
-                    <td>{b.customer}</td>
-                    <td>{b.service}</td>
-                    <td>{b.tech}</td>
-                    <td>{b.date}</td>
-                    <td><span className={`status-chip ${chipClass(b.status)}`}>{b.status}</span></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Scroller>
+          <BookingCards rows={MOCK_BOOKINGS} />
         </Section>
       </>
     );
@@ -245,44 +216,43 @@ function AdminDash({ user }) {
             <p>No bookings yet. They appear here the moment a customer books.</p>
           </div>
         ) : (
-          <Scroller>
-            <table className="styled">
-              <thead><tr><th>ID</th><th>Customer</th><th>Service</th><th>Slot</th><th>Technician</th><th>Status</th></tr></thead>
-              <tbody>
-                {live.map((b, i) => (
-                  <tr key={b.id} className="dash-rise" style={{ animationDelay: `${i * 45}ms` }}>
-                    <td className="mono">BK-{b.id}</td>
-                    <td>
-                      {b.customer_name}
-                      <div className="dash-meta">{b.phone} · {b.zip}</div>
-                    </td>
-                    <td>{serviceName(b.service_slug)}</td>
-                    <td>{b.slot}</td>
-                    <td>
-                      <select
-                        className="dash-select"
-                        value={b.technician_id || ""}
-                        onChange={(e) =>
-                          update(b.id, {
-                            technician_id: e.target.value || null,
-                            status: e.target.value && b.status === "requested" ? "scheduled" : b.status,
-                          })
-                        }
-                      >
-                        <option value="">Unassigned</option>
-                        {techs.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
-                      </select>
-                    </td>
-                    <td>
-                      <select className="dash-select" value={b.status} onChange={(e) => update(b.id, { status: e.target.value })}>
-                        {STATUSES.map((st) => <option key={st} value={st}>{st.replace("_", " ")}</option>)}
-                      </select>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Scroller>
+          <BookingCards
+            rows={live.map((b) => ({
+              id: `BK-${b.id}`,
+              raw: b,
+              service: serviceName(b.service_slug),
+              customer: b.customer_name,
+              contact: [b.phone, b.zip].filter(Boolean).join(" · "),
+              date: b.slot,
+              status: b.status.replace("_", " "),
+            }))}
+            renderControls={({ raw: b }) => (
+              <>
+                <label>
+                  <span>Technician</span>
+                  <select
+                    className="dash-select"
+                    value={b.technician_id || ""}
+                    onChange={(e) =>
+                      update(b.id, {
+                        technician_id: e.target.value || null,
+                        status: e.target.value && b.status === "requested" ? "scheduled" : b.status,
+                      })
+                    }
+                  >
+                    <option value="">Unassigned</option>
+                    {techs.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
+                  </select>
+                </label>
+                <label>
+                  <span>Status</span>
+                  <select className="dash-select" value={b.status} onChange={(e) => update(b.id, { status: e.target.value })}>
+                    {STATUSES.map((st) => <option key={st} value={st}>{st.replace("_", " ")}</option>)}
+                  </select>
+                </label>
+              </>
+            )}
+          />
         )}
       </Section>
 

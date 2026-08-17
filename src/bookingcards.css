@@ -1,0 +1,60 @@
+/* Booking cards: replaces the six-column table that wrapped its rows and cut
+   the status chip off at the right edge. */
+.bcards {
+  display: grid; gap: 14px; margin-top: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.bcard {
+  background: rgba(255, 255, 255, .035);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg); padding: 20px 22px;
+  transition: transform .35s cubic-bezier(.16, 1, .3, 1), border-color .35s, box-shadow .35s;
+}
+.bcard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(226, 100, 58, .42);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+}
+.bcard-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.bcard-id {
+  font-family: "Space Grotesk", sans-serif; font-size: .8rem;
+  letter-spacing: .08em; color: var(--accent-soft);
+}
+.bcard-service {
+  font-family: "Space Grotesk", sans-serif; font-size: 1.1rem;
+  color: #fff; margin: 0 0 16px; line-height: 1.2;
+}
+.bcard-meta {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px 18px; margin: 0;
+}
+.bcard-meta dt {
+  display: flex; align-items: center; gap: 5px;
+  font-size: .6rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 4px;
+}
+.bcard-meta dt svg { color: var(--accent-soft); }
+.bcard-meta dd { margin: 0; color: #E6E6E6; font-size: .9rem; }
+.bcard-meta dd.is-empty { color: var(--red); }
+
+.bcard-controls {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);
+}
+.bcard-controls label { display: block; }
+.bcard-controls label span {
+  display: block; font-size: .6rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
+}
+.bcard-controls .dash-select { width: 100%; }
+
+@media (max-width: 520px) {
+  .bcards { grid-template-columns: 1fr; }
+  .bcard-controls { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bcard { transition: none; }
+}

@@ -1,5 +1,5 @@
 import { Link, useParams, Navigate } from "react-router-dom";
-import { SERVICES, SERVICE_IMG } from "../data";
+import { SERVICES, SERVICE_IMG, SERVICE_POS } from "../data";
 import Icon, { SERVICE_ICONS } from "../components/Icon";
 import ClipText from "../components/ClipText";
 import CtaButton from "../components/CtaButton";
@@ -13,7 +13,7 @@ export default function ServicePage() {
 
   return (
     <div className="page-bg" style={{ "--bg-img": `url('/img/bg/bg-service-${service.slug}.jpg')` }}>
-      <div className="page-head" style={{ "--ph-img": `url('${SERVICE_IMG[service.slug]}')` }}>
+      <div className="page-head" style={{ "--ph-img": `url('${SERVICE_IMG[service.slug]}')`, "--ph-pos": SERVICE_POS[service.slug] }}>
         <div className="container">
           <div className="breadcrumb"><Link to="/home">Home</Link> / Services / {service.name}</div>
           <h1><ClipText key={service.slug} text={service.name} /></h1>

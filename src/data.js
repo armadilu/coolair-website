@@ -95,6 +95,18 @@ export const SERVICE_IMG = {
   "air-quality": "/img/service-air-quality.jpg",
 };
 
+// Where the subject sits vertically in each photo. The service banner is a wide
+// band and the photos are square or 3:2, so cover throws most of the height
+// away; centred, the duct-cleaning shot showed ceiling and pipe with the duct
+// itself cropped out. Tuned per image.
+export const SERVICE_POS = {
+  repair: "center 40%",
+  installation: "center 45%",
+  maintenance: "center 40%",
+  "duct-cleaning": "center 38%",
+  "air-quality": "center 52%",
+};
+
 // Product images live in public/products/ — filename must match the `image` path.
 export const PRODUCTS = [
   { id: 1, brand: "Carrier", model: "Comfort 15", seer: 15.2, tons: 2.5, price: 12900, stock: 6, tag: "Best value", image: "/products/carrier-comfort-15.jpg" },
